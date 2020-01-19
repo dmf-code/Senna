@@ -37,7 +37,6 @@ export default {
     },
     methods: {
         jump($id) {
-            console.log({path: '/article/' + $id});
             this.$router.push({path: '/article/' + $id});
         }
     }
