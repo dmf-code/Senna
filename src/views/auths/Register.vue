@@ -5,7 +5,7 @@
          ref="ruleForm" 
          label-position="left" 
          label-width="0px" 
-         class="demo-ruleForm register-page">
+         class="register-page">
             <h3 class="title">系统注册</h3>
             <el-form-item prop="username">
                 <el-input type="text" 
@@ -54,9 +54,9 @@ export default {
         return {
             logining: false,
             ruleForm: {
-                username: 'admin',
-                password: '123456',
-                password2: '123456'
+                username: '',
+                password: '',
+                password2: ''
             },
             rules2: {
                 username: [{required: true, message: 'please enter your account', trigger: 'blur'}],
@@ -72,7 +72,8 @@ export default {
                 if(valid){
                     this.logining = true;
                     if(this.ruleForm.username === 'admin' && 
-                       this.ruleForm.password === '123456'){
+                       this.ruleForm.password === '123456' &&
+                       this.ruleForm.password === this.ruleForm.password2){
                            this.logining = false;
                            sessionStorage.setItem('user', this.ruleForm.username);
                            this.$router.push({path: '/'});

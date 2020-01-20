@@ -4,6 +4,7 @@ import Home from '@/views/Home.vue'
 import Article from '@/views/Article.vue'
 import Login from '@/views/auths/Login.vue'
 import Register from '@/views/auths/Register.vue'
+import Docs from '@/views/Docs.vue'
 
 Vue.use(VueRouter)
 
@@ -17,6 +18,11 @@ const routes = [
     path: '/article/:id',
     name: 'article',
     component: Article
+  },
+  {
+    path: '/docs/:path',
+    name: 'docs',
+    component: Docs
   },
   {
     path: '/login',
