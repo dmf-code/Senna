@@ -56,17 +56,23 @@ export default {
             this.$refs.ruleForm.validate((valid) => {
                 if(valid){
                     this.logining = true;
-                    if(this.ruleForm.username === 'admin' && 
-                       this.ruleForm.password === '123456'){
-                           this.logining = false;
-                           sessionStorage.setItem('user', this.ruleForm.username);
-                           this.$router.push({path: '/'});
-                    }else{
-                        this.logining = false;
-                        this.$alert('username or password wrong!', 'info', {
-                            confirmButtonText: 'ok'
-                        })
-                    }
+                    this.axios.post('/login', {
+                        'username': this.ruleForm.username,
+                        'password': this.ruleForm.password
+                    }).then(function(response) {
+                       console.log(response); 
+                    });
+                    // if(this.ruleForm.username === 'admin' && 
+                    //    this.ruleForm.password === '123456'){
+                    //        this.logining = false;
+                    //        sessionStorage.setItem('user', this.ruleForm.username);
+                    //        this.$router.push({path: '/'});
+                    // }else{
+                    //     this.logining = false;
+                    //     this.$alert('username or password wrong!', 'info', {
+                    //         confirmButtonText: 'ok'
+                    //     })
+                    // }
                 }else{
                     console.log('error submit!');
                     return false;
