@@ -29,7 +29,7 @@
                 <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
             </el-form-item>
             <div style="width:100%;text-align: left;font-size: 5px;">
-                <el-link href="/register">未注册密码？前往注册</el-link>
+                <el-link href="/register">未注册账号？前往注册</el-link>
             </div>
         </el-form>
     </div>

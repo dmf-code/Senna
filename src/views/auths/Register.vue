@@ -22,7 +22,7 @@
                     ></el-input>
                 </el-form-item>
                 <el-form-item prop="password2">
-                    <el-input type="password2" 
+                    <el-input type="password" 
                         v-model="ruleForm.password2" 
                         auto-complete="off" 
                         placeholder="确认密码"
@@ -71,18 +71,12 @@ export default {
             this.$refs.ruleForm.validate((valid) => {
                 if(valid){
                     this.logining = true;
-                    if(this.ruleForm.username === 'admin' && 
-                       this.ruleForm.password === '123456' &&
-                       this.ruleForm.password === this.ruleForm.password2){
-                           this.logining = false;
-                           sessionStorage.setItem('user', this.ruleForm.username);
-                           this.$router.push({path: '/'});
-                    }else{
-                        this.logining = false;
-                        this.$alert('username or password wrong!', 'info', {
-                            confirmButtonText: 'ok'
-                        })
-                    }
+                    this.axios.post('/register', {
+                        'username': this.ruleForm.username,
+                        'password': this.ruleForm.password
+                    }).then(function(response) {
+                       console.log(response); 
+                    });
                 }else{
                     console.log('error submit!');
                     return false;
