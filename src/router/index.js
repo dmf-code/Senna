@@ -1,49 +1,67 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/Home.vue'
-import Article from '@/views/Article.vue'
-import Login from '@/views/auths/Login.vue'
-import Register from '@/views/auths/Register.vue'
-import Docs from '@/views/Docs.vue'
+import Home from '@/views/front/Index.vue'
+import Admin from '@/views/admin/Index.vue'
+import Article from '@/views/front/pages/article/List.vue'
+import Login from '@/views/auth/Login.vue'
+import Register from '@/views/auth/Register.vue'
+import Docs from '@/views/front/pages/doc/Index.vue'
 
 Vue.use(VueRouter)
 
-const routes = [
-  {
-    path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/article/:id',
-    name: 'article',
-    component: Article
-  },
-  {
-    path: '/docs/:path',
-    name: 'docs',
-    component: Docs
-  },
-  {
-    path: '/login',
-    name: 'login',
-    component: Login
-  },
-  {
-    path: '/register',
-    name: 'register',
-    component: Register
-  },
-  {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
+const routes = [{
+  path: '/',
+  name: 'home',
+  component: Home
+},
+{
+  path: '/article/:id',
+  name: 'article',
+  component: Article
+},
+{
+  path: '/docs/:path',
+  name: 'docs',
+  component: Docs
+},
+{
+  path: '/login',
+  name: 'login',
+  component: Login
+},
+{
+  path: '/register',
+  name: 'register',
+  component: Register
+},
+{
+  path: '/admin',
+  name: 'admin',
+  component: Admin,
+  children: [
+    {
+      path: 'dashboard',
+      name: 'dashboard',
+      component: function () {
+        return import( /* webpackChunkName: "about" */ '@/views/admin/Dashboard')
+      }
+    },
+    {
+      path: 'article',
+      name: 'article',
+      component: function () {
+        return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/List')
+      }
+    },
+    {
+      path: 'addArticle',
+      name: 'addArticle',
+      component: function () {
+        return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/Add')
+      }
     }
-  }
+  ]
+}
 ]
 
 const router = new VueRouter({

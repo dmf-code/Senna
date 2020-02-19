@@ -10,16 +10,16 @@
 
 <script>
 // @ is an alias to /src
-import dHeader from '@/views/layouts/front/Header'
-import dMain from '@/views/layouts/front/Main'
-import dFooter from '@/views/layouts/front/Footer'
+import dHeader from "@/views/front/layouts/Header";
+import dMain from "@/views/front/layouts/Main";
+import dFooter from "@/views/front/layouts/Footer";
 
 export default {
-  name: 'home',
+  name: "front",
   components: {
     dHeader,
     dMain,
     dFooter
   }
-}
+};
 </script>
