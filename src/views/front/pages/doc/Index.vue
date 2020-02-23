@@ -38,7 +38,7 @@
       </el-aside>
       <el-container>
         <el-main>
-          <mavon-editor v-html="this.tableData"></mavon-editor>
+          <mavon-editor ref=md v-html="this.tableData"></mavon-editor>
         </el-main>
       </el-container>
     </el-container>
@@ -53,10 +53,17 @@
 
 <script>
 import dHeader from "@/views/front/layouts/Header.vue";
+
 export default {
+    methods: {
+    change(value, render) {
+      console.log(value);
+      console.log(render);
+    }
+  },
   data() {
     return {
-      tableData: "<h3>dddddd</h3>"
+      tableData: "### 第一部分"
     };
   },
   components: {
