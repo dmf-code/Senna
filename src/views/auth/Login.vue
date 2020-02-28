@@ -66,6 +66,7 @@ export default {
               console.log(response);
               console.log(response.data.status == true);
               if (response.data.status == true) {
+                me.$store.commit("login", response.data);
                 me.$router.push({ path: "/", name: "home" });
               } else {
               }

@@ -7,9 +7,11 @@
         <el-menu-item index="/docs/test">Test文档</el-menu-item>
       </el-submenu>
 
-      <el-menu-item index="/login" style="float: right;">
-        <span>登录/注册</span>
-      </el-menu-item>
+      <el-submenu style="float:right;">
+        <template slot="title">admin</template>
+        <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
+        <el-menu-item index="/logout">退出登录</el-menu-item>
+      </el-submenu>
     </el-menu>
   </el-header>
 </template>

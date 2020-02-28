@@ -27,11 +27,11 @@
       <el-form-item>
         <el-row>
           <el-col :span="4">验证码：</el-col>
-          <el-col :span="4">
-            <el-image></el-image>
+          <el-col :span="8">
+            <el-image @click="getVerifyCode" :src="this.verify_code"></el-image>
           </el-col>
-          <el-col :span="16">
-            <el-input></el-input>
+          <el-col :span="12">
+            <el-input v-model="verify_value" placeholder="请输入验证码"></el-input>
           </el-col>
         </el-row>
       </el-form-item>
@@ -44,9 +44,15 @@
 
 <script>
 export default {
+  mounted() {
+    this.getVerifyCode();
+  },
   data() {
     return {
       logining: false,
+      captcha_id: "",
+      verify_code: "",
+      verify_value: "",
       ruleForm: {
         username: "",
         password: "",
@@ -78,7 +84,9 @@ export default {
           this.axios
             .post("/api/register", {
               username: this.ruleForm.username,
-              password: this.ruleForm.password
+              password: this.ruleForm.password,
+              Id: this.captcha_id,
+              VerifyValue: this.verify_value
             })
             .then(function(response) {
               console.log(response);
@@ -88,6 +96,19 @@ export default {
           console.log("error submit!");
         }
       });
+    },
+    getVerifyCode() {
+      let me = this;
+      this.axios
+        .post("/api/getCaptcha", {
+          CaptchaType: "string"
+        })
+        .then(function(response) {
+          console.log(response);
+          console.log("data:", response.data);
+          me.verify_code = response.data.data;
+          me.captcha_id = response.data.captchaId;
+        });
     }
   }
 };

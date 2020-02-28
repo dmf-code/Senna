@@ -10,58 +10,69 @@ import Docs from '@/views/front/pages/doc/Index.vue'
 Vue.use(VueRouter)
 
 const routes = [{
-  path: '/',
-  name: 'home',
-  component: Home
-},
-{
-  path: '/article/:id',
-  name: 'article',
-  component: Article
-},
-{
-  path: '/docs/:path',
-  name: 'docs',
-  component: Docs
-},
-{
-  path: '/login',
-  name: 'login',
-  component: Login
-},
-{
-  path: '/register',
-  name: 'register',
-  component: Register
-},
-{
-  path: '/admin',
-  name: 'admin',
-  component: Admin,
-  children: [
-    {
-      path: 'dashboard',
-      name: 'dashboard',
-      component: function () {
-        return import( /* webpackChunkName: "about" */ '@/views/admin/Dashboard')
-      }
+    path: '/',
+    name: 'home',
+    component: Home
+  },
+  {
+    path: '/article/:id',
+    name: 'article',
+    component: Article
+  },
+  {
+    path: '/docs/:path',
+    name: 'docs',
+    component: Docs
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: Login
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
+  },
+  {
+    path: '/admin',
+    name: 'admin',
+    meta: {
+      requireAuth: true
     },
-    {
-      path: 'article',
-      name: 'article',
-      component: function () {
-        return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/List')
+    component: Admin,
+    children: [{
+        path: 'dashboard',
+        name: 'dashboard',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/Dashboard')
+        }
+      },
+      {
+        path: 'article',
+        name: 'article',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/List')
+        }
+      },
+      {
+        path: 'addArticle',
+        name: 'addArticle',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/Add')
+        }
       }
-    },
-    {
-      path: 'addArticle',
-      name: 'addArticle',
-      component: function () {
-        return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/Add')
-      }
-    }
-  ]
-}
+    ]
+  }
 ]
 
 const router = new VueRouter({
@@ -69,5 +80,17 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requireAuth) {
+    const userInfo = JSON.parse(localStorage.getItem('user_info'));
+    if (userInfo) {
+      next();
+    } else {
+      next("/login");
+    }
+  }
+  next();
+});
 
 export default router
