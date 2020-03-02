@@ -10,7 +10,7 @@
       <el-submenu style="float:right;">
         <template slot="title">admin</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
-        <el-menu-item index="/logout">退出登录</el-menu-item>
+        <el-menu-item @click="handleLogout">退出登录</el-menu-item>
       </el-submenu>
     </el-menu>
   </el-header>
@@ -21,6 +21,12 @@ export default {
   data: function() {
     return {};
   },
-  methods: {}
+  methods: {
+    handleLogout() {
+      localStorage.setItem("user_info", "");
+      localStorage.setItem("is_login", false);
+      this.$router.push({ name: "login", path: "/login" });
+    }
+  }
 };
 </script>

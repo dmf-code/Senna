@@ -15,6 +15,7 @@ Vue.use(VueAxios, axios)
 Vue.config.productionTip = false
 
 Vue.prototype.$store = store;
+Vue.prototype.$message = ElementUI.Message;
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8081'
 

@@ -69,10 +69,12 @@ export default {
                 me.$store.commit("login", response.data);
                 me.$router.push({ path: "/", name: "home" });
               } else {
+                me.$message.error("登录失败");
               }
             });
           this.logining = false;
         } else {
+          this.$message.error("登录失败");
           console.log("error submit!");
           return false;
         }
