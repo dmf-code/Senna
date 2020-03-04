@@ -67,6 +67,7 @@ export default {
               console.log(response.data.status == true);
               if (response.data.status == true) {
                 me.$store.commit("login", response.data);
+                me.$message({ message: "登录成功", type: "success" });
                 me.$router.push({ path: "/", name: "home" });
               } else {
                 me.$message.error("登录失败");

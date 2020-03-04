@@ -23,8 +23,7 @@ export default {
   },
   methods: {
     handleLogout() {
-      localStorage.setItem("user_info", "");
-      localStorage.setItem("is_login", false);
+      this.$store.commit("logout");
       this.$router.push({ name: "login", path: "/login" });
     }
   }
