@@ -70,6 +70,46 @@ const routes = [{
         component: function () {
           return import( /* webpackChunkName: "about" */ '@/views/admin/pages/article/Add')
         }
+      },
+      {
+        path: 'category',
+        name: 'category',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/category/List')
+        }
+      },
+      {
+        path: 'addCategory',
+        name: 'addCategory',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/category/Add')
+        }
+      },
+      {
+        path: 'tag',
+        name: 'tag',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tag/List')
+        }
+      },
+      {
+        path: 'addTag',
+        name: 'addTag',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tag/Add')
+        }
       }
     ]
   }

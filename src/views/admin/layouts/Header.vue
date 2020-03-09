@@ -7,7 +7,7 @@
         <el-menu-item index="/docs/test">Test文档</el-menu-item>
       </el-submenu>
 
-      <el-submenu style="float:right;">
+      <el-submenu index style="float:right;">
         <template slot="title">admin</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>

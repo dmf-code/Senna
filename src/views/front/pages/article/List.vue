@@ -6,7 +6,7 @@
           <el-image :src="item.image.url" :fit="item.image.fit"></el-image>
         </el-col>
         <el-col :span="20">
-          <h3 style="margin-top: 0.25em;margin-bottom: 0.25em;">{{ item.title }}</h3>
+          <h3 style="margin-top: 0.25em;margin-bottom: 0.25em; text-align: center;">{{ item.title }}</h3>
           <div style="text-align: left;margin: 0.25em 1em;">
             <i class="el-icon-folder"></i>path
             <i class="el-icon-date"></i>
