@@ -1,6 +1,6 @@
 <template>
   <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-    <el-menu :default-active="$route.path" :default-openeds="['1','2']" router>
+    <el-menu :default-active="$route.path" :default-openeds="openIndex" router>
       <el-menu-item index="dashboard">首页</el-menu-item>
       <el-submenu index="1" @click="openeds(1)">
         <template slot="title">

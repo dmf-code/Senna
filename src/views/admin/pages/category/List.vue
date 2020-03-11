@@ -50,6 +50,7 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.dialog.dialogFormVisible = true;
+      this.$refs.dialog.form = row;
       console.log(index, row);
     },
     handleDelete(index, row) {
