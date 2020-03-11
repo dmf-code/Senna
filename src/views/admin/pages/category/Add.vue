@@ -1,13 +1,15 @@
 <template>
-  <el-form ref="form" :model="form" label-width="80px">
-    <el-form-item label="名称">
-      <el-input v-model="form.name"></el-input>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="onSubmit">立即创建</el-button>
-      <el-button>取消</el-button>
-    </el-form-item>
-  </el-form>
+  <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :append-to-body="true">
+    <el-form ref="form" :model="form" label-width="80px">
+      <el-form-item label="名称">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit">立即创建</el-button>
+        <el-button>取消</el-button>
+      </el-form-item>
+    </el-form>
+  </el-dialog>
 </template>
 
 
@@ -15,6 +17,7 @@
 export default {
   data() {
     return {
+      dialogFormVisible: false,
       form: {
         name: ""
       }
@@ -23,16 +26,16 @@ export default {
   methods: {
     onSubmit() {
       console.log("submit!");
-      var me = this;
+      this.dialogFormVisible = false;
       this.axios
         .post("/api/backend/category", {
           name: this.form.name
         })
-        .then(function(response) {
-          if (response.data.status == true) {
-            me.$message({ message: "添加成功", type: "success" });
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
           } else {
-            me.$message.error("添加失败");
+            this.$message.error("添加失败");
           }
         });
     }
