@@ -62,6 +62,14 @@ export default {
       console.log(index, row);
     },
     handleDelete(index, row) {
+      this.axios.delete("/api/backend/category/" + row.id).then(res => {
+        if (res.data.status == true) {
+          this.getTbaleData();
+          this.$message({ message: "删除成功", type: "success" });
+        } else {
+          this.$message.error("删除失败");
+        }
+      });
       console.log(index, row);
     }
   },

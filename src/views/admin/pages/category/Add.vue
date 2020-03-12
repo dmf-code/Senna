@@ -33,6 +33,7 @@ export default {
         })
         .then(res => {
           if (res.data.status == true) {
+            this.$parent.getTbaleData();
             this.$message({ message: "添加成功", type: "success" });
           } else {
             this.$message.error("添加失败");

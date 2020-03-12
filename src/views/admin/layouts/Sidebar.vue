@@ -35,7 +35,6 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="/admin/category">列表</el-menu-item>
-          <el-menu-item index="/admin/addCategory">添加</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="5" @click="openeds(5)">
@@ -44,7 +43,6 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="/admin/tag">列表</el-menu-item>
-          <el-menu-item index="/admin/addTag">添加</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
