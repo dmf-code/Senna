@@ -36,7 +36,7 @@
         </el-row>
       </el-form-item>
       <el-form-item style="width:100%;">
-        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">登录</el-button>
+        <el-button type="primary" style="width:100%;" @click="handleSubmit" :loading="logining">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -88,8 +88,14 @@ export default {
               Id: this.captcha_id,
               VerifyValue: this.verify_value
             })
-            .then(function(response) {
-              console.log(response);
+            .then(res => {
+              console.log(res);
+              if (res.data.status == true) {
+                this.$message({ message: "注册成功", type: "success" });
+                this.$router.push({ path: "/", name: "home" });
+              } else {
+                this.$message.error("注册失败");
+              }
             });
           this.logining = false;
         } else {

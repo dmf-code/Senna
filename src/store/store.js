@@ -23,3 +23,26 @@ export default new Vuex.Store({
         }
     }
 });
+import axios from 'axios';
+export const $post = (url, params) => {
+    console.log(url);
+    console.log(params);
+    return axios({
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+            'token': store.state.user_info.token
+        }
+    });
+};
+
+export const $get = (url) => {
+    return axios({
+        method: 'get',
+        url: url,
+        headers: {
+            'token': store.state.user_info.token
+        }
+    });
+};

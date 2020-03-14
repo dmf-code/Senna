@@ -56,21 +56,20 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.logining = true;
-          var me = this;
           this.axios
             .post("/api/login", {
               username: this.ruleForm.username,
               password: this.ruleForm.password
             })
-            .then(function(response) {
-              console.log(response);
-              console.log(response.data.status == true);
-              if (response.data.status == true) {
-                me.$store.commit("login", response.data);
-                me.$message({ message: "登录成功", type: "success" });
-                me.$router.push({ path: "/", name: "home" });
+            .then(res => {
+              console.log(res);
+              console.log(res.data.status == true);
+              if (res.data.status == true) {
+                this.$store.commit("login", res.data);
+                this.$message({ message: "登录成功", type: "success" });
+                this.$router.push({ path: "/", name: "home" });
               } else {
-                me.$message.error("登录失败");
+                this.$message.error("登录失败");
               }
             });
           this.logining = false;
