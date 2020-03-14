@@ -4,18 +4,19 @@
       <el-input v-model="form.name"></el-input>
     </el-form-item>
     <el-form-item label="分类">
-      <el-select v-model="form.region" placeholder="请选择分类">
-        <el-option label="区域一" value="shanghai"></el-option>
-        <el-option label="区域二" value="beijing"></el-option>
+      <el-select v-model="form.checkedCategorys" placeholder="请选择">
+        <el-option
+          v-for="category in form.categorys"
+          :key="category.id"
+          :label="category.name"
+          :value="category.id"
+        ></el-option>
       </el-select>
     </el-form-item>
 
     <el-form-item label="标签">
-      <el-checkbox-group v-model="form.type">
-        <el-checkbox label="美食/餐厅线上活动" name="type"></el-checkbox>
-        <el-checkbox label="地推活动" name="type"></el-checkbox>
-        <el-checkbox label="线下主题活动" name="type"></el-checkbox>
-        <el-checkbox label="单纯品牌曝光" name="type"></el-checkbox>
+      <el-checkbox-group v-model="form.checkedTags">
+        <el-checkbox v-for="tag in form.tags" :label="tag.id" :key="tag.id">{{tag.name}}</el-checkbox>
       </el-checkbox-group>
     </el-form-item>
     <el-form-item label="内容">
@@ -30,6 +31,10 @@
 
 <script>
 export default {
+  mounted() {
+    this.getCategorys();
+    this.getTags();
+  },
   methods: {
     edit(value, render) {
       console.log(value);
@@ -37,6 +42,24 @@ export default {
     },
     onSubmit() {
       console.log("submit!");
+    },
+    getCategorys() {
+      this.axios.get("/api/backend/category").then(res => {
+        if (res.data.status == true) {
+          this.form.categorys = res.data.data.list;
+        } else {
+          this.form.categorys = [];
+        }
+      });
+    },
+    getTags() {
+      this.axios.get("/api/backend/tag").then(res => {
+        if (res.data.status == true) {
+          this.form.tags = res.data.data.list;
+        } else {
+          this.form.tags = [];
+        }
+      });
     }
   },
   data: function() {
@@ -44,7 +67,10 @@ export default {
       value: "",
       form: {
         name: "",
-        region: "",
+        checkedCategorys: [],
+        categorys: "",
+        checkedTags: [],
+        tags: "",
         date1: "",
         date2: "",
         delivery: false,
