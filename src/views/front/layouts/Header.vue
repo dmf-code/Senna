@@ -7,11 +7,11 @@
         <el-menu-item index="/docs/test">Test文档</el-menu-item>
       </el-submenu>
 
-      <el-menu-item index="/login" style="float: right;" v-if="this.is_login">
+      <el-menu-item index="/login" style="float: right;" v-if="this.is_login == false">
         <span>登录/注册</span>
       </el-menu-item>
       <el-submenu index style="float:right;" v-else-if="this.is_login">
-        <template slot="title">admin{{ is_login }}</template>
+        <template slot="title">admin</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>
       </el-submenu>
