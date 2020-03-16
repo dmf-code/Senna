@@ -1,5 +1,8 @@
 <template>
-  <mavon-editor ref="md" v-html="item.htmlCode"></mavon-editor>
+  <el-row>
+    <h4 style="text-align: center;">{{ item.title }}</h4>
+    <mavon-editor ref="md" v-html="item.htmlCode"></mavon-editor>
+  </el-row>
 </template>
 
 <script>
