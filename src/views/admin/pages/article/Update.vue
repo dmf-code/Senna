@@ -80,7 +80,7 @@ export default {
     onSubmit() {
       console.log("submit!");
       this.axios
-        .post("/api/backend/article", {
+        .put("/api/backend/article/" + this.form.id, {
           title: this.form.title,
           checkedCategory: this.form.checkedCategorys.toString(),
           checkedTag: this.form.checkedTags.toString(),
@@ -91,6 +91,7 @@ export default {
           console.log(res);
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = true;
           } else {
             this.$message.error("添加失败");
           }

@@ -17,7 +17,6 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="/admin/article">列表</el-menu-item>
-          <el-menu-item index="/admin/addArticle">添加</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="3" @click="openeds(3)">
