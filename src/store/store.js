@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        is_login: localStorage.getItem('is_login') ? localStorage.getItem('is_login') : false,
+        is_login: localStorage.getItem('is_login') ? Boolean(localStorage.getItem('is_login')) : false,
         user_info: localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info')) : ''
     },
     mutations: {
@@ -23,26 +23,3 @@ export default new Vuex.Store({
         }
     }
 });
-import axios from 'axios';
-export const $post = (url, params) => {
-    console.log(url);
-    console.log(params);
-    return axios({
-        method: 'post',
-        url: url,
-        data: params,
-        headers: {
-            'token': store.state.user_info.token
-        }
-    });
-};
-
-export const $get = (url) => {
-    return axios({
-        method: 'get',
-        url: url,
-        headers: {
-            'token': store.state.user_info.token
-        }
-    });
-};

@@ -7,12 +7,11 @@
         <el-menu-item index="/docs/test">Test文档</el-menu-item>
       </el-submenu>
 
-      <el-menu-item index="/login" style="float: right;" v-if="!is_login">
+      <el-menu-item index="/login" style="float: right;" v-if="this.is_login">
         <span>登录/注册</span>
       </el-menu-item>
-
-      <el-submenu index style="float:right;" v-else>
-        <template slot="title">admin</template>
+      <el-submenu index style="float:right;" v-else-if="this.is_login">
+        <template slot="title">admin{{ is_login }}</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>
       </el-submenu>
@@ -24,6 +23,11 @@
 import { mapState, mapMutations, mapAction } from "vuex";
 
 export default {
+  mounted() {
+    console.log(typeof this.is_login);
+    console.log(this.is_login == false);
+    console.log(this.user_info);
+  },
   data: function() {
     return {};
   },
