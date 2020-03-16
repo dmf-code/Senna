@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/front/Index.vue'
 import Admin from '@/views/admin/Index.vue'
-import Article from '@/views/front/pages/article/List.vue'
 import Login from '@/views/auth/Login.vue'
 import Register from '@/views/auth/Register.vue'
 import Docs from '@/views/front/pages/doc/Index.vue'
@@ -12,18 +10,30 @@ Vue.use(VueRouter)
 
 const routes = [{
     path: '/',
-    name: 'home',
-    component: Home
-  },
-  {
-    path: '/article/:id',
-    name: 'article',
-    component: Article
-  },
-  {
-    path: '/docs/:path',
-    name: 'docs',
-    component: Docs
+    name: 'index',
+    component: function () {
+      return import( /* webpackChunkName: "about" */ '@/views/front/Index.vue')
+    },
+    children: [{
+        path: '/',
+        name: 'home',
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/front/Home')
+        }
+      },
+      {
+        path: '/article/:id',
+        name: 'article',
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/front/pages/article/Index.vue')
+        }
+      },
+      {
+        path: '/docs/:path',
+        name: 'docs',
+        component: Docs
+      },
+    ]
   },
   {
     path: '/login',

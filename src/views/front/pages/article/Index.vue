@@ -1,0 +1,30 @@
+<template>
+  <mavon-editor ref="md" v-html="item.htmlCode"></mavon-editor>
+</template>
+
+<script>
+export default {
+  created: function() {
+    this.getArticle();
+  },
+  data: function() {
+    return {
+      item: {}
+    };
+  },
+  methods: {
+    getArticle() {
+      this.axios
+        .get("/api/backend/article/" + this.$route.params.id)
+        .then(res => {
+          if (res.data.status == true) {
+            this.item = res.data.data.list;
+            console.log(this.item);
+          } else {
+            console.log("获取文章信息失败");
+          }
+        });
+    }
+  }
+};
+</script>

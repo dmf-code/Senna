@@ -3,18 +3,22 @@
     <el-col class="list-col" :key="item.id" v-for="item in this.items">
       <el-row>
         <el-col :span="4">
-          <el-image :src="item.image.url" :fit="item.image.fit"></el-image>
+          <el-image
+            src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
+            fit="fill"
+          ></el-image>
         </el-col>
         <el-col :span="20">
           <h3 style="margin-top: 0.25em;margin-bottom: 0.25em; text-align: center;">{{ item.title }}</h3>
           <div style="text-align: left;margin: 0.25em 1em;">
-            <i class="el-icon-folder"></i>path
+            <i class="el-icon-folder"></i>
+            {{ item.checked_categorys }}
             <i class="el-icon-date"></i>
-            {{ item.create_time }}
+            {{ item.createdAt }}
           </div>
-          <div style="text-align: left;margin: auto 1em;">{{ item.content }}</div>
+          <!-- <div style="text-align: left;margin: auto 1em;" v-html="item.htmlCode"></div> -->
           <div style="float: right;">
-            <el-button @click="jump(item.id)" plain>阅读更多</el-button>
+            <el-button @click="jump(item)" plain>阅读更多</el-button>
           </div>
         </el-col>
       </el-row>
@@ -29,8 +33,11 @@ export default {
     return {};
   },
   methods: {
-    jump($id) {
-      this.$router.push({ path: "/article/" + $id });
+    jump($item) {
+      this.$router.push({
+        path: "/article/" + $item.id,
+        query: { id: $item.id }
+      });
     }
   }
 };
