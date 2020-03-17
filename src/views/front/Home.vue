@@ -44,8 +44,8 @@ export default {
       this.axios.get("/api/backend/article").then(res => {
         console.log(res.data.status == true);
         if (res.data.status == true) {
-          this.items = res.data.data.list;
-          console.log(res.data.data.list);
+          this.items = res.data.data;
+          console.log(res.data.data);
           console.log("items: ", this.items);
         } else {
           console.log("请求失败");

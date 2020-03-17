@@ -21,7 +21,7 @@ export default {
         .get("/api/backend/article/" + this.$route.params.id)
         .then(res => {
           if (res.data.status == true) {
-            this.item = res.data.data.list;
+            this.item = res.data.data;
             console.log(this.item);
           } else {
             console.log("获取文章信息失败");
