@@ -49,7 +49,7 @@ export default {
     getTbaleData() {
       this.axios.get("/api/backend/category").then(response => {
         if (response.data.status == true) {
-          this.tableData = response.data.data.list;
+          this.tableData = response.data.data;
         }
       });
     },

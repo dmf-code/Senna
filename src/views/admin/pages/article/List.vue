@@ -57,7 +57,7 @@ export default {
     getTbaleData() {
       this.axios.get("/api/backend/article").then(response => {
         if (response.data.status == true) {
-          this.tableData = response.data.data.list;
+          this.tableData = response.data.data;
         }
       });
     },

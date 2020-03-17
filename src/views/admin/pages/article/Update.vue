@@ -100,7 +100,7 @@ export default {
     getCategorys() {
       this.axios.get("/api/backend/category").then(res => {
         if (res.data.status == true) {
-          this.categorys = res.data.data.list;
+          this.categorys = res.data.data;
         } else {
           this.categorys = [];
         }
@@ -109,7 +109,7 @@ export default {
     getTags() {
       this.axios.get("/api/backend/tag").then(res => {
         if (res.data.status == true) {
-          this.tags = res.data.data.list;
+          this.tags = res.data.data;
         } else {
           this.tags = [];
         }

@@ -66,7 +66,7 @@ export default {
     getCategorys() {
       this.axios.get("/api/backend/category").then(res => {
         if (res.data.status == true) {
-          this.form.categorys = res.data.data.list;
+          this.form.categorys = res.data.data;
         } else {
           this.form.categorys = [];
         }
@@ -75,7 +75,7 @@ export default {
     getTags() {
       this.axios.get("/api/backend/tag").then(res => {
         if (res.data.status == true) {
-          this.form.tags = res.data.data.list;
+          this.form.tags = res.data.data;
         } else {
           this.form.tags = [];
         }
