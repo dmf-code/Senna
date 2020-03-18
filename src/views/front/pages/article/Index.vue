@@ -18,7 +18,7 @@ export default {
   methods: {
     getArticle() {
       this.axios
-        .get("/api/backend/article/" + this.$route.params.id)
+        .get("/api/front/article/" + this.$route.params.id)
         .then(res => {
           if (res.data.status == true) {
             this.item = res.data.data;

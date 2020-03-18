@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     getArticleList() {
-      this.axios.get("/api/backend/article").then(res => {
+      this.axios.get("/api/front/article").then(res => {
         console.log(res.data.status == true);
         if (res.data.status == true) {
           this.items = res.data.data;
