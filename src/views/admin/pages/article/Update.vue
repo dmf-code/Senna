@@ -82,8 +82,8 @@ export default {
       this.axios
         .put("/api/backend/article/" + this.form.id, {
           title: this.form.title,
-          checkedCategory: this.form.checkedCategorys.toString(),
-          checkedTag: this.form.checkedTags.toString(),
+          categoryIds: this.form.checkedCategorys.toString(),
+          tagIds: this.form.checkedTags.toString(),
           mdCode: this.form.mdCode,
           htmlCode: this.form.htmlCode
         })
