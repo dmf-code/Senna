@@ -58,6 +58,7 @@ export default {
       this.axios.get("/api/backend/article").then(response => {
         if (response.data.status == true) {
           this.tableData = response.data.data;
+          console.log(this.tableData);
         }
       });
     },
@@ -66,8 +67,8 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
-      row.checkedCategorys = row.checked_categorys;
-      row.checkedTags = row.checked_tags.split(",");
+      row.checkedCategorys = row.categoryIds;
+      row.checkedTags = row.tagIds.split(",");
       console.log("row: ", row);
       this.$refs.update.form = row;
       console.log(index, row);

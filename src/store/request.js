@@ -12,7 +12,6 @@ axios.interceptors.request.use(config => { //配置axios请求头
     if (localStorage.getItem("user_info") != '') {
         config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
     }
-    console.log(config);
     return config;
 }, error => {
     Message({
@@ -26,7 +25,6 @@ axios.interceptors.request.use(config => { //配置axios请求头
 //返回状态判断(添加响应拦截器)
 axios.interceptors.response.use(
     res => {
-        console.log(res);
         return res;
     },
     error => {
@@ -40,8 +38,6 @@ axios.interceptors.response.use(
                     })
             }
         }
-        console.log("error: ", error);
-        console.log("error: ", error.response);
         return Promise.reject(error.response.data) // 返回接口返回的错误信息
     }
 );

@@ -38,23 +38,11 @@ export default {
   mounted() {
     this.getCategorys();
     this.getTags();
-    console.log("category: ", this.categorys);
-    console.log("tags: ", this.tags);
-    console.log("created: ", this.form);
   },
   watch: {
-    form(val, oldVal) {
-      console.log("form val: ", val);
-      console.log("form oldVal: ", oldVal);
-    },
-    categorys(val, oldVal) {
-      console.log("categorys val: ", val);
-      console.log("categorys oldVal: ", oldVal);
-    },
-    tags(val, oldVal) {
-      console.log("tags val: ", val);
-      console.log("tags oldVal: ", oldVal);
-    }
+    form(val, oldVal) {},
+    categorys(val, oldVal) {},
+    tags(val, oldVal) {}
   },
   data() {
     return {
@@ -74,11 +62,8 @@ export default {
     edit(value, render) {
       this.form.mdCode = value;
       this.form.htmlCode = render;
-      console.log(this.form.mdCode);
-      console.log(this.form.htmlCode);
     },
     onSubmit() {
-      console.log("submit!");
       this.axios
         .put("/api/backend/article/" + this.form.id, {
           title: this.form.title,
@@ -88,7 +73,6 @@ export default {
           htmlCode: this.form.htmlCode
         })
         .then(res => {
-          console.log(res);
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = true;

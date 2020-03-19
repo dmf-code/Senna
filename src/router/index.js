@@ -22,14 +22,14 @@ const routes = [{
         }
       },
       {
-        path: '/article/:id',
+        path: 'article/:id',
         name: 'article',
         component: function () {
           return import( /* webpackChunkName: "about" */ '@/views/front/pages/article/Index.vue')
         }
       },
       {
-        path: '/docs/:path',
+        path: 'docs/:path',
         name: 'docs',
         component: Docs
       },

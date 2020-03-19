@@ -51,10 +51,7 @@
 <script>
 export default {
   methods: {
-    change(value, render) {
-      console.log(value);
-      console.log(render);
-    }
+    change(value, render) {}
   },
   data() {
     return {
