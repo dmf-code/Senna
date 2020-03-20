@@ -12,7 +12,7 @@
           <h3 style="margin-top: 0.25em;margin-bottom: 0.25em; text-align: center;">{{ item.title }}</h3>
           <div style="text-align: left;margin: 0.25em 1em;">
             <i class="el-icon-folder"></i>
-            {{ item.checked_categorys }}
+            {{ item.categoryIds }}
             <i class="el-icon-date"></i>
             {{ item.createdAt }}
           </div>

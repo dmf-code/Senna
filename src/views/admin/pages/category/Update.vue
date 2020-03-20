@@ -29,7 +29,7 @@ export default {
     summit() {
       this.dialogFormVisible = false;
       this.axios
-        .put("/api/backend/category/" + this.form.id + "/" + this.form.name)
+        .put("/api/backend/category/" + this.form.id, { name: this.form.name })
         .then(res => {
           if (res.data.status == true) {
             this.$message({ message: "修改成功", type: "success" });
