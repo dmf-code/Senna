@@ -8,7 +8,8 @@
         </template>
         <el-menu-item-group>
           <el-menu-item index="/admin/menu">菜单</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
+          <el-menu-item index="/admin/role">角色</el-menu-item>
+          <el-menu-item index="/admin/roleMenu">角色-菜单</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
       <el-submenu index="2" @click="openeds(2)">

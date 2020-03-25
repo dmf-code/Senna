@@ -8,6 +8,11 @@ import Docs from '@/views/front/pages/doc/Index.vue'
 Vue.use(VueRouter)
 
 const routes = [{
+    path: "/refresh",
+    name: "refresh",
+    component: () => import('@/views/Refresh')
+  },
+  {
     path: '/',
     name: 'index',
     component: function () {
@@ -69,6 +74,16 @@ const routes = [{
         },
         component: function () {
           return import( /* webpackChunkName: "about" */ '@/views/admin/pages/menu/Index')
+        }
+      },
+      {
+        path: 'role',
+        name: 'role',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/role/List')
         }
       },
       {
