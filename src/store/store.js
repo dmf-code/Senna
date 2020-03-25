@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        is_login: localStorage.getItem('is_login') ? Boolean(localStorage.getItem('is_login')) : false,
+        is_login: localStorage.getItem('is_login') == "true" ? true : false,
         user_info: localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info')) : ''
     },
     mutations: {
@@ -20,6 +20,11 @@ export default new Vuex.Store({
             state.user_info = "";
             localStorage.setItem('is_login', false);
             localStorage.setItem('user_info', "");
+        }
+    },
+    actions: {
+        logout(state) {
+            state.commit("logout");
         }
     }
 });

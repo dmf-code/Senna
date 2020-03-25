@@ -25,7 +25,6 @@ export default {
   },
   methods: {
     onSubmit() {
-      console.log("submit!");
       this.dialogFormVisible = false;
       this.axios
         .post("/api/backend/tag", {

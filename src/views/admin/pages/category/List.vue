@@ -59,7 +59,6 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.form = row;
-      console.log(index, row);
     },
     handleDelete(index, row) {
       this.axios.delete("/api/backend/category/" + row.id).then(res => {
@@ -70,7 +69,6 @@ export default {
           this.$message.error("删除失败");
         }
       });
-      console.log(index, row);
     }
   },
   components: {

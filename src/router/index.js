@@ -4,7 +4,6 @@ import Admin from '@/views/admin/Index.vue'
 import Login from '@/views/auth/Login.vue'
 import Register from '@/views/auth/Register.vue'
 import Docs from '@/views/front/pages/doc/Index.vue'
-import store from "../store/store";
 
 Vue.use(VueRouter)
 
@@ -143,7 +142,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) {
+
+  if (to.path.search("/admin") != -1) {
     var userInfo = localStorage.getItem('user_info');
     if (userInfo !== "") {
       userInfo = JSON.parse(localStorage.getItem('user_info'));
@@ -151,7 +151,7 @@ router.beforeEach((to, from, next) => {
     if (userInfo) {
       next();
     } else {
-      store.commit("logout");
+      router.app.$options.store.dispatch("logout");
       next("/login");
     }
   }

@@ -42,11 +42,8 @@ export default {
   methods: {
     getArticleList() {
       this.axios.get("/api/front/article").then(res => {
-        console.log(res.data.status == true);
         if (res.data.status == true) {
           this.items = res.data.data;
-          console.log(res.data.data);
-          console.log("items: ", this.items);
         } else {
           console.log("请求失败");
         }

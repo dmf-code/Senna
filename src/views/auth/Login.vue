@@ -62,8 +62,6 @@ export default {
               password: this.ruleForm.password
             })
             .then(res => {
-              console.log(res);
-              console.log(res.data.status == true);
               if (res.data.status == true) {
                 this.$store.commit("login", res.data);
                 this.$message({ message: "登录成功", type: "success" });
@@ -75,7 +73,6 @@ export default {
           this.logining = false;
         } else {
           this.$message.error("登录失败");
-          console.log("error submit!");
           return false;
         }
       });

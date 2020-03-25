@@ -41,11 +41,8 @@ export default {
     edit(value, render) {
       this.form.mdCode = value;
       this.form.htmlCode = render;
-      console.log(this.form.mdCode);
-      console.log(this.form.htmlCode);
     },
     onSubmit() {
-      console.log("submit!");
       this.axios
         .post("/api/backend/article", {
           title: this.form.title,
@@ -55,7 +52,6 @@ export default {
           htmlCode: this.form.htmlCode
         })
         .then(res => {
-          console.log(res);
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
           } else {

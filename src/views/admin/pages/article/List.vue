@@ -58,7 +58,6 @@ export default {
       this.axios.get("/api/backend/article").then(response => {
         if (response.data.status == true) {
           this.tableData = response.data.data;
-          console.log(this.tableData);
         }
       });
     },
@@ -69,9 +68,7 @@ export default {
       this.$refs.update.dialogFormVisible = true;
       row.checkedCategorys = row.categoryIds;
       row.checkedTags = row.tagIds.split(",");
-      console.log("row: ", row);
       this.$refs.update.form = row;
-      console.log(index, row);
     },
     handleDelete(index, row) {
       this.axios.delete("/api/backend/article/" + row.id).then(res => {
@@ -82,7 +79,6 @@ export default {
           this.$message.error("删除失败");
         }
       });
-      console.log(index, row);
     }
   },
   components: {

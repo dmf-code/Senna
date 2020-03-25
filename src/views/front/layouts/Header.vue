@@ -23,11 +23,7 @@
 import { mapState, mapMutations, mapAction } from "vuex";
 
 export default {
-  mounted() {
-    console.log(typeof this.is_login);
-    console.log(this.is_login == false);
-    console.log(this.user_info);
-  },
+  mounted() {},
   data: function() {
     return {};
   },

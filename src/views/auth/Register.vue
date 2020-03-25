@@ -89,7 +89,6 @@ export default {
               VerifyValue: this.verify_value
             })
             .then(res => {
-              console.log(res);
               if (res.data.status == true) {
                 this.$message({ message: "注册成功", type: "success" });
                 this.$router.push({ path: "/", name: "home" });
@@ -99,7 +98,6 @@ export default {
             });
           this.logining = false;
         } else {
-          console.log("error submit!");
         }
       });
     },
@@ -110,8 +108,6 @@ export default {
           CaptchaType: "string"
         })
         .then(function(response) {
-          console.log(response);
-          console.log("data:", response.data);
           me.verify_code = response.data.data;
           me.captcha_id = response.data.captchaId;
         });

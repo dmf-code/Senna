@@ -3,7 +3,6 @@ import {
     Message
 } from "element-ui";
 import router from "../router";
-import store from "./store";
 
 axios.interceptors.request.use(config => { //配置axios请求头
     // console.log("config: ", config)
@@ -32,7 +31,7 @@ axios.interceptors.response.use(
             switch (error.response.status) {
                 case 401:
                     // 返回 401 清除token信息并跳转到登录页面
-                    store.commit("logout");
+                    router.app.$options.store.commit("logout");
                     router.push({
                         path: '/login'
                     })

@@ -59,10 +59,8 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.form = row;
-      console.log(index, row);
     },
     handleDelete(index, row) {
-      console.log(index, row);
       this.axios.delete("/api/backend/tag/" + row.id).then(res => {
         if (res.data.status == true) {
           this.getTbaleData();
