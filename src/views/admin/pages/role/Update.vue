@@ -23,8 +23,6 @@ export default {
   data() {
     return {
       dialogFormVisible: false,
-      categorys: [],
-      tags: [],
       form: {
         name: "",
         memo: ""

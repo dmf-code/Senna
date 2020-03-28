@@ -73,7 +73,7 @@ const routes = [{
           requireAuth: true
         },
         component: function () {
-          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/menu/Index')
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/menu/List')
         }
       },
       {
