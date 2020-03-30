@@ -10,11 +10,20 @@
           inactive-color="#ff4949"
         ></el-switch>
       </el-form-item>
+      <el-form-item label="父级菜单">
+        <el-select v-model="form.parent_id" placeholder="请选择">
+          <el-option v-for="item in menu" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item label="类型">
-        <el-input v-model="form.type"></el-input>
+        <el-select v-model="form.type" placeholder="请选择">
+          <el-option v-for="item in type" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="操作类型">
-        <el-input v-model="form.operate_type"></el-input>
+        <el-select v-model="form.operate_type" placeholder="请选择">
+          <el-option v-for="item in operateType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+        </el-select>
       </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="form.name"></el-input>
@@ -45,9 +54,24 @@
 
 <script>
 export default {
+  created() {
+    this.getMenu();
+  },
   data() {
     return {
       dialogFormVisible: false,
+      menu: [],
+      type: [
+        { id: 1, name: "菜单" },
+        { id: 2, name: "子菜单" }
+      ],
+      operateType: [
+        { id: "none", name: "无" },
+        { id: "add", name: "添加" },
+        { id: "update", name: "更新" },
+        { id: "view", name: "查看" },
+        { id: "del", name: "删除" }
+      ],
       form: {
         status: 1,
         name: "",
@@ -65,6 +89,14 @@ export default {
     };
   },
   methods: {
+    getMenu() {
+      this.axios.get("/api/backend/menu").then(res => {
+        this.menu.push({ id: -1, name: "root" });
+        if (res.data.status == true) {
+          this.menu.concat(res.data.data);
+        }
+      });
+    },
     onSubmit() {
       this.dialogFormVisible = false;
       this.axios.post("/api/backend/menu", this.form).then(res => {
