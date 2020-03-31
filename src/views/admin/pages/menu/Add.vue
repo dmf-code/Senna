@@ -80,7 +80,7 @@ export default {
         parent_id: "",
         url: "",
         name: "",
-        sequence: "",
+        sequence: 1,
         type: "",
         code: "",
         icon: "",
@@ -91,7 +91,7 @@ export default {
   methods: {
     getMenu() {
       this.axios.get("/api/backend/menu").then(res => {
-        this.menu.push({ id: -1, name: "root" });
+        this.menu.push({ id: 0, name: "root" });
         if (res.data.status == true) {
           this.menu.concat(res.data.data);
         }
@@ -99,6 +99,7 @@ export default {
     },
     onSubmit() {
       this.dialogFormVisible = false;
+      this.form.status = Number(this.form.status);
       this.axios.post("/api/backend/menu", this.form).then(res => {
         if (res.data.status == true) {
           this.$parent.getTbaleData();
