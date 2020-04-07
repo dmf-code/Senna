@@ -11,19 +11,19 @@
       </el-table-column>
       <el-table-column label="角色" width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
+          <span style="margin-left: 10px">{{ scope.row.role_name }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="菜单" width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.memo }}</span>
+          <span style="margin-left: 10px">{{ scope.row.menu_name }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="创建时间" width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.createdAt }}</span>
+          <span style="margin-left: 10px">{{ scope.row.created_at }}</span>
         </template>
       </el-table-column>
 
@@ -31,7 +31,7 @@
         <template slot-scope="scope">
           <span
             style="margin-left: 10px"
-          >{{ scope.row.updatedAt != "0001-01-01 00:00:00" ? scope.row.updatedAt : "未更新" }}</span>
+          >{{ scope.row.updated_at != "0001-01-01 00:00:00" ? scope.row.updated_at : "未更新" }}</span>
         </template>
       </el-table-column>
 
@@ -51,7 +51,11 @@ import Update from "@/views/admin/pages/roleMenu/Update";
 import Add from "@/views/admin/pages/roleMenu/Add";
 export default {
   mounted() {
-    this.getTbaleData();
+    this.axios.get("/api/backend/roleMenu").then(response => {
+      if (response.data.status == true) {
+        this.tableData = response.data.data;
+      }
+    });
   },
   computed: {},
   data() {
@@ -60,13 +64,6 @@ export default {
     };
   },
   methods: {
-    getTbaleData() {
-      this.axios.get("/api/backend/roleMenu").then(response => {
-        if (response.data.status == true) {
-          this.tableData = response.data.data;
-        }
-      });
-    },
     handleAdd() {
       this.$refs.add.dialogFormVisible = true;
     },

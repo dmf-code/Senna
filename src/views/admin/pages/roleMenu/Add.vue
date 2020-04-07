@@ -14,6 +14,9 @@
           filter-placeholder="请输入菜单名称"
           v-model="form.menus"
           :data="menus"
+          :left-default-checked="leftChecked"
+          :right-default-checked="rightChecked"
+          @change="handleChange"
         ></el-transfer>
       </el-form-item>
       <el-form-item>
@@ -47,11 +50,14 @@ export default {
     });
   },
   methods: {
+    handleChange(value, direction, movedKeys) {
+      console.log(value, direction, movedKeys);
+    },
     onSubmit() {
       this.axios
         .post("/api/backend/roleMenu", {
-          name: this.form.name,
-          memo: this.form.memo
+          role_id: this.form.role_id,
+          menu_id: this.form.menus.join(",")
         })
         .then(res => {
           if (res.data.status == true) {
@@ -72,6 +78,8 @@ export default {
       dialogFormVisible: false,
       roles: [],
       menus: [],
+      leftChecked: [],
+      rightChecked: [],
       form: {
         role_id: 1,
         menus: []

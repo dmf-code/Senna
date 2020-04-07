@@ -99,8 +99,8 @@ export default {
       this.form.status = Number(this.form.status);
       this.axios.post("/api/backend/menu", this.form).then(res => {
         if (res.data.status == true) {
-          this.$parent.getTbaleData();
           this.$message({ message: "添加成功", type: "success" });
+          this.$router.replace("/refresh");
         } else {
           this.$message.error("添加失败");
         }
