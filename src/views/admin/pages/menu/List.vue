@@ -65,7 +65,11 @@ import Update from "@/views/admin/pages/menu/Update";
 import Add from "@/views/admin/pages/menu/Add";
 export default {
   mounted() {
-    this.getTbaleData();
+    this.axios.get("/api/backend/menu").then(response => {
+      if (response.data.status == true) {
+        this.tableData = response.data.data;
+      }
+    });
   },
   computed: {},
   data() {
@@ -74,13 +78,6 @@ export default {
     };
   },
   methods: {
-    getTbaleData() {
-      this.axios.get("/api/backend/menu").then(response => {
-        if (response.data.status == true) {
-          this.tableData = response.data.data;
-        }
-      });
-    },
     handleAdd() {
       this.$refs.add.dialogFormVisible = true;
     },

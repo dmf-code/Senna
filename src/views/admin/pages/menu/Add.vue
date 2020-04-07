@@ -54,8 +54,13 @@
 
 <script>
 export default {
-  created() {
-    this.getMenu();
+  mounted() {
+    this.axios.get("/api/backend/menu").then(res => {
+      this.menu.push({ id: 0, name: "root" });
+      if (res.data.status == true) {
+        this.menu = this.menu.concat(res.data.data);
+      }
+    });
   },
   data() {
     return {
@@ -89,14 +94,6 @@ export default {
     };
   },
   methods: {
-    getMenu() {
-      this.axios.get("/api/backend/menu").then(res => {
-        this.menu.push({ id: 0, name: "root" });
-        if (res.data.status == true) {
-          this.menu.concat(res.data.data);
-        }
-      });
-    },
     onSubmit() {
       this.dialogFormVisible = false;
       this.form.status = Number(this.form.status);

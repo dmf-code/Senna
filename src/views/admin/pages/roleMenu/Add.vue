@@ -38,7 +38,10 @@ export default {
       if (res.data.status == true) {
         let menus = res.data.data;
         menus.forEach(element => {
-          this.menus.push({ key: element.id, label: element.name });
+          this.menus.push({
+            key: element.id,
+            label: element.name + "-" + element.url
+          });
         });
       }
     });
