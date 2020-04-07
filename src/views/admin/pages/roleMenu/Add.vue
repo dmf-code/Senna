@@ -54,6 +54,10 @@ export default {
       console.log(value, direction, movedKeys);
     },
     onSubmit() {
+      if (this.form.menus.length == 0) {
+        this.$message({ message: "菜单不能为空", type: "alert" });
+        return;
+      }
       this.axios
         .post("/api/backend/roleMenu", {
           role_id: this.form.role_id,
