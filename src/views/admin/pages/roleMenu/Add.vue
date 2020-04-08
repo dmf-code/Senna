@@ -37,6 +37,7 @@ export default {
         console.log("失败");
       }
     });
+
     this.axios.get("/api/backend/menu").then(res => {
       if (res.data.status == true) {
         let menus = res.data.data;
@@ -46,6 +47,12 @@ export default {
             label: element.name + "-" + element.url
           });
         });
+      }
+    });
+
+    this.axios.get("/api/backend/roleMenu").then(response => {
+      if (response.data.status == true) {
+        this.form.menus = response.data.args[0];
       }
     });
   },

@@ -50,7 +50,7 @@
 import Update from "@/views/admin/pages/roleMenu/Update";
 import Add from "@/views/admin/pages/roleMenu/Add";
 export default {
-  mounted() {
+  created() {
     this.axios.get("/api/backend/roleMenu").then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
