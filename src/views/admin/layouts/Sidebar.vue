@@ -9,6 +9,7 @@
         <el-menu-item-group>
           <el-menu-item index="/admin/menu">菜单</el-menu-item>
           <el-menu-item index="/admin/role">角色</el-menu-item>
+          <el-menu-item index="/admin/adminRole">用户-角色</el-menu-item>
           <el-menu-item index="/admin/roleMenu">角色-菜单</el-menu-item>
         </el-menu-item-group>
       </el-submenu>

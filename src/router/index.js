@@ -87,6 +87,16 @@ const routes = [{
         }
       },
       {
+        path: 'adminRole',
+        name: 'adminRole',
+        meta: {
+          requireAuth: true
+        },
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/admin/pages/adminRole/List')
+        }
+      },
+      {
         path: 'roleMenu',
         name: 'roleMenu',
         meta: {
