@@ -52,7 +52,7 @@ export default {
 
     this.axios.get("/api/backend/roleMenu").then(response => {
       if (response.data.status == true) {
-        this.form.menus = response.data.args[0];
+        this.form.menus = response.data.args[0] ? response.data.args[0] : [];
       }
     });
   },

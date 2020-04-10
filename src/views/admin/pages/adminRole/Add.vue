@@ -51,19 +51,18 @@ export default {
         });
       }
     });
-
-    this.axios.get("/api/backend/adminRole").then(response => {
-      if (response.data.status == true) {
-        this.form.roles = response.data.args[0] ? response.data.args[0] : [];
-        console.log("this.form.roles", this.form.roles);
-      }
-    });
   },
   watch: {
     "form.admin_id": {
-      handler(val, oldval) {
+      handler(admin_id, oldval) {
         console.log("watch");
-        console.log(val, oldval);
+        console.log(admin_id, oldval);
+        this.axios.get("/api/backend/adminRole/" + admin_id).then(res => {
+          if (res.data.status == true) {
+            console.log(res.data);
+            this.form.roles = res.data[0] ? res.data[0] : [];
+          }
+        });
       },
       deep: true
     }
@@ -73,14 +72,18 @@ export default {
       console.log(value, direction, movedKeys);
     },
     onSubmit() {
-      if (this.form.menus.length == 0) {
-        this.$message({ message: "菜单不能为空", type: "alert" });
+      if (this.form.admin_id == null) {
+        this.$message({ message: "用户不能为空", type: "alert" });
+        return;
+      }
+      if (this.form.roles.length == 0) {
+        this.$message({ message: "角色不能为空", type: "alert" });
         return;
       }
       this.axios
         .post("/api/backend/adminRole", {
-          role_id: this.form.role_id,
-          menu_id: this.form.menus.join(",")
+          admin_id: this.form.admin_id,
+          role_id: this.form.roles.join(",")
         })
         .then(res => {
           if (res.data.status == true) {
