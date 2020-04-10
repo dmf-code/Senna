@@ -3,14 +3,14 @@
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="用户">
         <el-select v-model="form.admin_id" placeholder="请选择">
-          <el-option v-for="item in admins" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option v-for="item in admins" :key="item.id" :label="item.username" :value="item.id"></el-option>
         </el-select>
       </el-form-item>
-      <el-form-item label="菜单">
+      <el-form-item label="角色">
         <el-transfer
           filterable
           :filter-method="filterMethod"
-          :titles="['未绑定菜单', '已绑定菜单']"
+          :titles="['未绑定角色', '已绑定角色']"
           filter-placeholder="请输入菜单名称"
           v-model="form.roles"
           :data="roles"
@@ -33,6 +33,8 @@ export default {
     this.axios.get("/api/backend/admin").then(res => {
       if (res.data.status == true) {
         this.admins = res.data.data;
+
+        console.log(this.admins);
       } else {
         console.log("失败");
       }
@@ -44,7 +46,7 @@ export default {
         roles.forEach(element => {
           this.roles.push({
             key: element.id,
-            label: element.name + "-" + element.url
+            label: element.name
           });
         });
       }
@@ -52,9 +54,19 @@ export default {
 
     this.axios.get("/api/backend/adminRole").then(response => {
       if (response.data.status == true) {
-        this.form.roles = response.data.args[0];
+        this.form.roles = response.data.args[0] ? response.data.args[0] : [];
+        console.log("this.form.roles", this.form.roles);
       }
     });
+  },
+  watch: {
+    "form.admin_id": {
+      handler(val, oldval) {
+        console.log("watch");
+        console.log(val, oldval);
+      },
+      deep: true
+    }
   },
   methods: {
     handleChange(value, direction, movedKeys) {
@@ -92,7 +104,7 @@ export default {
       leftChecked: [],
       rightChecked: [],
       form: {
-        admin_id: 1,
+        admin_id: null,
         roles: []
       }
     };
