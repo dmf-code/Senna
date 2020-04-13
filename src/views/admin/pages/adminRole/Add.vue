@@ -59,8 +59,9 @@ export default {
         console.log(admin_id, oldval);
         this.axios.get("/api/backend/adminRole/" + admin_id).then(res => {
           if (res.data.status == true) {
-            console.log(res.data);
-            this.form.roles = res.data[0] ? res.data[0] : [];
+            console.log(res.data.data);
+            this.form.roles = res.data.data ? res.data.data : [];
+            console.log("this.form.roles", this.form.roles);
           }
         });
       },
