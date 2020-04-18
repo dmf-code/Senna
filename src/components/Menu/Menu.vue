@@ -10,6 +10,7 @@ export default {
   mounted() {
     this.axios.get("/api/backend/menuList").then(res => {
       console.log(res);
+      this.menus = res.data.data[0].children;
     });
   },
   data() {
