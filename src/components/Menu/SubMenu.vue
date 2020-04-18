@@ -7,7 +7,7 @@
           {{ menu.name }}
         </template>
       </el-menu-item>
-      <el-submenu :index="menu.url" v-else>
+      <el-submenu :index="menu.name + menu.id" @click="opends" v-else>
         <template slot="title">
           <i :class="menu.icon"></i>
           {{menu.name}}
@@ -21,6 +21,12 @@
 <script>
 export default {
   name: "SubMenu",
-  props: ["menus"]
+  props: ["menus"],
+  methods: {
+    opends: function(index) {
+      console.log(index);
+      this.$store.commit("menu", index);
+    }
+  }
 };
 </script>

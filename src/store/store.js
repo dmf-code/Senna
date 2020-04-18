@@ -6,7 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         is_login: localStorage.getItem('is_login') == "true" ? true : false,
-        user_info: localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info')) : ''
+        user_info: localStorage.getItem('user_info') ? JSON.parse(localStorage.getItem('user_info')) : '',
+        menus: []
     },
     mutations: {
         login: (state, info) => {
@@ -20,6 +21,13 @@ export default new Vuex.Store({
             state.user_info = "";
             localStorage.setItem('is_login', false);
             localStorage.setItem('user_info', "");
+        },
+        menu: (index) => {
+            if ((idx = state.menus.indexOf(index)) == -1) {
+                this.openIndex.push(index);
+            } else {
+                this.openIndex.splice(idx, 1);
+            }
         }
     },
     actions: {

@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="$route.path" :default-openeds="openIndex" router>
+  <el-menu :default-active="$route.path" :default-openeds="menusVuex" router>
     <SubMenu :menus="menus"></SubMenu>
   </el-menu>
 </template>
@@ -7,6 +7,11 @@
 <script>
 import SubMenu from "@/components/Menu/SubMenu.vue";
 export default {
+  computed: {
+    menusVuex() {
+      return this.$store.state.menus;
+    }
+  },
   mounted() {
     this.axios.get("/api/backend/menuList").then(res => {
       console.log(res);
@@ -15,7 +20,6 @@ export default {
   },
   data() {
     return {
-      openIndex: [],
       menus: [
         { id: 1, icon: "el-icon-folder", url: "/1", name: "1" },
         { id: 2, icon: "el-icon-folder", url: "/2", name: "2" },
@@ -34,15 +38,7 @@ export default {
       ]
     };
   },
-  methods: {
-    openeds: function(index) {
-      if ((idx = this.openIndex.indexOf(index)) == -1) {
-        this.openIndex.push(index);
-      } else {
-        this.openIndex.splice(idx, 1);
-      }
-    }
-  },
+  methods: {},
   components: {
     SubMenu
   }
