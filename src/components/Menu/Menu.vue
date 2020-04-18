@@ -7,6 +7,11 @@
 <script>
 import SubMenu from "@/components/Menu/SubMenu.vue";
 export default {
+  mounted() {
+    this.axios.get("/api/backend/menuList").then(res => {
+      console.log(res);
+    });
+  },
   data() {
     return {
       openIndex: [],
@@ -20,7 +25,10 @@ export default {
           icon: "el-icon-folder",
           url: "/5",
           name: "5",
-          children: [{ id: 6, icon: "el-icon-folder", url: "/6", name: "6" }]
+          children: [
+            { id: 6, icon: "el-icon-folder", url: "/6", name: "6" },
+            { id: 7, icon: "el-icon-folder", url: "/7", name: "7" }
+          ]
         }
       ]
     };

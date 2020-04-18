@@ -1,9 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Admin from '@/views/admin/Index.vue'
-import Login from '@/views/auth/Login.vue'
-import Register from '@/views/auth/Register.vue'
-import Docs from '@/views/front/pages/doc/Index.vue'
 
 Vue.use(VueRouter)
 
@@ -35,19 +31,25 @@ const routes = [{
       {
         path: 'docs/:path',
         name: 'docs',
-        component: Docs
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/front/pages/doc/Index')
+        }
       },
     ]
   },
   {
     path: '/login',
     name: 'login',
-    component: Login
+    component: function () {
+      return import( /* webpackChunkName: "about" */ '@/views/auth/Login')
+    }
   },
   {
     path: '/register',
     name: 'register',
-    component: Register
+    component: function () {
+      return import( /* webpackChunkName: "about" */ '@/views/auth/Register')
+    }
   },
   {
     path: '/admin',
@@ -55,7 +57,9 @@ const routes = [{
     meta: {
       requireAuth: true
     },
-    component: Admin,
+    component: function () {
+      return import( /* webpackChunkName: "about" */ '@/views/admin/Index')
+    },
     children: [{
         path: 'dashboard',
         name: 'dashboard',

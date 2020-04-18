@@ -49,6 +49,12 @@
         </template>
       </el-table-column>
 
+      <el-table-column label="组件路径" width="90">
+        <template slot-scope="scope">
+          <span style="margin-left: 10px">{{ scope.row.component }}</span>
+        </template>
+      </el-table-column>
+
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -88,7 +94,7 @@ export default {
     handleDelete(index, row) {
       this.axios.delete("/api/backend/menu/" + row.id).then(res => {
         if (res.data.status == true) {
-          this.getTbaleData();
+          this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });
         } else {
           this.$message.error("删除失败");

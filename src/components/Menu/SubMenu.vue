@@ -6,13 +6,15 @@
           <i :class="menu.icon"></i>
           {{menu.name}}
         </template>
-        <el-menu-item-group>
+        <!-- <el-menu-item-group>
           <el-menu-item
             v-for="item in menu.children"
             :key="item.id"
             index="item.url"
           >{{ item.name }}</el-menu-item>
-        </el-menu-item-group>
+        </el-menu-item-group>-->
+
+        <SubMenu :menus="menu.children"></SubMenu>
       </el-submenu>
       <el-menu-item index="menu.url" v-else>
         <template slot="title">
