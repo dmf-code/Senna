@@ -1,15 +1,21 @@
 <template>
-  <el-row>
-    首页
-    <CMenu></CMenu>
-  </el-row>
+  <div>
+    <el-row>首页</el-row>
+  </div>
 </template>
 
 <script>
-import CMenu from "@/components/Menu/Menu.vue";
 export default {
-  components: {
-    CMenu
+  mounted() {
+    this.axios.get("/api/backend/env").then(res => {
+      console.log(res);
+      this.env = res.data.data;
+    });
+  },
+  data() {
+    return {
+      env: []
+    };
   }
 };
 </script>
