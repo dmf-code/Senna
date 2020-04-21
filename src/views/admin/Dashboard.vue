@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-row>首页</el-row>
+    <el-calendar v-model="value"></el-calendar>
   </div>
 </template>
 
@@ -14,7 +14,8 @@ export default {
   },
   data() {
     return {
-      env: []
+      env: [],
+      value: new Date()
     };
   }
 };

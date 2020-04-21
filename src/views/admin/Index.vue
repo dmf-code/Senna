@@ -23,16 +23,8 @@ import dMenu from "@/components/Menu/Menu.vue";
 
 export default {
   name: "Admin",
-  mounted() {
-    this.axios.get("/api/backend/menuList").then(res => {
-      console.log(res);
-      this.menus = res.data.data[0].children;
-    });
-  },
   data() {
-    return {
-      menus: []
-    };
+    return {};
   },
   components: {
     dHeader,
