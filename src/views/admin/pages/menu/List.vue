@@ -63,12 +63,14 @@
       </el-table-column>
       <Update ref="update"></Update>
     </el-table>
+    <treeTable :list="table" @handleEdit="handleEdit" @handleDelete="handleDelete"></treeTable>
   </div>
 </template>
 
 <script>
 import Update from "@/views/admin/pages/menu/Update";
 import Add from "@/views/admin/pages/menu/Add";
+import treeTable from "@/components/Table/TreeTable";
 export default {
   mounted() {
     this.axios.get("/api/backend/menu").then(response => {
@@ -76,11 +78,17 @@ export default {
         this.tableData = response.data.data;
       }
     });
+
+    this.axios.get("/api/backend/menuList").then(res => {
+      console.log(res.data.data[0].children);
+      this.table = res.data.data[0].children;
+    });
   },
   computed: {},
   data() {
     return {
-      tableData: null
+      tableData: null,
+      table: []
     };
   },
   methods: {
@@ -104,7 +112,8 @@ export default {
   },
   components: {
     Update,
-    Add
+    Add,
+    treeTable
   }
 };
 </script>
