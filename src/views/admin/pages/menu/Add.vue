@@ -11,7 +11,12 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="父级菜单">
-        <el-cascader :options="menu" :props="{ checkStrictly: true }" clearable></el-cascader>
+        <el-cascader
+          :options="menu"
+          v-model="form.parent_id"
+          :props="{ checkStrictly: true }"
+          clearable
+        ></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
@@ -35,8 +40,8 @@
       <el-form-item label="排序值">
         <el-input v-model="form.sequence"></el-input>
       </el-form-item>
-      <el-form-item label="Code">
-        <el-input v-model="form.code"></el-input>
+      <el-form-item label="组件路径">
+        <el-input v-model="form.component"></el-input>
       </el-form-item>
       <el-form-item label="备注">
         <el-input type="textarea" v-model="form.memo"></el-input>
@@ -79,12 +84,12 @@ export default {
         name: "",
         url: "",
         memo: "",
-        parent_id: "",
+        parent_id: 0,
         url: "",
         name: "",
-        sequence: 1,
+        sequence: 5,
         type: "",
-        code: "",
+        component: "",
         icon: "",
         operate_type: ""
       }
@@ -93,8 +98,10 @@ export default {
   methods: {
     onSubmit() {
       this.dialogFormVisible = false;
-      this.form.status = Number(this.form.status);
-      this.axios.post("/api/backend/menu", this.form).then(res => {
+      let form = this.form;
+      form.status = Number(form.status);
+      form.parent_id = form.parent_id.pop();
+      this.axios.post("/api/backend/menu", form).then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.$router.replace("/refresh");
