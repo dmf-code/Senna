@@ -2,67 +2,8 @@
   <div>
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
+    <Update ref="update"></Update>
     <el-divider></el-divider>
-    <!-- <el-table :data="this.tableData" style="width: 100%">
-      <el-table-column label="ID" width="90">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="父级ID" width="90">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.parent_id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="状态" width="90">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.status }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="名称" width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="URL" width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.url }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="类型" width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.type }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作类型" width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.operate_type }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="排序值" width="90">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.sequence }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="组件路径" width="90">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.component }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-        </template>
-      </el-table-column>
-      <Update ref="update"></Update>
-    </el-table>-->
     <treeTable :list="table" @handleEdit="handleEdit" @handleDelete="handleDelete"></treeTable>
   </div>
 </template>
@@ -95,6 +36,8 @@ export default {
       this.$refs.add.dialogFormVisible = true;
     },
     handleEdit(index, row) {
+      console.log(this.$refs);
+      console.log(this.$refs.update);
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.form = row;
     },

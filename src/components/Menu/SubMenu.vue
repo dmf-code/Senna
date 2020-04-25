@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="menu in menus" :key="menu.id">
-      <el-menu-item :index="menu.url" v-if="menu.children && menu.children.length == 0">
+      <el-menu-item :index="menu.url" v-if="!('children' in menu)">
         <template slot="title">
           <i :class="menu.icon"></i>
           {{ menu.name }}
