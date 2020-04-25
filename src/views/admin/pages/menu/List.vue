@@ -3,7 +3,7 @@
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
     <el-divider></el-divider>
-    <el-table :data="this.tableData" style="width: 100%">
+    <!-- <el-table :data="this.tableData" style="width: 100%">
       <el-table-column label="ID" width="90">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
@@ -62,7 +62,7 @@
         </template>
       </el-table-column>
       <Update ref="update"></Update>
-    </el-table>
+    </el-table>-->
     <treeTable :list="table" @handleEdit="handleEdit" @handleDelete="handleDelete"></treeTable>
   </div>
 </template>
@@ -80,7 +80,6 @@ export default {
     });
 
     this.axios.get("/api/backend/menuList").then(res => {
-      console.log(res.data.data[0].children);
       this.table = res.data.data[0].children;
     });
   },

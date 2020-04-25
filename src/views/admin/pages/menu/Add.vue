@@ -11,9 +11,7 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="父级菜单">
-        <el-select v-model="form.parent_id" placeholder="请选择">
-          <el-option v-for="item in menu" :key="item.id" :label="item.name" :value="item.id"></el-option>
-        </el-select>
+        <el-cascader :options="menu" :props="{ checkStrictly: true }" clearable></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
@@ -55,10 +53,9 @@
 <script>
 export default {
   mounted() {
-    this.axios.get("/api/backend/menu").then(res => {
-      this.menu.push({ id: 0, name: "root" });
+    this.axios.get("/api/backend/menuList").then(res => {
       if (res.data.status == true) {
-        this.menu = this.menu.concat(res.data.data);
+        this.menu = res.data.data;
       }
     });
   },
@@ -67,8 +64,8 @@ export default {
       dialogFormVisible: false,
       menu: [],
       type: [
-        { id: 1, name: "菜单" },
-        { id: 2, name: "子菜单" }
+        { id: 1, name: "目录" },
+        { id: 2, name: "菜单" }
       ],
       operateType: [
         { id: "none", name: "无" },

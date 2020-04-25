@@ -82,13 +82,17 @@ export default {
       for (let i = 0; i < this.foldList.length; i++) {
         let item = this.foldList[i];
         if (row.__family.includes(item) && row.__identity !== item) {
-          console.log(row.__identity);
           return "row_hiddle";
         }
       }
       return "";
     },
     toggleFoldingClass(params) {
+      // 判断是否存在 children 属性
+      if ("children" in params == false) {
+        return "permission_placeholder";
+      }
+
       return params.children.length === 0
         ? "permission_placeholder"
         : this.foldList.indexOf(params.__identity) === -1
@@ -112,7 +116,7 @@ export default {
           Vue.set(x, "__identity", elderIdentity + "_" + i);
           parent.push(x);
           // 如果仍有子集，则进行递归
-          if (x.children.length > 0)
+          if ("children" in x && x.children.length > 0)
             this.formatConversion(
               parent,
               x.children,
@@ -134,8 +138,6 @@ export default {
   created() {},
   watch: {
     list() {
-      console.log("watch", this.list);
-      console.log(this.list.length);
       this.tableListData = this.formatConversion([], this.list);
     }
   }
