@@ -11,13 +11,7 @@
       </el-table-column>
       <el-table-column label="名称" width="180">
         <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="备注" width="180">
-        <template slot-scope="scope">
-          <span style="margin-left: 10px">{{ scope.row.memo }}</span>
+          <span style="margin-left: 10px">{{ scope.row.username }}</span>
         </template>
       </el-table-column>
 
@@ -37,7 +31,7 @@
 
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <!-- <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -47,11 +41,15 @@
 </template>
 
 <script>
-import Update from "@/views/admin/pages/role/Update";
-import Add from "@/views/admin/pages/role/Add";
+import Update from "@/views/admin/pages/user/Update";
+import Add from "@/views/admin/pages/user/Add";
 export default {
   mounted() {
-    this.getTbaleData();
+    this.axios.get("/api/backend/admin").then(response => {
+      if (response.data.status == true) {
+        this.tableData = response.data.data;
+      }
+    });
   },
   computed: {},
   data() {
@@ -60,13 +58,6 @@ export default {
     };
   },
   methods: {
-    getTbaleData() {
-      this.axios.get("/api/backend/role").then(response => {
-        if (response.data.status == true) {
-          this.tableData = response.data.data;
-        }
-      });
-    },
     handleAdd() {
       this.$refs.add.dialogFormVisible = true;
     },
@@ -75,7 +66,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/role/" + row.id).then(res => {
+      this.axios.delete("/api/backend/admin/" + row.id).then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

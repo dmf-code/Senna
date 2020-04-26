@@ -1,11 +1,14 @@
 <template>
-  <el-dialog title="添加角色" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="添加用户" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.username"></el-input>
       </el-form-item>
-      <el-form-item label="备注">
-        <el-input v-model="form.memo"></el-input>
+      <el-form-item label="密码">
+        <el-input v-model="form.password"></el-input>
+      </el-form-item>
+      <el-form-item label="确认密码">
+        <el-input v-model="form.password2"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -19,10 +22,14 @@
 export default {
   methods: {
     onSubmit() {
+      if (this.form.password != this.form.password2) {
+        this.$message({ message: "密码不一致", type: "alert" });
+        return;
+      }
       this.axios
         .post("/api/backend/role", {
-          name: this.form.name,
-          memo: this.form.memo
+          username: this.form.username,
+          password: this.form.password
         })
         .then(res => {
           if (res.data.status == true) {
