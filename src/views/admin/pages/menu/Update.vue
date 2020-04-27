@@ -5,6 +5,10 @@
         <el-input v-model="form.name" autocomplete="off"></el-input>
       </el-form-item>
 
+      <el-form-item label="URL" :label-width="formLabelWidth">
+        <el-input v-model="form.url" autocomplete="off"></el-input>
+      </el-form-item>
+
       <el-form-item label="组件路径" :label-width="formLabelWidth">
         <el-input v-model="form.component" autocomplete="off"></el-input>
       </el-form-item>
