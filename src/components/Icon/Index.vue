@@ -3,14 +3,12 @@
     <template slot="prepend">
       <i :class="icon"></i>
     </template>
-    <el-popover placement="right" width="300" trigger="manual" slot="append" v-model="visible">
-      <el-scrollbar>
-        <el-row>
-          <el-col v-for="(item,index) in options" :key="index" :span="6">
-            <el-button :icon="item" @click="onClickSelected(item)"></el-button>
-          </el-col>
-        </el-row>
-      </el-scrollbar>
+    <el-popover placement="right" width="400" trigger="manual" slot="append" v-model="visible">
+      <el-row style="height: 250px; overflow: auto;">
+        <el-col v-for="(item,index) in options" :key="index" :span="6">
+          <el-button :icon="item" @click="onClickSelected(item)"></el-button>
+        </el-col>
+      </el-row>
       <el-button slot="reference" @click="visible = !visible">选择</el-button>
     </el-popover>
   </el-input>
