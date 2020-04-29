@@ -62,6 +62,7 @@ export default {
               password: this.ruleForm.password
             })
             .then(res => {
+              console.log(res.data);
               if (res.data.status == true) {
                 this.$store.commit("login", res.data);
                 this.$message({ message: "登录成功", type: "success" });

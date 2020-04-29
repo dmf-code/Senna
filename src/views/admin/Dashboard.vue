@@ -1,12 +1,10 @@
 <template>
   <div>
     <el-calendar v-model="value"></el-calendar>
-    <Icon :value="icon"></Icon>
   </div>
 </template>
 
 <script>
-import Icon from "@/components/Icon/Index";
 export default {
   mounted() {
     this.axios.get("/api/backend/env").then(res => {
@@ -21,9 +19,7 @@ export default {
       icon: ""
     };
   },
-  components: {
-    Icon
-  }
+  components: {}
 };
 </script>
 

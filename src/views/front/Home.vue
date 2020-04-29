@@ -1,6 +1,8 @@
 <template>
   <el-container>
-    <articleList :items="this.items"></articleList>
+    <div style="padding: 0 20%;">
+      <articleList :items="this.items"></articleList>
+    </div>
   </el-container>
 </template>
 
@@ -13,30 +15,6 @@ export default {
   data: function() {
     return {
       items: ""
-      // items: [
-      // {
-      //   id: 1,
-      //   title: "test1",
-      //   image: {
-      //     url:
-      //       "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      //     fit: "fill"
-      //   },
-      //   content: "test1",
-      //   create_time: "2020-01-01"
-      // },
-      // {
-      //   id: 2,
-      //   title: "test2",
-      //   image: {
-      //     url:
-      //       "https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg",
-      //     fit: "fill"
-      //   },
-      //   content: "test2",
-      //   create_time: "2020-01-02"
-      // }
-      // ]
     };
   },
   methods: {

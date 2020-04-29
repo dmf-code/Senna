@@ -32,7 +32,7 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="图标">
-        <el-input v-model="form.icon"></el-input>
+        <iconSelect :value="form.icon"></iconSelect>
       </el-form-item>
       <el-form-item label="URL">
         <el-input v-model="form.url"></el-input>
@@ -56,6 +56,8 @@
 
 
 <script>
+import iconSelect from "@/components/Icon/Index";
+
 export default {
   mounted() {
     this.axios.get("/api/backend/menuList").then(res => {
@@ -110,6 +112,9 @@ export default {
         }
       });
     }
+  },
+  components: {
+    iconSelect
   }
 };
 </script>
