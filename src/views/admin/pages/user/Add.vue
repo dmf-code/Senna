@@ -5,10 +5,10 @@
         <el-input v-model="form.username"></el-input>
       </el-form-item>
       <el-form-item label="密码">
-        <el-input v-model="form.password"></el-input>
+        <el-input v-model="form.password" show-password></el-input>
       </el-form-item>
       <el-form-item label="确认密码">
-        <el-input v-model="form.password2"></el-input>
+        <el-input v-model="form.password2" show-password></el-input>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -27,7 +27,7 @@ export default {
         return;
       }
       this.axios
-        .post("/api/backend/role", {
+        .post("/api/backend/admin", {
           username: this.form.username,
           password: this.form.password
         })

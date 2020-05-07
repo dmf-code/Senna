@@ -2,9 +2,9 @@
   <el-dialog title="编辑" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.username" :disabled="true"></el-input>
       </el-form-item>
-      <el-form-item label="备注">
+      <el-form-item label="角色">
         <el-input v-model="form.memo"></el-input>
       </el-form-item>
       <el-form-item>

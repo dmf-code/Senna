@@ -11,7 +11,7 @@
         <span>登录/注册</span>
       </el-menu-item>
       <el-submenu index style="float:right;" v-else-if="this.is_login">
-        <template slot="title">admin</template>
+        <template slot="title">{{ user_info.data.user.username }}</template>
         <el-menu-item index="/front/user/center">用户中心</el-menu-item>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>

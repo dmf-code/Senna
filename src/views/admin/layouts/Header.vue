@@ -8,7 +8,7 @@
       </el-submenu>
 
       <el-submenu index style="float:right;">
-        <template slot="title">admin</template>
+        <template slot="title">{{ user_info.data.user.username }}</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>
       </el-submenu>
@@ -17,6 +17,8 @@
 </template>
 
 <script>
+import { mapState, mapMutations, mapAction } from "vuex";
+
 export default {
   data: function() {
     return {};
@@ -26,6 +28,12 @@ export default {
       this.$store.commit("logout");
       this.$router.push({ name: "login", path: "/login" });
     }
+  },
+  computed: {
+    ...mapState({
+      is_login: state => state.is_login,
+      user_info: state => state.user_info
+    })
   }
 };
 </script>
