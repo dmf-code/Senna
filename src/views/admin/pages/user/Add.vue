@@ -10,6 +10,9 @@
       <el-form-item label="确认密码">
         <el-input v-model="form.password2" show-password></el-input>
       </el-form-item>
+      <el-form-item label="角色">
+        <el-cascader :options="roles" :value="form.roles_id" :props="props" clearable></el-cascader>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
         <el-button>取消</el-button>
@@ -20,6 +23,16 @@
 
 <script>
 export default {
+  mounted: function() {
+    this.axios.get("/api/backend/role").then(res => {
+      if (res.data.status == true) {
+        console.log(res.data.data);
+        res.data.data.forEach(element => {
+          this.roles.push({ value: element.id, label: element.name });
+        });
+      }
+    });
+  },
   methods: {
     onSubmit() {
       if (this.form.password != this.form.password2) {
@@ -29,7 +42,8 @@ export default {
       this.axios
         .post("/api/backend/admin", {
           username: this.form.username,
-          password: this.form.password
+          password: this.form.password,
+          rolesId: this.form.roles_id.join(",")
         })
         .then(res => {
           if (res.data.status == true) {
@@ -44,11 +58,14 @@ export default {
   },
   data: function() {
     return {
+      props: { multiple: true },
       dialogFormVisible: false,
       form: {
         name: "",
-        memo: ""
-      }
+        memo: "",
+        roles_id: ""
+      },
+      roles: []
     };
   }
 };

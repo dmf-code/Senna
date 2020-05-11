@@ -50,6 +50,11 @@ export default {
         this.tableData = response.data.data;
       }
     });
+    this.axios.get("/api/backend/role").then(res => {
+      if (res.data.status == true) {
+        console.log(res.data);
+      }
+    });
   },
   computed: {},
   data() {
