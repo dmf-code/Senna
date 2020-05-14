@@ -2,6 +2,7 @@
   <div>
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
+    <Update ref="update"></Update>
     <el-divider></el-divider>
     <el-table :data="this.tableData" style="width: 100%">
       <el-table-column label="ID" width="180">
@@ -35,7 +36,6 @@
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
-      <Update ref="update"></Update>
     </el-table>
   </div>
 </template>
@@ -68,6 +68,7 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
+      row.role_ids = row.role_ids.split(",");
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
