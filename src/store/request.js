@@ -5,9 +5,8 @@ import {
 import router from "../router";
 
 axios.interceptors.request.use(config => { //配置axios请求头
-    // console.log("config: ", config)
-    // console.log(store.state.user_info.token);
-    // console.log(JSON.parse(localStorage.getItem('user_info')));
+    console.log("config: ", config)
+    console.log('user_info', localStorage.getItem('user_info'));
     if (localStorage.getItem("user_info") != '') {
         config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
     }
@@ -37,6 +36,7 @@ axios.interceptors.response.use(
                     })
             }
         }
-        return Promise.reject(error.response.data) // 返回接口返回的错误信息
+        console.log(error);
+        return Promise.reject(error) // 返回接口返回的错误信息
     }
 );
