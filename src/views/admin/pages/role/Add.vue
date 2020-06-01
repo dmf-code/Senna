@@ -7,6 +7,14 @@
       <el-form-item label="备注">
         <el-input v-model="form.memo"></el-input>
       </el-form-item>
+      <el-form-item label="权限菜单">
+        <el-cascader
+          :options="menu"
+          v-model="form.menus"
+          :props="{ multiple: true, emitPath: false }"
+          clearable
+        ></el-cascader>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
         <el-button>取消</el-button>
@@ -17,12 +25,20 @@
 
 <script>
 export default {
+  mounted: function() {
+    this.axios.get("/api/backend/menuList").then(res => {
+      if (res.data.status == true) {
+        this.menu = res.data.data;
+      }
+    });
+  },
   methods: {
     onSubmit() {
       this.axios
         .post("/api/backend/role", {
           name: this.form.name,
-          memo: this.form.memo
+          memo: this.form.memo,
+          menus: this.form.menus.join(",")
         })
         .then(res => {
           if (res.data.status == true) {
@@ -38,9 +54,11 @@ export default {
   data: function() {
     return {
       dialogFormVisible: false,
+      menu: [],
       form: {
         name: "",
-        memo: ""
+        memo: "",
+        menus: []
       }
     };
   }

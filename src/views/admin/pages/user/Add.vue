@@ -11,7 +11,7 @@
         <el-input v-model="form.password2" show-password></el-input>
       </el-form-item>
       <el-form-item label="角色">
-        <el-cascader :options="roles" :value="form.roles_id" :props="props" clearable></el-cascader>
+        <el-cascader :options="roles" v-model="form.roles_id" :props="props" clearable></el-cascader>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -39,6 +39,7 @@ export default {
         this.$message({ message: "密码不一致", type: "alert" });
         return;
       }
+      console.log(this.form.roles_id);
       this.axios
         .post("/api/backend/admin", {
           username: this.form.username,

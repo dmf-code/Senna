@@ -15,7 +15,7 @@ axios.interceptors.request.use(config => { //配置axios请求头
     Message({
         showClose: true,
         message: error,
-        type: "error.data.error.message"
+        type: "error"
     });
     return Promise.reject(error.data.error.message);
 })
@@ -29,6 +29,11 @@ axios.interceptors.response.use(
         if (error.response) {
             switch (error.response.status) {
                 case 401:
+                    Message({
+                        showClose: true,
+                        message: error,
+                        type: "error"
+                    });
                     // 返回 401 清除token信息并跳转到登录页面
                     router.app.$options.store.commit("logout");
                     router.push({
