@@ -7,7 +7,8 @@ import router from "../router";
 axios.interceptors.request.use(config => { //配置axios请求头
     console.log("config: ", config)
     console.log('user_info', localStorage.getItem('user_info'));
-    if (localStorage.getItem("user_info") != '') {
+    let userInfo = localStorage.getItem("user_info");
+    if (userInfo != '' && userInfo != null) {
         config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
     }
     return config;

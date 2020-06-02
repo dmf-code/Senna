@@ -27,7 +27,7 @@
 export default {
   created() {},
   mounted: function() {
-    this.axios.get("/api/backend/menuPermissionList").then(res => {
+    this.axios.get("/api/backend/menuApiList").then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
