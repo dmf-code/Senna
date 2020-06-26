@@ -1,7 +1,5 @@
 import axios from 'axios';
-import {
-    Message
-} from "element-ui";
+import Message from "@/utils/message";
 import router from "../router";
 
 axios.interceptors.request.use(config => { //配置axios请求头
@@ -32,7 +30,7 @@ axios.interceptors.response.use(
                 case 401:
                     Message({
                         showClose: true,
-                        message: error,
+                        message: "权限不足",
                         type: "error"
                     });
                     // 返回 401 清除token信息并跳转到登录页面
@@ -40,6 +38,8 @@ axios.interceptors.response.use(
                     router.push({
                         path: '/login'
                     })
+                    console.log(error);
+                    return
             }
         }
         console.log(error);

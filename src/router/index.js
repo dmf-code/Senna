@@ -212,6 +212,7 @@ router.beforeEach((to, from, next) => {
     } else {
       router.app.$options.store.dispatch("logout");
       next("/login");
+      return
     }
   }
   next();
