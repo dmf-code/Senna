@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="收货地址" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="tag创建" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="名称">
         <el-input v-model="form.name"></el-input>
@@ -32,8 +32,8 @@ export default {
         })
         .then(res => {
           if (res.data.status == true) {
-            this.$parent.getTbaleData();
             this.$message({ message: "添加成功", type: "success" });
+            this.$router.replace("/refresh");
           } else {
             this.$message.error("添加失败");
           }
