@@ -33,16 +33,20 @@ export default {
       }
     });
   },
-  watch: {
-    form: function() {
-      console.log("form", this.form);
-      this.axios
-        .get("/api/backend/roleMenuList?roleId=" + this.form.id)
-        .then(res => {
-          console.log(res);
-        });
-    }
-  },
+  // watch: {
+  //   form: function() {
+  //     console.log("form", this.form);
+  //     this.axios
+  //       .get("/api/backend/roleMenuList?roleId=" + this.form.id)
+  //       .then(res => {
+  //         console.log(res);
+  //         this.form.menus = [];
+  //         res.data.data.forEach(element => {
+  //           this.form.menus.push(element.MenuId);
+  //         });
+  //       });
+  //   }
+  // },
   data() {
     return {
       menu: [],

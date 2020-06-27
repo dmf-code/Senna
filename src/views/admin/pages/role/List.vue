@@ -2,6 +2,7 @@
   <div>
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
+    <Update ref="update"></Update>
     <el-divider></el-divider>
     <el-table :data="this.tableData" style="width: 100%">
       <el-table-column label="ID" width="180">
@@ -41,7 +42,6 @@
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
-      <Update ref="update"></Update>
     </el-table>
   </div>
 </template>
@@ -68,8 +68,15 @@ export default {
       this.$refs.add.dialogFormVisible = true;
     },
     handleEdit(index, row) {
-      this.$refs.update.dialogFormVisible = true;
-      this.$refs.update.form = row;
+      this.axios.get("/api/backend/roleMenuList?roleId=" + row.id).then(res => {
+        console.log(res);
+        this.$refs.update.form = row;
+        this.$refs.update.form.menus = [];
+        this.$refs.update.dialogFormVisible = true;
+        res.data.data.forEach(element => {
+          this.$refs.update.form.menus.push(element.MenuId);
+        });
+      });
     },
     handleDelete(index, row) {
       this.axios.delete("/api/backend/role/" + row.id).then(res => {
