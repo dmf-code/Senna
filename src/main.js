@@ -8,7 +8,7 @@ import router from './router';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import store from './store/store';
-import request from './store/request';
+import request from './requests/request';
 
 Vue.use(ElementUI);
 Vue.use(mavonEditor);

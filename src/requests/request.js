@@ -2,7 +2,17 @@ import axios from 'axios';
 import Message from "@/utils/message";
 import router from "../router";
 
-axios.interceptors.request.use(config => { //配置axios请求头
+// 创建axios实例
+var instance = axios.create({
+    timeout: 1000 * 12
+});
+
+// 请求超时设置
+// axios.defaults.timeout = 10000
+
+
+//配置axios请求头
+instance.interceptors.request.use(config => {
     console.log("config: ", config)
     console.log('user_info', localStorage.getItem('user_info'));
     let userInfo = localStorage.getItem("user_info");
@@ -20,7 +30,7 @@ axios.interceptors.request.use(config => { //配置axios请求头
 })
 
 //返回状态判断(添加响应拦截器)
-axios.interceptors.response.use(
+instance.interceptors.response.use(
     res => {
         return res;
     },
@@ -46,3 +56,5 @@ axios.interceptors.response.use(
         return Promise.reject(error) // 返回接口返回的错误信息
     }
 );
+
+export default instance;
