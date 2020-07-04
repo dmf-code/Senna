@@ -20,6 +20,6 @@ module.exports = {
         }
       }
     }, // string | Object
-    before: app => {}
+    before: app => {},
   }
 }

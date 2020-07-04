@@ -43,9 +43,10 @@
 <script>
 import Update from "@/views/admin/pages/article/Update";
 import Add from "@/views/admin/pages/article/Add";
+import { article } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/article").then(response => {
+    article().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -68,7 +69,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/article/" + row.id).then(res => {
+      article({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.getTbaleData();
           this.$message({ message: "删除成功", type: "success" });

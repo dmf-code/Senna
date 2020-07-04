@@ -6,6 +6,7 @@
 
 <script>
 import SubMenu from "@/components/Menu/SubMenu.vue";
+import { menuList } from "@/apis/backend/index";
 export default {
   computed: {
     menusVuex() {
@@ -13,7 +14,7 @@ export default {
     }
   },
   mounted() {
-    this.axios.get("/api/backend/menuList").then(res => {
+    menuList().then(res => {
       this.menus = res.data.data[0].children;
     });
   },

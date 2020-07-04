@@ -43,9 +43,15 @@
 </template>
 
 <script>
+import { getCaptcha, register } from "@/apis/frontend/index";
 export default {
-  mounted() {
-    this.getVerifyCode();
+  created() {
+    getCaptcha({
+      CaptchaType: "string"
+    }).then(res => {
+      this.verify_code = res.data.data;
+      this.captcha_id = res.data.captchaId;
+    });
   },
   data() {
     return {
@@ -81,36 +87,23 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid && this.ruleForm.password == this.ruleForm.password2) {
           this.logining = true;
-          this.axios
-            .post("/api/register", {
-              username: this.ruleForm.username,
-              password: this.ruleForm.password,
-              Id: this.captcha_id,
-              VerifyValue: this.verify_value
-            })
-            .then(res => {
-              if (res.data.status == true) {
-                this.$message({ message: "注册成功", type: "success" });
-                this.$router.push({ path: "/", name: "home" });
-              } else {
-                this.$message.error("注册失败");
-              }
-            });
+          register({
+            username: this.ruleForm.username,
+            password: this.ruleForm.password,
+            Id: this.captcha_id,
+            VerifyValue: this.verify_value
+          }).then(res => {
+            if (res.data.status == true) {
+              this.$message({ message: "注册成功", type: "success" });
+              this.$router.push({ path: "/", name: "home" });
+            } else {
+              this.$message.error("注册失败");
+            }
+          });
           this.logining = false;
         } else {
         }
       });
-    },
-    getVerifyCode() {
-      let me = this;
-      this.axios
-        .post("/api/getCaptcha", {
-          CaptchaType: "string"
-        })
-        .then(function(response) {
-          me.verify_code = response.data.data;
-          me.captcha_id = response.data.captchaId;
-        });
     }
   }
 };

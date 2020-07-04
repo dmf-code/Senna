@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import { login } from "@/apis/frontend/index";
 export default {
   data() {
     return {
@@ -56,21 +57,19 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.logining = true;
-          this.axios
-            .post("/api/login", {
-              username: this.ruleForm.username,
-              password: this.ruleForm.password
-            })
-            .then(res => {
-              console.log(res.data);
-              if (res.data.status == true) {
-                this.$store.commit("login", res.data);
-                this.$message({ message: "登录成功", type: "success" });
-                this.$router.push({ path: "/", name: "home" });
-              } else {
-                this.$message.error("登录失败");
-              }
-            });
+          login({
+            username: this.ruleForm.username,
+            password: this.ruleForm.password
+          }).then(res => {
+            console.log(res.data);
+            if (res.data.status == true) {
+              this.$store.commit("login", res.data);
+              this.$message({ message: "登录成功", type: "success" });
+              this.$router.push({ path: "/", name: "home" });
+            } else {
+              this.$message.error("登录失败");
+            }
+          });
           this.logining = false;
         } else {
           this.$message.error("登录失败");

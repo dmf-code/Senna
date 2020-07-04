@@ -28,9 +28,10 @@
 </template>
 
 <script>
+import { admin, role, adminRole } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/admin").then(res => {
+    admin().then(res => {
       if (res.data.status == true) {
         this.admins = res.data.data;
 
@@ -40,7 +41,7 @@ export default {
       }
     });
 
-    this.axios.get("/api/backend/role").then(res => {
+    role().then(res => {
       if (res.data.status == true) {
         let roles = res.data.data;
         roles.forEach(element => {
@@ -55,11 +56,8 @@ export default {
   watch: {
     "form.admin_id": {
       handler(admin_id, oldval) {
-        console.log("watch");
-        console.log(admin_id, oldval);
-        this.axios.get("/api/backend/adminRole/" + admin_id).then(res => {
+        adminRole({ admin_id: admin_id }).then(res => {
           if (res.data.status == true) {
-            console.log(res.data.data);
             this.form.roles = res.data.data ? res.data.data : [];
             console.log("this.form.roles", this.form.roles);
           }
@@ -81,20 +79,21 @@ export default {
         this.$message({ message: "角色不能为空", type: "alert" });
         return;
       }
-      this.axios
-        .post("/api/backend/adminRole", {
+      adminRole(
+        {
           admin_id: this.form.admin_id,
           role_id: this.form.roles.join(",")
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = false;
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+        },
+        "POST"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     },
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;

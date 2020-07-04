@@ -15,6 +15,7 @@ var instance = axios.create({
 instance.interceptors.request.use(config => {
     console.log("config: ", config)
     console.log('user_info', localStorage.getItem('user_info'));
+    console.log('aaaaaaaaaaaaa');
     let userInfo = localStorage.getItem("user_info");
     if (userInfo != '' && userInfo != null) {
         config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
@@ -32,6 +33,8 @@ instance.interceptors.request.use(config => {
 //返回状态判断(添加响应拦截器)
 instance.interceptors.response.use(
     res => {
+        console.log(111111);
+        console.log(res);
         return res;
     },
     error => {
@@ -48,6 +51,7 @@ instance.interceptors.response.use(
                     router.push({
                         path: '/login'
                     })
+                    console.log("into error");
                     console.log(error);
                     return
             }
@@ -61,10 +65,10 @@ instance.interceptors.response.use(
 // params={} 是设置默认值
 export function get(url, params = {}) {
     params.t = new Date().getTime(); //get方法加一个时间参数,解决ie下可能缓存问题.
-    return instance({
+    return instance.request({
         url: url,
         method: 'get',
-        headers: {},
+        // headers: {},
         params
     })
 }
@@ -81,12 +85,12 @@ export function post(url, data = {}) {
         data: data
     };
     sendObject.data = JSON.stringify(data);
-    return instance(sendObject)
+    return instance.request(sendObject)
 }
 
 //封装put方法 (restfulAPI常用)
 function put(url, data = {}) {
-    return instance({
+    return instance.request({
         url: url,
         method: 'put',
         headers: {
@@ -98,7 +102,7 @@ function put(url, data = {}) {
 
 //删除方法(restfulAPI常用)
 function deletes(url) {
-    return instance({
+    return instance.request({
         url: url,
         method: 'delete',
         headers: {}
@@ -107,7 +111,7 @@ function deletes(url) {
 
 //patch方法(restfulAPI常用)
 function patch(url) {
-    return instance({
+    return instance.request({
         url: url,
         method: 'patch',
         headers: {}
@@ -137,10 +141,15 @@ function render(url, data) {
             data[param] = params[param];
         }
     }
-
+    console.log(url);
     while ((match = re.exec(url))) {
-        url = url.replace(match[0], data[match[1]])
+        if (match[1] in data) {
+            url = url.replace(match[0], data[match[1]])
+        } else {
+            url = url.replace(match[0], '').rstrip("/")
+        }
     }
+    console.log(url)
     return url
 }
 
@@ -161,7 +170,7 @@ const fetch = (options) => {
         case 'PATCH':
             return patch(url, options.data)
         default:
-            return instance(options)
+            return instance.request(options)
     }
 }
 
@@ -178,8 +187,10 @@ export function http(url = '', data = {}, method = "GET") {
         method: method
     }
     console.log(options);
-    return fetch(options).catch(error => {
-        console.log(error)
-        throw error
-    })
+    return fetch(options)
+    //     .catch(error => {
+    //     console.log("eereeerreerer")
+    //     console.log(error)
+    //     throw error
+    // })
 }

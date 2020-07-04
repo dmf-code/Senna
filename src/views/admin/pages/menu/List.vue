@@ -12,15 +12,16 @@
 import Update from "@/views/admin/pages/menu/Update";
 import Add from "@/views/admin/pages/menu/Add";
 import treeTable from "@/components/Table/TreeTable";
+import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/menu").then(response => {
+    menu().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
     });
 
-    this.axios.get("/api/backend/menuList").then(res => {
+    menuList().then(res => {
       this.table = res.data.data[0].children;
     });
   },
@@ -42,7 +43,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/menu/" + row.id).then(res => {
+      menu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });

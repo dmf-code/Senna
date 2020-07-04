@@ -49,9 +49,10 @@
 <script>
 import Update from "@/views/admin/pages/adminRole/Update";
 import Add from "@/views/admin/pages/adminRole/Add";
+import { adminRole } from "@/apis/backend/index";
 export default {
   created() {
-    this.axios.get("/api/backend/adminRole").then(response => {
+    adminRole().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -73,7 +74,7 @@ export default {
       console.log(row);
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/adminRole/" + row.id).then(res => {
+      adminRole({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

@@ -33,16 +33,24 @@
 </template>
 
 <script>
+import { article, category, tag } from "@/apis/backend/index";
 export default {
   created() {},
   mounted() {
-    this.getCategorys();
-    this.getTags();
-  },
-  watch: {
-    form(val, oldVal) {},
-    categorys(val, oldVal) {},
-    tags(val, oldVal) {}
+    category().then(res => {
+      if (res.data.status == true) {
+        this.categorys = res.data.data;
+      } else {
+        this.categorys = [];
+      }
+    });
+    tag().then(res => {
+      if (res.data.status == true) {
+        this.tags = res.data.data;
+      } else {
+        this.tags = [];
+      }
+    });
   },
   data() {
     return {
@@ -64,38 +72,22 @@ export default {
       this.form.htmlCode = render;
     },
     onSubmit() {
-      this.axios
-        .put("/api/backend/article/" + this.form.id, {
+      article(
+        {
+          id: this.form.id,
           title: this.form.title,
           categoryIds: this.form.checkedCategorys.toString(),
           tagIds: this.form.checkedTags.toString(),
           mdCode: this.form.mdCode,
           htmlCode: this.form.htmlCode
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = true;
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
-    },
-    getCategorys() {
-      this.axios.get("/api/backend/category").then(res => {
+        },
+        "PUT"
+      ).then(res => {
         if (res.data.status == true) {
-          this.categorys = res.data.data;
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = true;
         } else {
-          this.categorys = [];
-        }
-      });
-    },
-    getTags() {
-      this.axios.get("/api/backend/tag").then(res => {
-        if (res.data.status == true) {
-          this.tags = res.data.data;
-        } else {
-          this.tags = [];
+          this.$message.error("添加失败");
         }
       });
     }
