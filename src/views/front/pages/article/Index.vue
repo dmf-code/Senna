@@ -6,27 +6,19 @@
 </template>
 
 <script>
+import { getArticle } from "@/apis/frontend/index";
 export default {
   created: function() {
-    this.getArticle();
+    getArticle().then(res => {
+      if (res.data.status == true) {
+        this.item = res.data.data;
+      }
+    });
   },
   data: function() {
     return {
       item: {}
     };
-  },
-  methods: {
-    getArticle() {
-      this.axios
-        .get("/api/front/article/" + this.$route.params.id)
-        .then(res => {
-          if (res.data.status == true) {
-            this.item = res.data.data;
-          } else {
-            console.log("获取文章信息失败");
-          }
-        });
-    }
   }
 };
 </script>

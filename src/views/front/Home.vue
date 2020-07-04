@@ -8,26 +8,21 @@
 
 <script>
 import articleList from "@/views/front/pages/article/List";
+import { getArticleList } from "@/apis/frontend/index.js";
 export default {
   created: function() {
-    this.getArticleList();
+    getArticleList().then(res => {
+      if (res.data.status == true) {
+        this.items = res.data.data;
+      }
+    });
   },
   data: function() {
     return {
       items: ""
     };
   },
-  methods: {
-    getArticleList() {
-      this.axios.get("/api/front/article").then(res => {
-        if (res.data.status == true) {
-          this.items = res.data.data;
-        } else {
-          console.log("请求失败");
-        }
-      });
-    }
-  },
+  methods: {},
   components: {
     articleList
   }
