@@ -35,9 +35,10 @@
 <script>
 import Update from "@/views/admin/pages/tag/Update";
 import Add from "@/views/admin/pages/tag/Add";
+import { tag } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/tag").then(response => {
+    tag().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -58,10 +59,10 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/tag/" + row.id).then(res => {
+      tag({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
-          this.getTbaleData();
           this.$message({ message: "删除成功", type: "success" });
+          this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }

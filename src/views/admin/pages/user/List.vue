@@ -43,14 +43,15 @@
 <script>
 import Update from "@/views/admin/pages/user/Update";
 import Add from "@/views/admin/pages/user/Add";
+import { admin, role } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/admin").then(response => {
+    admin().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
     });
-    this.axios.get("/api/backend/role").then(res => {
+    role().then(res => {
       if (res.data.status == true) {
         console.log(res.data);
       }
@@ -72,7 +73,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/admin/" + row.id).then(res => {
+      admin({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

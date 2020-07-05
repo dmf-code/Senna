@@ -49,9 +49,10 @@
 <script>
 import Update from "@/views/admin/pages/roleMenu/Update";
 import Add from "@/views/admin/pages/roleMenu/Add";
+import { roleMenu } from "@/apis/backend/index";
 export default {
   created() {
-    this.axios.get("/api/backend/roleMenu").then(response => {
+    roleMenu().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -73,7 +74,7 @@ export default {
       console.log(row);
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/roleMenu/" + row.id).then(res => {
+      roleMenu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

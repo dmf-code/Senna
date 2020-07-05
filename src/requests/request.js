@@ -33,8 +33,6 @@ instance.interceptors.request.use(config => {
 //返回状态判断(添加响应拦截器)
 instance.interceptors.response.use(
     res => {
-        console.log(111111);
-        console.log(res);
         return res;
     },
     error => {
@@ -141,15 +139,16 @@ function render(url, data) {
             data[param] = params[param];
         }
     }
-    console.log(url);
     while ((match = re.exec(url))) {
         if (match[1] in data) {
             url = url.replace(match[0], data[match[1]])
         } else {
-            url = url.replace(match[0], '').rstrip("/")
+            url = url.replace(match[0], '');
+            let pos = url.lastIndexOf('/');
+            url = url.substr(0, pos);
         }
     }
-    console.log(url)
+    console.log('1111111', url)
     return url
 }
 

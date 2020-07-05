@@ -14,6 +14,7 @@
 
 
 <script>
+import { category } from "@/apis/backend/index";
 export default {
   data() {
     return {
@@ -25,19 +26,20 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.dialogFormVisible = false;
-      this.axios
-        .post("/api/backend/category", {
+      category(
+        {
           name: this.form.name
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+        },
+        "POST"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     }
   }
 };

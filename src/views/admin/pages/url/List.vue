@@ -47,9 +47,10 @@
 <script>
 import Update from "@/views/admin/pages/url/Update";
 import Add from "@/views/admin/pages/url/Add";
+import { menu, menuApiList } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/menuApiList").then(response => {
+    menuApiList().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -74,7 +75,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/menu/" + row.id).then(res => {
+      menu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });

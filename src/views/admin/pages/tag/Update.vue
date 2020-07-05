@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { tag } from "@/apis/backend/index";
 export default {
   data() {
     return {
@@ -27,16 +28,21 @@ export default {
   },
   methods: {
     summit() {
-      this.dialogFormVisible = false;
-      this.axios
-        .put("/api/backend/tag/" + this.form.id, { name: this.form.name })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "修改成功", type: "success" });
-          } else {
-            this.$message.error("修改失败");
-          }
-        });
+      tag(
+        {
+          id: this.form.id,
+          name: this.form.name
+        },
+        "PUT"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "修改成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("修改失败");
+        }
+      });
     }
   }
 };

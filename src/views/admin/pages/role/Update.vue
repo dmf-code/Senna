@@ -24,29 +24,16 @@
 </template>
 
 <script>
+import { role, menuApiList } from "@/apis/backend/index";
 export default {
   created() {},
   mounted: function() {
-    this.axios.get("/api/backend/menuApiList").then(res => {
+    menuApiList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
     });
   },
-  // watch: {
-  //   form: function() {
-  //     console.log("form", this.form);
-  //     this.axios
-  //       .get("/api/backend/roleMenuList?roleId=" + this.form.id)
-  //       .then(res => {
-  //         console.log(res);
-  //         this.form.menus = [];
-  //         res.data.data.forEach(element => {
-  //           this.form.menus.push(element.MenuId);
-  //         });
-  //       });
-  //   }
-  // },
   data() {
     return {
       menu: [],
@@ -60,21 +47,23 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.axios
-        .put("/api/backend/role/" + this.form.id, {
+      role(
+        {
+          id: this.form.id,
           name: this.form.name,
           memo: this.form.memo,
           menus: this.form.menus.join(",")
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = true;
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+        },
+        "PUT"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     }
   }
 };

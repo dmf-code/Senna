@@ -24,9 +24,10 @@
 </template>
 
 <script>
+import { role, menuList } from "@/apis/backend/index";
 export default {
   mounted: function() {
-    this.axios.get("/api/backend/menuList").then(res => {
+    menuList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -34,21 +35,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.axios
-        .post("/api/backend/role", {
+      role(
+        {
           name: this.form.name,
           memo: this.form.memo,
           menus: this.form.menus.join(",")
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = false;
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+        },
+        "POST"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     }
   },
   data: function() {

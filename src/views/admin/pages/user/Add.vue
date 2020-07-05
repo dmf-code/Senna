@@ -22,9 +22,10 @@
 </template>
 
 <script>
+import { admin, role } from "@/apis/backend/index";
 export default {
   mounted: function() {
-    this.axios.get("/api/backend/role").then(res => {
+    role().then(res => {
       if (res.data.status == true) {
         console.log(res.data.data);
         res.data.data.forEach(element => {
@@ -39,22 +40,22 @@ export default {
         this.$message({ message: "密码不一致", type: "alert" });
         return;
       }
-      console.log(this.form.roles_id);
-      this.axios
-        .post("/api/backend/admin", {
+      admin(
+        {
           username: this.form.username,
           password: this.form.password,
           rolesId: this.form.roles_id.join(",")
-        })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = false;
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+        },
+        "POST"
+      ).then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     }
   },
   data: function() {

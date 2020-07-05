@@ -71,8 +71,8 @@ export default {
     handleDelete(index, row) {
       article({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
-          this.getTbaleData();
           this.$message({ message: "删除成功", type: "success" });
+          this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }

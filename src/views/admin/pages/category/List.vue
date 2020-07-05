@@ -35,9 +35,12 @@
 <script>
 import Update from "@/views/admin/pages/category/Update";
 import Add from "@/views/admin/pages/category/Add";
+
+import { category } from "@/apis/backend/index";
+
 export default {
   mounted() {
-    this.axios.get("/api/backend/category").then(response => {
+    category().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -58,10 +61,10 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/category/" + row.id).then(res => {
+      category({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
-          this.getTbaleData();
           this.$message({ message: "删除成功", type: "success" });
+          this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }

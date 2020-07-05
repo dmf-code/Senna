@@ -46,10 +46,10 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
-
+import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/menuList").then(res => {
+    menuList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -61,7 +61,10 @@ export default {
       menu: [],
       active_value: 1,
       inactive_value: 2,
-      type: [{ id: 3, name: "按钮" }, { id: 4, name: "接口" }],
+      type: [
+        { id: 3, name: "按钮" },
+        { id: 4, name: "接口" }
+      ],
       operateType: [
         { id: "none", name: "无" },
         { id: "add", name: "添加" },
@@ -92,7 +95,7 @@ export default {
       form.status = Number(form.status);
       form.parent_id = 0;
       form.component = "";
-      this.axios.post("/api/backend/menu", form).then(res => {
+      menu(form, "POST").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.$router.replace("/refresh");

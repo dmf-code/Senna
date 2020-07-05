@@ -21,6 +21,7 @@
 </template>
 
 <script>
+import { menu } from "@/apis/backend/index";
 export default {
   data() {
     return {
@@ -36,15 +37,13 @@ export default {
   methods: {
     summit() {
       this.dialogFormVisible = false;
-      this.axios
-        .put("/api/backend/menu/" + this.form.id, { name: this.form.name })
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "修改成功", type: "success" });
-          } else {
-            this.$message.error("修改失败");
-          }
-        });
+      menu({ id: this.form.id, name: this.form.name }, "PUT").then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "修改成功", type: "success" });
+        } else {
+          this.$message.error("修改失败");
+        }
+      });
     }
   }
 };

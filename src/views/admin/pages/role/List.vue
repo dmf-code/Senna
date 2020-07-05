@@ -49,6 +49,7 @@
 <script>
 import Update from "@/views/admin/pages/role/Update";
 import Add from "@/views/admin/pages/role/Add";
+import { role, roleMenuList } from "@/apis/backend/index";
 export default {
   mounted() {
     this.axios.get("/api/backend/role").then(response => {
@@ -68,8 +69,11 @@ export default {
       this.$refs.add.dialogFormVisible = true;
     },
     handleEdit(index, row) {
-      this.axios.get("/api/backend/roleMenuList?roleId=" + row.id).then(res => {
-        console.log(res);
+      roleMenuList(
+        "/api/backend/roleMenuList?roleId=" + row.id,
+        {},
+        "GET"
+      ).then(res => {
         this.$refs.update.form = row;
         this.$refs.update.form.menus = [];
         this.$refs.update.dialogFormVisible = true;
@@ -79,7 +83,7 @@ export default {
       });
     },
     handleDelete(index, row) {
-      this.axios.delete("/api/backend/role/" + row.id).then(res => {
+      role({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

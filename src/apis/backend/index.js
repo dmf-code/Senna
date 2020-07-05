@@ -3,8 +3,8 @@ import {
 } from "@/requests/request"
 
 
-const admin = () => {
-    return http("/api/backend/admin")
+const admin = (data = {}, method = "GET") => {
+    return http("/api/backend/admin/{id}", data, method)
 }
 
 const role = () => {
@@ -35,6 +35,17 @@ const tag = (data = {}, method = "GET") => {
     return http("/api/backend/tag/{id}", data, method)
 }
 
+const roleMenu = (data = {}, method = "GET") => {
+    return http("/api/backend/roleMenu/{id}", data, method)
+}
+
+const roleMenuList = (url, data, method) => {
+    return http(url, data, method)
+}
+const menuApiList = (data, method = "GET") => {
+    return http("/api/backend/menuApiList/{id}", data, method)
+}
+
 export {
     admin,
     role,
@@ -43,5 +54,8 @@ export {
     menuList,
     article,
     category,
-    tag
+    tag,
+    roleMenu,
+    roleMenuList,
+    menuApiList
 }

@@ -16,9 +16,10 @@
 </template>
 
 <script>
+import { admin, role } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/role").then(res => {
+    role().then(res => {
       if (res.data.status == true) {
         console.log(res.data.data);
         res.data.data.forEach(element => {
@@ -43,17 +44,15 @@ export default {
     onSubmit() {
       let newForm = this.form;
       newForm.role_ids = newForm.role_ids.join(",");
-      this.axios
-        .put("/api/backend/admin/" + this.form.id, newForm)
-        .then(res => {
-          if (res.data.status == true) {
-            this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = true;
-            this.$router.replace("/refresh");
-          } else {
-            this.$message.error("添加失败");
-          }
-        });
+      admin(newForm, "PUT").then(res => {
+        if (res.data.status == true) {
+          this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = true;
+          this.$router.replace("/refresh");
+        } else {
+          this.$message.error("添加失败");
+        }
+      });
     }
   }
 };

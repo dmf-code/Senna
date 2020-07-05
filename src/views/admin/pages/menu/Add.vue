@@ -57,10 +57,10 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
-
+import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/menuList").then(res => {
+    menuList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -99,13 +99,13 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.dialogFormVisible = false;
       let form = this.form;
       form.status = Number(form.status);
       form.parent_id = form.parent_id.pop();
-      this.axios.post("/api/backend/menu", form).then(res => {
+      menu(form, "POST").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
+          this.dialogFormVisible = false;
           this.$router.replace("/refresh");
         } else {
           this.$message.error("添加失败");
