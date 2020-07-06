@@ -1,5 +1,5 @@
 <template>
-  <el-header>
+  <el-header style="padding:0 0;">
     <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
       <el-menu-item index="/">梧桐树下</el-menu-item>
       <el-submenu index="/docs">

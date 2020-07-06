@@ -148,7 +148,6 @@ function render(url, data) {
             url = url.substr(0, pos);
         }
     }
-    console.log('1111111', url)
     return url
 }
 

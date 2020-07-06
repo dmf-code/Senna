@@ -46,7 +46,8 @@ export default {
 
 <style>
 .list-col {
-  border: 1px dashed black;
+  /* border: 1px dashed black; */
+  background-color: #ffffff;
   border-radius: 5px;
   margin: 1em auto;
   padding: 1em;

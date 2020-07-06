@@ -1,7 +1,8 @@
 <template>
   <el-row>
     <h4 style="text-align: center;">{{ item.title }}</h4>
-    <mavon-editor ref="md" v-html="item.htmlCode"></mavon-editor>
+
+    <mavon-editor ref="md" v-html="item.htmlCode" :ishljs="true" style="padding: 5px 10px;"></mavon-editor>
   </el-row>
 </template>
 
