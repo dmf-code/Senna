@@ -15,12 +15,6 @@ import treeTable from "@/components/Table/TreeTable";
 import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    menu().then(response => {
-      if (response.data.status == true) {
-        this.tableData = response.data.data;
-      }
-    });
-
     menuList().then(res => {
       this.table = res.data.data[0].children;
     });
@@ -37,10 +31,9 @@ export default {
       this.$refs.add.dialogFormVisible = true;
     },
     handleEdit(index, row) {
-      console.log(this.$refs);
-      console.log(this.$refs.update);
       this.$refs.update.dialogFormVisible = true;
-      this.$refs.update.form = row;
+      this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
+      console.log("List", row);
     },
     handleDelete(index, row) {
       menu({ id: row.id }, "DELETE").then(res => {
