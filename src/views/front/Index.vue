@@ -23,3 +23,9 @@ export default {
   }
 };
 </script>
+
+<style>
+.main {
+  min-height: calc(100vh - 121px);
+}
+</style>
