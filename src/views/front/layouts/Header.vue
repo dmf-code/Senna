@@ -2,9 +2,9 @@
   <el-header style="padding:0 0;">
     <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
       <el-menu-item index="/">梧桐树下</el-menu-item>
-      <el-submenu index="/docs">
+      <el-submenu index="/tutorial">
         <template slot="title">文档中心</template>
-        <el-menu-item index="/docs/test">Test文档</el-menu-item>
+        <el-menu-item index="/tutorial">Test文档</el-menu-item>
       </el-submenu>
 
       <el-menu-item index="/login" style="float: right;" v-if="this.is_login == false">

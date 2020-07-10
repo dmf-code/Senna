@@ -35,6 +35,13 @@ const routes = [{
           return import( /* webpackChunkName: "about" */ '@/views/front/pages/doc/Index')
         }
       },
+      {
+        path: 'tutorial',
+        name: 'tutorial',
+        component: function () {
+          return import( /* webpackChunkName: "about" */ '@/views/front/pages/tutorial/Index')
+        }
+      },
     ]
   },
   {
