@@ -1,18 +1,28 @@
 <template>
   <div>
     <div v-for="menu in menus" :key="menu.id">
-      <el-menu-item :index="menu.url" v-if="!('children' in menu)">
+      <el-menu-item
+        :index="parent ? parent + '/' + menu.url : menu.url"
+        :key="menu.url"
+        v-if="!('children' in menu)"
+      >
         <template slot="title">
           <i :class="menu.icon"></i>
           {{ menu.name }}
         </template>
       </el-menu-item>
-      <el-submenu :index="menu.name + menu.id" @click="opends" v-else>
+
+      <el-submenu
+        :index="parent ? parent + '/' + menu.url : menu.url"
+        :key="menu.url"
+        @click="opends"
+        v-else
+      >
         <template slot="title">
           <i :class="menu.icon"></i>
           {{menu.name}}
         </template>
-        <SubMenu :menus="menu.children"></SubMenu>
+        <SubMenu :menus="menu.children" :parent="parent ? parent + '/' + menu.url : menu.url"></SubMenu>
       </el-submenu>
     </div>
   </div>
@@ -21,7 +31,7 @@
 <script>
 export default {
   name: "SubMenu",
-  props: ["menus"],
+  props: ["menus", "parent"],
   methods: {
     opends: function(index) {
       console.log(index);

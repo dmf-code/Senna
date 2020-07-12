@@ -4,8 +4,8 @@
       <el-form-item label="状态" :label-width="formLabelWidth">
         <el-switch
           v-model="form.status"
-          active-value="1"
-          inactive-value="2"
+          :active-value="active"
+          :inactive-value="inactive"
           active-color="#13ce66"
           inactive-color="#ff4949"
         ></el-switch>
@@ -36,7 +36,7 @@
       </el-form-item>
 
       <el-form-item label="图标" :label-width="formLabelWidth">
-        <iconSelect v-model="form.icon" :disabled="true"></iconSelect>
+        <iconSelect v-model="form.icon" disabled="true"></iconSelect>
       </el-form-item>
 
       <el-form-item label="URL" :label-width="formLabelWidth">
@@ -74,6 +74,8 @@ export default {
   },
   data() {
     return {
+      active: 1,
+      inactive: 2,
       formLabelWidth: "120px",
       dialogFormVisible: false,
       index: null,

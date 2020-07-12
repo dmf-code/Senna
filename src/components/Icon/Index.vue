@@ -1,5 +1,5 @@
 <template>
-  <el-input placeholder="选择图标" v-model="value" :disabled="false">
+  <el-input placeholder="选择图标" v-model="value" :disabled="disabled">
     <template slot="prepend">
       <i :class="value"></i>
     </template>
@@ -22,7 +22,10 @@ export default {
     event: "change"
   },
   props: {
-    disabled: Boolean,
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     // 接收绑定参数 - 图标类名
     value: {
       type: String,
