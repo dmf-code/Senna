@@ -1,7 +1,7 @@
 <template>
-  <el-input placeholder="选择图标" :value="icon" :disabled="true">
+  <el-input placeholder="选择图标" v-model="value" :disabled="false">
     <template slot="prepend">
-      <i :class="icon"></i>
+      <i :class="value"></i>
     </template>
     <el-popover placement="right" width="400" trigger="manual" slot="append" v-model="visible">
       <el-row style="height: 250px; overflow: auto;">
@@ -17,12 +17,17 @@
 <script>
 export default {
   name: "SelectIcon",
+  model: {
+    prop: "value",
+    event: "change"
+  },
   props: {
     disabled: Boolean,
     // 接收绑定参数 - 图标类名
     value: {
       type: String,
-      required: true
+      required: true,
+      default: ""
     },
     // 选项数据，图标类名数组
     options: {
@@ -314,14 +319,14 @@ export default {
   computed: {},
   data() {
     return {
-      visible: false,
-      icon: this.value
+      visible: false
+      // icon: this.value
     };
   },
   methods: {
     // 选中图标
     onClickSelected(item) {
-      this.icon = item;
+      this.$emit("change", item);
       this.visible = !this.visible;
     }
   }

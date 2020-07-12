@@ -36,7 +36,7 @@
       </el-form-item>
 
       <el-form-item label="图标" :label-width="formLabelWidth">
-        <iconSelect :value="form.icon"></iconSelect>
+        <iconSelect v-model="form.icon" :disabled="true"></iconSelect>
       </el-form-item>
 
       <el-form-item label="URL" :label-width="formLabelWidth">
@@ -66,14 +66,7 @@
 import iconSelect from "@/components/Icon/Index";
 import { menu, menuList } from "@/apis/backend/index";
 export default {
-  mounted() {
-    menuList().then(res => {
-      if (res.data.status == true) {
-        this.menu = res.data.data;
-        console.log(this.menu);
-      }
-    });
-  },
+  mounted() {},
   watch: {
     form: function() {
       console.log(this.form);
@@ -115,7 +108,21 @@ export default {
   },
   methods: {
     summit() {
-      menu({ id: this.form.id, name: this.form.name }, "PUT").then(res => {
+      let newForm = {
+        id: this.form.id,
+        status: this.form.status,
+        name: this.form.name,
+        url: this.form.url,
+        memo: this.form.memo,
+        parent_id: this.form.parent_id,
+        sequence: this.form.sequence,
+        type: this.form.type,
+        component: this.form.component,
+        icon: this.form.icon,
+        operate_type: this.form.operate_type
+      };
+      console.log(newForm);
+      menu(newForm, "PUT").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "修改成功", type: "success" });
           this.dialogFormVisible = false;

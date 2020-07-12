@@ -36,3 +36,9 @@ export {
     getArticleList,
     getArticle
 }
+
+// 教程接口
+
+const getTutorial = () => {
+    return http("/api/front/tutorial/{id}")
+}

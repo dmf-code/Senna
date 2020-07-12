@@ -72,7 +72,6 @@ export default {
       }
     ];
     return {
-      data: JSON.parse(JSON.stringify(data)),
       data: JSON.parse(JSON.stringify(data))
     };
   },

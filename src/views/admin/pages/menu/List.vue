@@ -16,6 +16,7 @@ import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
     menuList().then(res => {
+      this.menu = res.data.data;
       this.table = res.data.data[0].children;
     });
   },
@@ -23,7 +24,8 @@ export default {
   data() {
     return {
       tableData: null,
-      table: []
+      table: [],
+      menu: []
     };
   },
   methods: {
@@ -32,6 +34,7 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
+      this.$refs.update.menu = this.menu;
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
       console.log("List", row);
     },
