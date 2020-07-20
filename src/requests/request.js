@@ -13,9 +13,6 @@ var instance = axios.create({
 
 //配置axios请求头
 instance.interceptors.request.use(config => {
-    console.log("config: ", config)
-    console.log('user_info', localStorage.getItem('user_info'));
-    console.log('aaaaaaaaaaaaa');
     let userInfo = localStorage.getItem("user_info");
     if (userInfo != '' && userInfo != null) {
         config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
@@ -184,11 +181,10 @@ export function http(url = '', data = {}, method = "GET") {
         data: data,
         method: method
     }
-    console.log(options);
     return fetch(options)
-    //     .catch(error => {
-    //     console.log("eereeerreerer")
-    //     console.log(error)
-    //     throw error
-    // })
+        .catch(error => {
+            console.log("eereeerreerer")
+            console.log(error)
+            throw error
+        })
 }

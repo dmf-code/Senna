@@ -46,6 +46,10 @@ const menuApiList = (data, method = "GET") => {
     return http("/api/backend/menuApiList/{id}", data, method)
 }
 
+const tutorial = (data = {}, method = "GET") => {
+    return http("/api/backend/tutorial/{id}", data, method)
+}
+
 export {
     admin,
     role,
@@ -57,5 +61,6 @@ export {
     tag,
     roleMenu,
     roleMenuList,
-    menuApiList
+    menuApiList,
+    tutorial
 }
