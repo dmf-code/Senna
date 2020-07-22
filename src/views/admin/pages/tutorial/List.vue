@@ -6,16 +6,13 @@
     <el-row>
       <Add ref="add"></Add>
       <Update ref="update"></Update>
-      <el-col :span="4" v-for="(index, item) in this.list" :key="index" style="padding: 1em;">
+      <el-col :span="4" v-for="(item, index) in this.list" :key="index" style="padding: 1em;">
         <el-card :body-style="{ padding: '0px' }">
-          <img
-            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-            class="image"
-          />
+          <img :src="item['img']" class="image" />
           <div style="padding: 14px;">
-            <span>好吃的汉堡</span>
+            <span>{{item['title']}}</span>
             <div class="bottom clearfix">
-              <time class="time">{{ currentDate }}</time>
+              <time class="time">{{ item['updatedAt'] }}</time>
               <el-button type="text" @click="handleEdit(index, item)" class="button">操作按钮</el-button>
             </div>
           </div>
@@ -32,7 +29,7 @@ import { tutorial } from "@/apis/backend/index";
 export default {
   created: function() {
     tutorial().then(res => {
-      if (res.status == true) {
+      if (res.data.status == true) {
         this.list = res.data.data;
         console.log(res);
         console.log("data", this.list);

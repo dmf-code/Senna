@@ -8,12 +8,13 @@
       <el-form-item label="标签">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/api/backend/upload"
           :show-file-list="false"
+          :headers="header"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar" />
+          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -26,13 +27,25 @@
 </template>
 
 <script>
-import {} from "@/apis/backend/index";
+import { tutorial } from "@/apis/backend/index";
 export default {
   mounted() {},
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      tutorial(this.form, "POST").then(res => {
+        console.log(res);
+        if (res.data.status == true) {
+          this.dialogFormVisible = false;
+          this.$message({ message: "添加成功", type: "success" });
+          this.$router.replace("/refresh");
+        }
+      });
+    },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      if (res.status == true) {
+        this.form.img = res.data.path;
+        this.imageUrl = URL.createObjectURL(file.raw);
+      }
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -50,9 +63,13 @@ export default {
   data: function() {
     return {
       dialogFormVisible: false,
+      imageUrl: "",
+      header: {
+        token: JSON.parse(localStorage.getItem("user_info")).data.token
+      },
       form: {
         title: "",
-        imageUrl: ""
+        img: ""
       }
     };
   }
