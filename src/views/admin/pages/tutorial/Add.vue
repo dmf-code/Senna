@@ -14,13 +14,13 @@
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="imageUrl" :src="imageUrl" class="avatar" />
+          <img v-if="img" :src="img" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -44,7 +44,7 @@ export default {
     handleAvatarSuccess(res, file) {
       if (res.status == true) {
         this.form.img = res.data.path;
-        this.imageUrl = URL.createObjectURL(file.raw);
+        this.img = URL.createObjectURL(file.raw);
       }
     },
     beforeAvatarUpload(file) {
@@ -63,7 +63,7 @@ export default {
   data: function() {
     return {
       dialogFormVisible: false,
-      imageUrl: "",
+      img: "",
       header: {
         token: JSON.parse(localStorage.getItem("user_info")).data.token
       },

@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="添加教程" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="更新教程" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="标题">
         <el-input v-model="form.title"></el-input>
@@ -8,31 +8,41 @@
       <el-form-item label="标签">
         <el-upload
           class="avatar-uploader"
-          action="https://jsonplaceholder.typicode.com/posts/"
+          action="/api/backend/upload"
+          :headers="header"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="form.imageUrl" :src="form.imageUrl" class="avatar" />
+          <img v-if="form.img" :src="`/api/front/static/img?url=${form.img}`" class="avatar" />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button type="primary" @click="onSubmit">更新</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
 </template>
 
 <script>
-import {} from "@/apis/backend/index";
+import { tutorial } from "@/apis/backend/index";
 export default {
   mounted() {},
   methods: {
-    onSubmit() {},
+    onSubmit() {
+      console.log("into");
+      tutorial(this.form, "PUT").then(res => {
+        if (res.data.status == true) {
+          this.dialogFormVisible = false;
+          this.$message({ message: "添加成功", type: "success" });
+        }
+      });
+    },
     handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+      this.form.img = res.data.path;
+      this.img = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
@@ -50,10 +60,13 @@ export default {
   data: function() {
     return {
       dialogFormVisible: false,
-      imageUrl: "",
+      img: "",
+      header: {
+        token: JSON.parse(localStorage.getItem("user_info")).data.token
+      },
       form: {
         title: "",
-        imageUrl: ""
+        img: ""
       }
     };
   }

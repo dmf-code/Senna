@@ -26,7 +26,7 @@
             <span>{{item['title']}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ item['updatedAt'] }}</time>
-              <el-button type="text" @click="handleEdit(index, item)" class="button">操作按钮</el-button>
+              <el-button type="text" @click="handleEdit(index, item)" class="button">更新</el-button>
             </div>
           </div>
         </el-card>
@@ -61,7 +61,9 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
+      this.$refs.img = row["img"];
       this.$refs.update.form = row;
+      console.log(row);
     }
   },
   components: {
