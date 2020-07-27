@@ -4,6 +4,7 @@ const routes = [{
         component: function () {
             return import( /* webpackChunkName: "about" */ '@/views/front/Index.vue')
         },
+
         children: [{
                 path: '/',
                 name: 'home',
@@ -19,12 +20,12 @@ const routes = [{
                 }
             },
             {
-                path: 'docs/:path',
-                name: 'docs',
+                path: '/tutorial',
+                name: 'tutorial',
                 component: function () {
-                    return import( /* webpackChunkName: "about" */ '@/views/front/pages/doc/Index')
+                    return import('@/views/front/pages/tutorial/List')
                 }
-            }
+            },
         ]
     },
     {
