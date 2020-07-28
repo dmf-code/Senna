@@ -182,6 +182,14 @@ const routes = [{
                 component: function () {
                     return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tutorial/List')
                 }
+            }, {
+                path: '/admin/tutorial/menu',
+                meta: {
+                    requireAuth: true
+                },
+                component: function () {
+                    return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tutorial/Menu')
+                }
             }, ]
         },
     ]

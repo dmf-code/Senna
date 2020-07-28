@@ -50,6 +50,10 @@ const tutorial = (data = {}, method = "GET") => {
     return http("/api/backend/tutorial/{id}", data, method)
 }
 
+const coverMenuList = (data = {}, method = "GET") => {
+    return http("/api/backend/coverMenuList")
+}
+
 export {
     admin,
     role,
@@ -62,5 +66,6 @@ export {
     roleMenu,
     roleMenuList,
     menuApiList,
-    tutorial
+    tutorial,
+    coverMenuList
 }
