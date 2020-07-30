@@ -188,7 +188,7 @@ const routes = [{
                     requireAuth: true
                 },
                 component: function () {
-                    return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tutorial/Menu')
+                    return import( /* webpackChunkName: "about" */ '@/views/admin/pages/tutorial/menu/Menu')
                 }
             }, ]
         },

@@ -9,6 +9,8 @@
         :props="defaultProps"
         default-expand-all
         :filter-node-method="filterNode"
+        :highlight-current="true"
+        @node-click="nodeClick"
         ref="tree"
       ></el-tree>
     </el-col>
@@ -23,10 +25,11 @@
 </template>
 
 <script>
-import Update from "@/views/admin/pages/menu/Update";
-import Add from "@/views/admin/pages/menu/Add";
+import Update from "@/views/admin/pages/tutorial/menu/Update";
+import Add from "@/views/admin/pages/tutorial/menu/Add";
 import treeTable from "@/components/Table/TreeTable";
 import { coverMenuList } from "@/apis/backend/index";
+
 export default {
   created: function() {
     coverMenuList().then(res => {
@@ -46,6 +49,7 @@ export default {
       tableData: null,
       table: [],
       menu: [],
+      resourceCheckedKey: [1],
       filterText: "",
       data: [{ id: -1, label: "教程", children: [] }],
       defaultProps: {
@@ -55,6 +59,12 @@ export default {
     };
   },
   methods: {
+    nodeClick(item, node, cpnt) {
+      console.log("into");
+      console.log(item);
+      console.log(node);
+      console.log(cpnt);
+    },
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
@@ -89,4 +99,17 @@ export default {
 </script>
 
 <style>
+.el-tree-node:focus > .el-tree-node__content {
+  background-color: #66b1ff87 !important;
+}
+.el-tree-node__content:hover {
+  background-color: #66b1ff87;
+}
+.el-tree--highlight-current .el-tree-node.is-current > .el-tree-node__content {
+  background-color: #66b1ff87;
+}
+
+.el-tree-node__label {
+  font-size: 16px;
+}
 </style>

@@ -22,12 +22,16 @@
               ></el-image>
             </div>
           </el-image>
-          <div style="padding: 14px;">
+          <div style="padding: 6px;">
             <span>{{item['title']}}</span>
             <div class="bottom clearfix">
               <time class="time">{{ item['updatedAt'] }}</time>
-              <el-button type="text" @click="handleEdit(index, item)" class="button">更新</el-button>
             </div>
+          </div>
+          <div style="float: right; margin-right: 10px;">
+            <el-button type="text" @click="handleEdit(index, item)">更新</el-button>
+            <el-divider direction="vertical"></el-divider>
+            <el-button type="text" @click="handleDelete(index, item)">删除</el-button>
           </div>
         </el-card>
       </el-col>
@@ -64,6 +68,13 @@ export default {
       this.$refs.img = row["img"];
       this.$refs.update.form = row;
       console.log(row);
+    },
+    handleDelete(index, row) {
+      tutorial({ id: row["id"] }, "DELETE").then(res => {
+        if (res.data.status == true) {
+          this.$router.replace("/refresh");
+        }
+      });
     }
   },
   components: {
