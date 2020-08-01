@@ -1,6 +1,10 @@
 import axios from 'axios';
 import Message from "@/utils/message";
 import router from "../router";
+import storage from "../store/storage"
+import {
+    empty
+} from "../utils/common"
 
 // 创建axios实例
 var instance = axios.create({
@@ -13,9 +17,10 @@ var instance = axios.create({
 
 //配置axios请求头
 instance.interceptors.request.use(config => {
-    let userInfo = localStorage.getItem("user_info");
+    let userInfo = storage.getItem('user_info');
+    console.log('request: ', userInfo);
     if (userInfo != '' && userInfo != null) {
-        config.headers.token = JSON.parse(localStorage.getItem('user_info')).data.token;
+        config.headers.token = userInfo.token;
     }
     return config;
 }, error => {
@@ -113,23 +118,17 @@ function patch(url) {
     })
 }
 
-function empty(obj) {
-    switch (typeof obj) {
-        case 'object':
-            if (JSON.stringify(obj) == '{}') {
-                return true;
-            } else {
-                return false;
-            }
-    }
-}
-
 //处理格式化URL（/demo/{id}）
 function render(url, data) {
     var re = /{([^]+)?}/
     var match = ''
-    // restful 处理优点 
-    let params = router.history.current.params;
+    // restful 处理优点
+    let params;
+    if (router) {
+        params = router.history.current.params;
+    } else {
+        params = null;
+    }
     // let query = router.history.query;
     if (!empty(params)) {
         for (let param in params) {

@@ -23,8 +23,6 @@ const rewriteMessage = options => {
 
 //错误提示中使用
 export default function handleError(data) {
-  console.log(data);
-  console.log(typeof data);
   if (data instanceof Error) {
     rewriteMessage.error(data.message);
   } else if (typeof data === "string") {

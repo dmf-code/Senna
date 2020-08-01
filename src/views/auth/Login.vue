@@ -61,9 +61,9 @@ export default {
             username: this.ruleForm.username,
             password: this.ruleForm.password
           }).then(res => {
-            console.log(res.data);
+            console.log("login: ", res.data);
             if (res.data.status == true) {
-              this.$store.commit("login", res.data);
+              this.$store.commit("login", res.data.data);
               this.$message({ message: "登录成功", type: "success" });
               this.$router.push({ path: "/", name: "home" });
             } else {

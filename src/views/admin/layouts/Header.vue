@@ -8,7 +8,7 @@
       </el-submenu>
 
       <el-submenu index style="float:right;">
-        <template slot="title">{{ user_info.data.user.username }}</template>
+        <template slot="title">{{ user_info.user.username }}</template>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
         <el-menu-item @click="handleLogout">退出登录</el-menu-item>
       </el-submenu>
@@ -31,7 +31,6 @@ export default {
   },
   computed: {
     ...mapState({
-      is_login: state => state.is_login,
       user_info: state => state.user_info
     })
   }
