@@ -7,7 +7,13 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user_info: storage.getItem('user_info'),
-        menus: []
+        menus: [],
+        addRouters: null
+    },
+    getters: {
+        routes: state => {
+            return state.addRouters || null;
+        },
     },
     mutations: {
         login: (state, info) => {
@@ -30,11 +36,17 @@ export default new Vuex.Store({
             } else {
                 this.openIndex.splice(idx, 1);
             }
+        },
+        generateRoutes: (state, routes) => {
+            state.addRouters = routes;
         }
     },
     actions: {
         logout(state) {
             state.commit("logout");
+        },
+        GenerateRoutes(state, routes) {
+            state.commit('generateRoutes', routes);
         }
     }
 });

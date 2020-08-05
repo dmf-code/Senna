@@ -5,7 +5,6 @@ import _import from "./_import";
 import router from "./index";
 import storage from "../store/storage";
 
-
 function dynamicRouter() {
     menuList().then(res => {
         let backendRouter;
@@ -22,7 +21,7 @@ function dynamicRouter() {
 
 function dynamicBuild(source) {
     let element = {
-        name: source.full_url,
+        name: source.full_url + source.label,
         path: source.full_url,
         component: () => _import(source.component),
     };
@@ -32,6 +31,7 @@ function dynamicBuild(source) {
         source.children.forEach(item => {
             element.children.push(dynamicBuild(item));
         });
+
         return element;
     }
 
