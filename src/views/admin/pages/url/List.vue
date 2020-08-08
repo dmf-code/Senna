@@ -69,8 +69,6 @@ export default {
       this.$refs.form.status = 1;
     },
     handleEdit(index, row) {
-      console.log(this.$refs);
-      console.log(this.$refs.update);
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.form = row;
     },

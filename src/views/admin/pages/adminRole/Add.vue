@@ -34,8 +34,6 @@ export default {
     admin().then(res => {
       if (res.data.status == true) {
         this.admins = res.data.data;
-
-        console.log(this.admins);
       } else {
         console.log("失败");
       }

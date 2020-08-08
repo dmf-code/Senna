@@ -35,8 +35,6 @@ export default {
     tutorial().then(res => {
       if (res.data.status == true) {
         this.list = res.data.data;
-        console.log(res);
-        console.log("data", this.list);
       }
     });
   },

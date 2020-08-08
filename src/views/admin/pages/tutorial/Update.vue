@@ -32,7 +32,6 @@ export default {
   mounted() {},
   methods: {
     onSubmit() {
-      console.log("into");
       tutorial(this.form, "PUT").then(res => {
         if (res.data.status == true) {
           this.dialogFormVisible = false;

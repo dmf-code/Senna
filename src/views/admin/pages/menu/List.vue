@@ -35,9 +35,7 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.menu = this.menu;
-      console.log("menu ", this.menu);
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
-      console.log("List", row);
     },
     handleDelete(index, row) {
       menu({ id: row.id }, "DELETE").then(res => {

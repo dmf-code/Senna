@@ -47,8 +47,6 @@ function isBool(obj) {
 }
 
 function isNull(obj) {
-    console.log('is_null: ', obj);
-    console.log(obj == null);
     if (obj == null) {
         return true;
     }
@@ -56,8 +54,6 @@ function isNull(obj) {
 }
 
 function isUndefined(obj) {
-    console.log('is_undefined', obj);
-    console.log(obj == undefined);
     if (obj == undefined) {
         return true;
     }

@@ -11,7 +11,6 @@ function dynamicRouter() {
     menuList().then(res => {
         let backendRouter;
         backendRouter = dynamicBuild(res.data.data[0]);
-        console.log('backend: ', backendRouter);
         storage.setItem({
             name: 'backend_router',
             value: backendRouter,
@@ -21,24 +20,14 @@ function dynamicRouter() {
     });
 }
 
-// function getViews(path) {
-//     return resolve => {
-//         require.ensure([], (require) => {
-//             resolve(require(path + '.vue'))
-//         })
-//     }
-// }
-
 function dynamicBuild(source) {
     let element = {
         name: source.label,
         path: source.full_url,
         component: source.component
-        //_import(source.component),
     };
 
     if (source.children != null) {
-        // delete element.name;
         element.children = [];
         source.children.forEach(item => {
             element.children.push(dynamicBuild(item));

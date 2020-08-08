@@ -68,9 +68,7 @@ import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {},
   watch: {
-    form: function() {
-      console.log(this.form);
-    }
+    form: function() {}
   },
   data() {
     return {
@@ -123,7 +121,6 @@ export default {
         icon: this.form.icon,
         operate_type: this.form.operate_type
       };
-      console.log(newForm);
       menu(newForm, "PUT").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "修改成功", type: "success" });

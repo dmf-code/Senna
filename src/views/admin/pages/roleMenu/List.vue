@@ -71,7 +71,6 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.form = row;
-      console.log(row);
     },
     handleDelete(index, row) {
       roleMenu({ id: row.id }, "DELETE").then(res => {

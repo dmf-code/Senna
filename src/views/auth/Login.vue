@@ -62,7 +62,6 @@ export default {
             username: this.ruleForm.username,
             password: this.ruleForm.password
           }).then(res => {
-            console.log("login: ", res.data);
             if (res.data.status == true) {
               this.$store.commit("login", res.data.data);
               dynamicRouter();

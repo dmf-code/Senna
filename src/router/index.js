@@ -37,16 +37,12 @@ export const createRouter = routes => new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-  console.log(to, from);
   if (to.path.search("/admin") != -1) {
-    var userInfo = storage.getItem('user_info');
+    let userInfo = storage.getItem('user_info');
     if (isObject(userInfo)) {
-      console.log('routes: ', store.getters.routes);
-      let backendRouter = null;
-      console.log(store.getters.routes == null || store.getters.routes.length === 0);
       if (store.getters.routes == null || store.getters.routes.length === 0) {
 
-        backendRouter = storage.getItem('backend_router');
+        let backendRouter = storage.getItem('backend_router');
         store.dispatch('GenerateRoutes', backendRouter);
 
 
@@ -54,7 +50,6 @@ router.beforeEach((to, from, next) => {
           backendRouter = [backendRouter];
         }
 
-        console.log(router);
         next({
           ...to,
           replace: true

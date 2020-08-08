@@ -48,8 +48,6 @@ export default {
     tutorial().then(res => {
       if (res.data.status == true) {
         this.list = res.data.data;
-        console.log(res);
-        console.log("data", this.list);
       }
     });
   },
@@ -67,7 +65,6 @@ export default {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.img = row["img"];
       this.$refs.update.form = row;
-      console.log(row);
     },
     handleDelete(index, row) {
       tutorial({ id: row["id"] }, "DELETE").then(res => {

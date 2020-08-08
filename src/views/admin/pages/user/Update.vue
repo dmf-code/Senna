@@ -21,7 +21,6 @@ export default {
   mounted() {
     role().then(res => {
       if (res.data.status == true) {
-        console.log(res.data.data);
         res.data.data.forEach(element => {
           this.roles.push({ value: element.id, label: element.name });
         });

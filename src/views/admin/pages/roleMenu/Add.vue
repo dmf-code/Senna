@@ -56,9 +56,7 @@ export default {
     });
   },
   methods: {
-    handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys);
-    },
+    handleChange(value, direction, movedKeys) {},
     onSubmit() {
       if (this.form.menus.length == 0) {
         this.$message({ message: "菜单不能为空", type: "alert" });

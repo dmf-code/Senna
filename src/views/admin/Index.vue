@@ -23,9 +23,7 @@ import dMenu from "@/components/Menu/Menu.vue";
 
 export default {
   name: "Admin",
-  created: function() {
-    console.log(111111);
-  },
+  created: function() {},
   data() {
     return {};
   },

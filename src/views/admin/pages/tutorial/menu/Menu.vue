@@ -33,7 +33,6 @@ import { coverMenuList } from "@/apis/backend/index";
 export default {
   created: function() {
     coverMenuList().then(res => {
-      console.log(res);
       if (res.data.status == true) {
         this.data[0].children = res.data.data;
       }
@@ -59,12 +58,7 @@ export default {
     };
   },
   methods: {
-    nodeClick(item, node, cpnt) {
-      console.log("into");
-      console.log(item);
-      console.log(node);
-      console.log(cpnt);
-    },
+    nodeClick(item, node, cpnt) {},
     filterNode(value, data) {
       if (!value) return true;
       return data.label.indexOf(value) !== -1;
@@ -75,9 +69,7 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.menu = this.menu;
-      console.log("menu ", this.menu);
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
-      console.log("List", row);
     },
     handleDelete(index, row) {
       menu({ id: row.id }, "DELETE").then(res => {

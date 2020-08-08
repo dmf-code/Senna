@@ -22,7 +22,6 @@ export {
 //配置axios请求头
 instance.interceptors.request.use(config => {
     let userInfo = storage.getItem('user_info');
-    console.log('request: ', userInfo);
     if (userInfo != '' && userInfo != null) {
         config.headers.token = userInfo.token;
     }
@@ -55,7 +54,6 @@ instance.interceptors.response.use(
                     router.push({
                         path: '/login'
                     })
-                    console.log("into error");
                     console.log(error);
                     return
             }

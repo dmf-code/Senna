@@ -53,7 +53,6 @@ export default {
     });
     role().then(res => {
       if (res.data.status == true) {
-        console.log(res.data);
       }
     });
   },

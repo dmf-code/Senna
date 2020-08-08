@@ -33,7 +33,6 @@ export default {
   methods: {
     onSubmit() {
       tutorial(this.form, "POST").then(res => {
-        console.log(res);
         if (res.data.status == true) {
           this.dialogFormVisible = false;
           this.$message({ message: "添加成功", type: "success" });
