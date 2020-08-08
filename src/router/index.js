@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Frontend from "@/router/frontend"
-import Backend from "@/router/backend"
+// import Backend from "@/router/backend"
 import storage from "../store/storage"
 import store from "../store/store"
 import {
@@ -45,17 +45,15 @@ router.beforeEach((to, from, next) => {
       let backendRouter = null;
       console.log(store.getters.routes == null || store.getters.routes.length === 0);
       if (store.getters.routes == null || store.getters.routes.length === 0) {
+
         backendRouter = storage.getItem('backend_router');
+        store.dispatch('GenerateRoutes', backendRouter);
+
+
         if (!isArray(backendRouter)) {
           backendRouter = [backendRouter];
         }
-        console.log('aaaaaaaaaaaaa', backendRouter);
-        // router.options.routes = backendRouter;
-        router.match = createRouter(backendRouter).match;
-        console.log('start', backendRouter);
-        router.addRoutes(backendRouter);
-        console.log('end', backendRouter);
-        store.dispatch('GenerateRoutes', backendRouter);
+
         console.log(router);
         next({
           ...to,

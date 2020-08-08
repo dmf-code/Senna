@@ -1,8 +1,42 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import storage from "./storage"
+import router from "../router/index";
+import {
+    isObject,
+    isNull,
+    isUndefined
+} from "../utils/common";
 
 Vue.use(Vuex);
+
+function BuildRoutes(routes) {
+    let element = {
+        name: routes.name,
+        path: routes.path,
+        component: () => import(`@/${routes.component}.vue`)
+    };
+
+    console.log(routes.name);
+    console.log(routes.path);
+    console.log(routes.component);
+    console.log(routes.children);
+
+    if (routes.component == "") {
+        delete element.component;
+    }
+
+    if (!isNull(routes.children) || !isUndefined(routes.children)) {
+        element.children = [];
+        routes.children.forEach(item => {
+            element.children.push(BuildRoutes(item));
+        });
+
+        return element;
+    }
+    console.log(element);
+    return element;
+}
 
 export default new Vuex.Store({
     state: {
@@ -39,6 +73,14 @@ export default new Vuex.Store({
         },
         generateRoutes: (state, routes) => {
             state.addRouters = routes;
+            let routers = BuildRoutes(routes);
+            console.log('generateRoutes', routers);
+            if (isObject(routers)) {
+                routers = [routers];
+            }
+            console.log('generateRoutes 2', routers);
+            router.addRoutes(routers);
+            // router.match = createRouter(routers).match;
         }
     },
     actions: {

@@ -47,14 +47,18 @@ function isBool(obj) {
 }
 
 function isNull(obj) {
-    if (obj instanceof null) {
+    console.log('is_null: ', obj);
+    console.log(obj == null);
+    if (obj == null) {
         return true;
     }
     return false;
 }
 
 function isUndefined(obj) {
-    if (obj instanceof undefined) {
+    console.log('is_undefined', obj);
+    console.log(obj == undefined);
+    if (obj == undefined) {
         return true;
     }
     return false;

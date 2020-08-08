@@ -3,11 +3,9 @@ import {
 } from "@/apis/backend/index"
 import _import from "./_import";
 import router from "./index";
-import {
-    createRouter
-} from './index'
 import storage from "../store/storage";
 import FrontEnd from "./frontend"
+import store from "../store/store";
 
 function dynamicRouter() {
     menuList().then(res => {
@@ -19,8 +17,7 @@ function dynamicRouter() {
             value: backendRouter,
             expires: new Date().getTime() + 60 * 60 * 1000
         });
-        router.match = createRouter([backendRouter.concat(FrontEnd)]).match;
-        router.addRoutes([backendRouter]);
+        store.dispatch('GenerateRoutes', backendRouter)
     });
 }
 
@@ -36,7 +33,8 @@ function dynamicBuild(source) {
     let element = {
         name: source.label,
         path: source.full_url,
-        component: _import(source.component),
+        component: source.component
+        //_import(source.component),
     };
 
     if (source.children != null) {

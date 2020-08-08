@@ -7,7 +7,6 @@
           <dMenu></dMenu>
         </el-aside>
         <el-main id="main">
-          11111
           <router-view></router-view>
         </el-main>
       </el-container>
@@ -24,6 +23,9 @@ import dMenu from "@/components/Menu/Menu.vue";
 
 export default {
   name: "Admin",
+  created: function() {
+    console.log(111111);
+  },
   data() {
     return {};
   },
