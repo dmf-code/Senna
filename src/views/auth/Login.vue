@@ -29,6 +29,7 @@
 
 <script>
 import { login } from "@/apis/frontend/index";
+import dynamicRouter from "@/router/backend";
 export default {
   data() {
     return {
@@ -64,6 +65,7 @@ export default {
             console.log("login: ", res.data);
             if (res.data.status == true) {
               this.$store.commit("login", res.data.data);
+              dynamicRouter();
               this.$message({ message: "登录成功", type: "success" });
               this.$router.push({ path: "/", name: "home" });
             } else {

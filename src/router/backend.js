@@ -3,7 +3,11 @@ import {
 } from "@/apis/backend/index"
 import _import from "./_import";
 import router from "./index";
+import {
+    createRouter
+} from './index'
 import storage from "../store/storage";
+import FrontEnd from "./frontend"
 
 function dynamicRouter() {
     menuList().then(res => {
@@ -15,18 +19,28 @@ function dynamicRouter() {
             value: backendRouter,
             expires: new Date().getTime() + 60 * 60 * 1000
         });
+        router.match = createRouter([backendRouter.concat(FrontEnd)]).match;
         router.addRoutes([backendRouter]);
     });
 }
 
+// function getViews(path) {
+//     return resolve => {
+//         require.ensure([], (require) => {
+//             resolve(require(path + '.vue'))
+//         })
+//     }
+// }
+
 function dynamicBuild(source) {
     let element = {
-        name: source.full_url + source.label,
+        name: source.label,
         path: source.full_url,
-        component: () => _import(source.component),
+        component: _import(source.component),
     };
 
     if (source.children != null) {
+        // delete element.name;
         element.children = [];
         source.children.forEach(item => {
             element.children.push(dynamicBuild(item));

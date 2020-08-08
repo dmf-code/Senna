@@ -28,31 +28,35 @@ const router = new VueRouter({
   routes
 })
 
+// 定义一个函数来创建router
+export const createRouter = routes => new VueRouter({
+  mode: 'history',
+  base: process.env.BASE_URL,
+  routes
+});
 
 router.beforeEach((to, from, next) => {
 
+  console.log(to, from);
   if (to.path.search("/admin") != -1) {
     var userInfo = storage.getItem('user_info');
-    console.log(isObject(userInfo));
     if (isObject(userInfo)) {
       console.log('routes: ', store.getters.routes);
+      let backendRouter = null;
+      console.log(store.getters.routes == null || store.getters.routes.length === 0);
       if (store.getters.routes == null || store.getters.routes.length === 0) {
-        let backendRouter = storage.getItem('backend_router');
-        if (backendRouter == null) {
-          backendRouter = Backend();
-        } else {
-          console.log('backend_router: ', backendRouter);
-          if (!isArray(backendRouter)) {
-            backendRouter = [backendRouter];
-          }
-          router.addRoutes(backendRouter);
-          router.addRoutes([{
-            path: '*',
-            redirect: '/404',
-            hidden: true
-          }]);
+        backendRouter = storage.getItem('backend_router');
+        if (!isArray(backendRouter)) {
+          backendRouter = [backendRouter];
         }
+        console.log('aaaaaaaaaaaaa', backendRouter);
+        // router.options.routes = backendRouter;
+        router.match = createRouter(backendRouter).match;
+        console.log('start', backendRouter);
+        router.addRoutes(backendRouter);
+        console.log('end', backendRouter);
         store.dispatch('GenerateRoutes', backendRouter);
+        console.log(router);
         next({
           ...to,
           replace: true
@@ -66,5 +70,16 @@ router.beforeEach((to, from, next) => {
   }
   next();
 });
+
+
+/* 路由异常错误处理，尝试解析一个异步组件时发生错误，重新渲染目标页面 */
+// router.onError((error) => {
+//   const pattern = /Loading chunk (\d)+ failed/g;
+//   const isChunkLoadFailed = error.message.match(pattern);
+//   const targetPath = router.history.pending.fullPath;
+//   if (isChunkLoadFailed) {
+//     router.replace(targetPath);
+//   }
+// });
 
 export default router

@@ -15,6 +15,10 @@ var instance = axios.create({
 // axios.defaults.timeout = 10000
 
 
+export {
+    instance
+}
+
 //配置axios请求头
 instance.interceptors.request.use(config => {
     let userInfo = storage.getItem('user_info');

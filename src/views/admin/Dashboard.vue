@@ -11,6 +11,7 @@ export default {
     //   console.log(res);
     //   this.env = res.data.data;
     // });
+    console.log("dashboard", this.router);
   },
   data() {
     return {
