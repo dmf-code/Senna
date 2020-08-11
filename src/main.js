@@ -8,6 +8,8 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import store from './store/store';
 import router from './router';
+import * as backend from '@/apis/backend/index'
+import * as frontend from '@/apis/frontend/index'
 
 Vue.use(ElementUI);
 Vue.use(mavonEditor);
@@ -16,6 +18,10 @@ Vue.config.productionTip = false
 
 Vue.prototype.$store = store;
 Vue.prototype.$message = ElementUI.Message;
+Vue.prototype.$api = {
+  backend,
+  frontend
+}
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8081'
 

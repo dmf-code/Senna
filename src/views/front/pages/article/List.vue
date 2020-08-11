@@ -13,7 +13,7 @@
           <div style="text-align: left;margin: 0.25em 1em;">
             <b>
               <i class="el-icon-folder"></i>
-              {{ item.categoryIds }}
+              {{ category[item.categoryIds] }}
             </b>
             <b>
               <i class="el-icon-date"></i>
@@ -32,15 +32,24 @@
 
 <script>
 export default {
+  created: function() {
+    this.$api.backend.category().then(res => {
+      console.log(res);
+      res.data.data.forEach(element => {
+        this.category[element["id"]] = element["name"];
+      });
+    });
+  },
   props: ["items"],
   data: function() {
-    return {};
+    return {
+      category: []
+    };
   },
   methods: {
     jump($item) {
       this.$router.push({
-        path: "/article/" + $item.id,
-        query: { id: $item.id }
+        path: "/article/" + $item.id
       });
     }
   }
