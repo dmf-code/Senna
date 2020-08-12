@@ -60,7 +60,7 @@ export default {
       dialogFormVisible: false,
       img: "",
       header: {
-        token: JSON.parse(localStorage.getItem("user_info")).data.token
+        token: this.$storage.getItem("user_info").token
       },
       form: {
         title: "",

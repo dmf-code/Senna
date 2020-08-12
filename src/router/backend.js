@@ -3,12 +3,13 @@ import {
 } from "@/apis/backend/index"
 import _import from "./_import";
 import store from "../store/store";
+import storage from "../store/storage"
 
 function dynamicRouter() {
     menuList().then(res => {
         let backendRouter;
         backendRouter = dynamicBuild(res.data.data[0]);
-        this.$storage.setItem({
+        storage.setItem({
             name: 'backend_router',
             value: backendRouter,
             expires: new Date().getTime() + 60 * 60 * 1000
