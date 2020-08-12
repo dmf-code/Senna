@@ -49,10 +49,9 @@
 <script>
 import Update from "@/views/admin/pages/adminRole/Update";
 import Add from "@/views/admin/pages/adminRole/Add";
-import { adminRole } from "@/apis/backend/index";
 export default {
   created() {
-    adminRole().then(response => {
+    this.$api.backend.adminRole().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -74,7 +73,7 @@ export default {
       console.log(row);
     },
     handleDelete(index, row) {
-      adminRole({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.adminRole({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

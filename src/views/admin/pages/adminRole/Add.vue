@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { admin, role, adminRole } from "@/apis/backend/index";
 export default {
   mounted() {
-    admin().then(res => {
+    this.$api.backend.admin().then(res => {
       if (res.data.status == true) {
         this.admins = res.data.data;
       } else {
@@ -39,7 +38,7 @@ export default {
       }
     });
 
-    role().then(res => {
+    this.$api.backend.role().then(res => {
       if (res.data.status == true) {
         let roles = res.data.data;
         roles.forEach(element => {
@@ -54,7 +53,7 @@ export default {
   watch: {
     "form.admin_id": {
       handler(admin_id, oldval) {
-        adminRole({ admin_id: admin_id }).then(res => {
+        this.$api.backend.adminRole({ admin_id: admin_id }).then(res => {
           if (res.data.status == true) {
             this.form.roles = res.data.data ? res.data.data : [];
             console.log("this.form.roles", this.form.roles);
@@ -65,9 +64,7 @@ export default {
     }
   },
   methods: {
-    handleChange(value, direction, movedKeys) {
-      console.log(value, direction, movedKeys);
-    },
+    handleChange(value, direction, movedKeys) {},
     onSubmit() {
       if (this.form.admin_id == null) {
         this.$message({ message: "用户不能为空", type: "alert" });
@@ -77,21 +74,23 @@ export default {
         this.$message({ message: "角色不能为空", type: "alert" });
         return;
       }
-      adminRole(
-        {
-          admin_id: this.form.admin_id,
-          role_id: this.form.roles.join(",")
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .adminRole(
+          {
+            admin_id: this.form.admin_id,
+            role_id: this.form.roles.join(",")
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     },
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;

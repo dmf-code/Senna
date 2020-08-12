@@ -10,7 +10,7 @@
 import { getArticle } from "@/apis/frontend/index";
 export default {
   created: function() {
-    getArticle().then(res => {
+    this.$api.frontend.getArticle().then(res => {
       if (res.data.status == true) {
         this.item = res.data.data;
       }

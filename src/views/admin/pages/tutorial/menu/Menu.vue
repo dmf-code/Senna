@@ -32,7 +32,7 @@ import { coverMenuList } from "@/apis/backend/index";
 
 export default {
   created: function() {
-    coverMenuList().then(res => {
+    this.$api.backend.coverMenuList().then(res => {
       if (res.data.status == true) {
         this.data[0].children = res.data.data;
       }
@@ -72,7 +72,7 @@ export default {
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
     },
     handleDelete(index, row) {
-      menu({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.menu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });

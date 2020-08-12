@@ -22,12 +22,10 @@
 </template>
 
 <script>
-import { admin, role } from "@/apis/backend/index";
 export default {
   mounted: function() {
-    role().then(res => {
+    this.$api.backend.role().then(res => {
       if (res.data.status == true) {
-        console.log(res.data.data);
         res.data.data.forEach(element => {
           this.roles.push({ value: element.id, label: element.name });
         });
@@ -40,22 +38,24 @@ export default {
         this.$message({ message: "密码不一致", type: "alert" });
         return;
       }
-      admin(
-        {
-          username: this.form.username,
-          password: this.form.password,
-          rolesId: this.form.roles_id.join(",")
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .admin(
+          {
+            username: this.form.username,
+            password: this.form.password,
+            rolesId: this.form.roles_id.join(",")
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     }
   },
   data: function() {

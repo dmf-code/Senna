@@ -121,7 +121,7 @@ export default {
         icon: this.form.icon,
         operate_type: this.form.operate_type
       };
-      menu(newForm, "PUT").then(res => {
+      this.$api.backend.menu(newForm, "PUT").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "修改成功", type: "success" });
           this.dialogFormVisible = false;

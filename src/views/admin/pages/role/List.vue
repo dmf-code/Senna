@@ -52,7 +52,7 @@ import Add from "@/views/admin/pages/role/Add";
 import { role, roleMenuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    this.axios.get("/api/backend/role").then(response => {
+    this.$api.backend.role().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -69,21 +69,19 @@ export default {
       this.$refs.add.dialogFormVisible = true;
     },
     handleEdit(index, row) {
-      roleMenuList(
-        "/api/backend/roleMenuList?roleId=" + row.id,
-        {},
-        "GET"
-      ).then(res => {
-        this.$refs.update.form = row;
-        this.$refs.update.form.menus = [];
-        this.$refs.update.dialogFormVisible = true;
-        res.data.data.forEach(element => {
-          this.$refs.update.form.menus.push(element.MenuId);
+      this.$api.backend
+        .roleMenuList("/api/backend/roleMenuList?roleId=" + row.id, {}, "GET")
+        .then(res => {
+          this.$refs.update.form = row;
+          this.$refs.update.form.menus = [];
+          this.$refs.update.dialogFormVisible = true;
+          res.data.data.forEach(element => {
+            this.$refs.update.form.menus.push(element.MenuId);
+          });
         });
-      });
     },
     handleDelete(index, row) {
-      role({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.role({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

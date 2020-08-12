@@ -36,11 +36,9 @@
 import Update from "@/views/admin/pages/category/Update";
 import Add from "@/views/admin/pages/category/Add";
 
-import { category } from "@/apis/backend/index";
-
 export default {
   mounted() {
-    category().then(response => {
+    this.$api.backend.category().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -61,7 +59,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      category({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.category({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

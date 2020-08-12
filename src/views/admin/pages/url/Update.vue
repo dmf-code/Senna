@@ -37,13 +37,15 @@ export default {
   methods: {
     summit() {
       this.dialogFormVisible = false;
-      menu({ id: this.form.id, name: this.form.name }, "PUT").then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "修改成功", type: "success" });
-        } else {
-          this.$message.error("修改失败");
-        }
-      });
+      this.$api.backend
+        .menu({ id: this.form.id, name: this.form.name }, "PUT")
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "修改成功", type: "success" });
+          } else {
+            this.$message.error("修改失败");
+          }
+        });
     }
   }
 };

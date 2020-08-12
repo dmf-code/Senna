@@ -32,17 +32,16 @@
 </template>
 
 <script>
-import { article, category, tag } from "@/apis/backend/index";
 export default {
   mounted() {
-    category().then(res => {
+    this.$api.backend.category().then(res => {
       if (res.data.status == true) {
         this.form.categorys = res.data.data;
       } else {
         this.form.categorys = [];
       }
     });
-    tag().then(res => {
+    this.$api.backend.tag().then(res => {
       if (res.data.status == true) {
         this.form.tags = res.data.data;
       } else {
@@ -56,22 +55,24 @@ export default {
       this.form.htmlCode = render;
     },
     onSubmit() {
-      article(
-        {
-          title: this.form.title,
-          categoryIds: this.form.checkedCategorys.toString(),
-          tagIds: this.form.checkedTags.toString(),
-          mdCode: this.form.mdCode,
-          htmlCode: this.form.htmlCode
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .article(
+          {
+            title: this.form.title,
+            categoryIds: this.form.checkedCategorys.toString(),
+            tagIds: this.form.checkedTags.toString(),
+            mdCode: this.form.mdCode,
+            htmlCode: this.form.htmlCode
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     }
   },
   data: function() {

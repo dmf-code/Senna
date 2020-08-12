@@ -14,7 +14,6 @@
 
 
 <script>
-import { category } from "@/apis/backend/index";
 export default {
   data() {
     return {
@@ -26,20 +25,22 @@ export default {
   },
   methods: {
     onSubmit() {
-      category(
-        {
-          name: this.form.name
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .category(
+          {
+            name: this.form.name
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     }
   }
 };

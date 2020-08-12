@@ -28,10 +28,9 @@
 </template>
 
 <script>
-import { role, menu, adminRole } from "@/apis/backend/index";
 export default {
   mounted() {
-    role().then(res => {
+    this.$api.backend.role().then(res => {
       if (res.data.status == true) {
         this.roles = res.data.data;
       } else {
@@ -53,21 +52,23 @@ export default {
   methods: {
     handleChange(value, direction, movedKeys) {},
     onSubmit() {
-      adminRole(
-        {
-          role_id: this.form.role_id,
-          menu_id: this.form.menus.join(",")
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .adminRole(
+          {
+            role_id: this.form.role_id,
+            menu_id: this.form.menus.join(",")
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     },
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;

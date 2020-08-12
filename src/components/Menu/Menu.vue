@@ -6,7 +6,6 @@
 
 <script>
 import SubMenu from "@/components/Menu/SubMenu.vue";
-import { menuList } from "@/apis/backend/index";
 export default {
   computed: {
     menusVuex() {
@@ -14,7 +13,7 @@ export default {
     }
   },
   mounted() {
-    menuList().then(res => {
+    this.$api.backend.menuList().then(res => {
       this.menus = res.data.data[0].children;
     });
   },

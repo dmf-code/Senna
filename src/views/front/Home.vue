@@ -8,10 +8,9 @@
 
 <script>
 import articleList from "@/views/front/pages/article/List";
-import { getArticleList } from "@/apis/frontend/index.js";
 export default {
   created: function() {
-    getArticleList().then(res => {
+    this.$api.frontend.getArticleList().then(res => {
       if (res.data.status == true) {
         this.items = res.data.data;
       }

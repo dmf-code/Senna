@@ -43,15 +43,14 @@
 <script>
 import Update from "@/views/admin/pages/user/Update";
 import Add from "@/views/admin/pages/user/Add";
-import { admin, role } from "@/apis/backend/index";
 export default {
   mounted() {
-    admin().then(response => {
+    this.$api.backend.admin().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
     });
-    role().then(res => {
+    this.$api.backend.role().then(res => {
       if (res.data.status == true) {
       }
     });
@@ -72,7 +71,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      admin({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.admin({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

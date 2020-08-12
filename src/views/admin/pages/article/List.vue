@@ -43,10 +43,10 @@
 <script>
 import Update from "@/views/admin/pages/article/Update";
 import Add from "@/views/admin/pages/article/Add";
-import { article } from "@/apis/backend/index";
+
 export default {
   mounted() {
-    article().then(response => {
+    this.$api.backend.article().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -69,7 +69,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      article({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.article({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

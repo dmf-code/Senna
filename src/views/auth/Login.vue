@@ -58,19 +58,21 @@ export default {
       this.$refs.ruleForm.validate(valid => {
         if (valid) {
           this.logining = true;
-          login({
-            username: this.ruleForm.username,
-            password: this.ruleForm.password
-          }).then(res => {
-            if (res.data.status == true) {
-              this.$store.commit("login", res.data.data);
-              dynamicRouter();
-              this.$message({ message: "登录成功", type: "success" });
-              this.$router.push({ path: "/", name: "home" });
-            } else {
-              this.$message.error("登录失败");
-            }
-          });
+          this.$api.frontend
+            .login({
+              username: this.ruleForm.username,
+              password: this.ruleForm.password
+            })
+            .then(res => {
+              if (res.data.status == true) {
+                this.$store.commit("login", res.data.data);
+                dynamicRouter();
+                this.$message({ message: "登录成功", type: "success" });
+                this.$router.push({ path: "/", name: "home" });
+              } else {
+                this.$message.error("登录失败");
+              }
+            });
           this.logining = false;
         } else {
           this.$message.error("登录失败");

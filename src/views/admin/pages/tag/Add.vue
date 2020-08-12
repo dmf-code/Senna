@@ -14,7 +14,6 @@
 
 
 <script>
-import { tag } from "@/apis/backend/index";
 export default {
   data() {
     return {
@@ -27,19 +26,21 @@ export default {
   methods: {
     onSubmit() {
       this.dialogFormVisible = false;
-      tag(
-        {
-          name: this.form.name
-        },
-        "POST"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .tag(
+          {
+            name: this.form.name
+          },
+          "POST"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     }
   }
 };

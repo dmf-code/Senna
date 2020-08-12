@@ -29,10 +29,9 @@
 </template>
 
 <script>
-import { tutorial } from "@/apis/backend/index";
 export default {
   created: function() {
-    tutorial().then(res => {
+    this.$api.frontend.tutorial().then(res => {
       if (res.data.status == true) {
         this.list = res.data.data;
       }
