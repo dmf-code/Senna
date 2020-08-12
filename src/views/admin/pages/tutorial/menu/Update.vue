@@ -64,7 +64,6 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
-import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {},
   watch: {

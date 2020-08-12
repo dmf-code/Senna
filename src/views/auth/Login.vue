@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import { login } from "@/apis/frontend/index";
 import dynamicRouter from "@/router/backend";
 export default {
   data() {

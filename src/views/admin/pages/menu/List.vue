@@ -12,10 +12,9 @@
 import Update from "@/views/admin/pages/menu/Update";
 import Add from "@/views/admin/pages/menu/Add";
 import treeTable from "@/components/Table/TreeTable";
-import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    menuList().then(res => {
+    this.$api.backend.menuList().then(res => {
       this.menu = res.data.data;
       this.table = res.data.data[0].children;
     });
@@ -38,7 +37,7 @@ export default {
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
     },
     handleDelete(index, row) {
-      menu({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.menu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });

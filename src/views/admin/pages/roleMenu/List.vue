@@ -49,10 +49,9 @@
 <script>
 import Update from "@/views/admin/pages/roleMenu/Update";
 import Add from "@/views/admin/pages/roleMenu/Add";
-import { roleMenu } from "@/apis/backend/index";
 export default {
   created() {
-    roleMenu().then(response => {
+    this.$api.backend.roleMenu().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -73,7 +72,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      roleMenu({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.roleMenu({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

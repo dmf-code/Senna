@@ -184,7 +184,6 @@ export function http(url = '', data = {}, method = "GET") {
     }
     return fetch(options)
         .catch(error => {
-            console.log("eereeerreerer")
             console.log(error)
             throw error
         })

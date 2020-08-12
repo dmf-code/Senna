@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import { role, menu, roleMenu } from "@/apis/backend/index";
 export default {
   mounted() {
     this.$api.backend.role().then(res => {

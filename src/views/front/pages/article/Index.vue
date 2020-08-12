@@ -7,7 +7,6 @@
 </template>
 
 <script>
-import { getArticle } from "@/apis/frontend/index";
 export default {
   created: function() {
     this.$api.frontend.getArticle().then(res => {

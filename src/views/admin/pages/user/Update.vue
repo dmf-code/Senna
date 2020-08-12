@@ -16,10 +16,9 @@
 </template>
 
 <script>
-import { admin, role } from "@/apis/backend/index";
 export default {
   mounted() {
-    role().then(res => {
+    this.$api.backend.role().then(res => {
       if (res.data.status == true) {
         res.data.data.forEach(element => {
           this.roles.push({ value: element.id, label: element.name });
@@ -43,7 +42,7 @@ export default {
     onSubmit() {
       let newForm = this.form;
       newForm.role_ids = newForm.role_ids.join(",");
-      admin(newForm, "PUT").then(res => {
+      this.$api.backend.admin(newForm, "PUT").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = true;

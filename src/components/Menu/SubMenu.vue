@@ -34,7 +34,6 @@ export default {
   props: ["menus", "parent"],
   methods: {
     opends: function(index) {
-      console.log(index);
       this.$store.commit("menu", index);
     }
   }

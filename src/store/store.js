@@ -17,11 +17,6 @@ function BuildRoutes(routes) {
         component: () => import(`@/${routes.component}.vue`)
     };
 
-    console.log(routes.name);
-    console.log(routes.path);
-    console.log(routes.component);
-    console.log(routes.children);
-
     if (routes.component == "") {
         delete element.component;
     }
@@ -34,7 +29,7 @@ function BuildRoutes(routes) {
 
         return element;
     }
-    console.log(element);
+
     return element;
 }
 
@@ -52,7 +47,6 @@ export default new Vuex.Store({
     mutations: {
         login: (state, info) => {
             state.user_info = info;
-            console.log(info);
 
             storage.setItem({
                 name: 'user_info',
@@ -74,11 +68,9 @@ export default new Vuex.Store({
         generateRoutes: (state, routes) => {
             state.addRouters = routes;
             let routers = BuildRoutes(routes);
-            console.log('generateRoutes', routers);
             if (isObject(routers)) {
                 routers = [routers];
             }
-            console.log('generateRoutes 2', routers);
             router.addRoutes(routers);
             // router.match = createRouter(routers).match;
         }

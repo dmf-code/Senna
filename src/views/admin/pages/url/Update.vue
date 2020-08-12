@@ -21,7 +21,6 @@
 </template>
 
 <script>
-import { menu } from "@/apis/backend/index";
 export default {
   data() {
     return {

@@ -35,10 +35,9 @@
 <script>
 import Update from "@/views/admin/pages/tag/Update";
 import Add from "@/views/admin/pages/tag/Add";
-import { tag } from "@/apis/backend/index";
 export default {
   mounted() {
-    tag().then(response => {
+    this.$api.backend.tag().then(response => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -59,7 +58,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      tag({ id: row.id }, "DELETE").then(res => {
+      this.$api.backend.tag({ id: row.id }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");

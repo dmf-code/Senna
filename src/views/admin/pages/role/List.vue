@@ -49,7 +49,6 @@
 <script>
 import Update from "@/views/admin/pages/role/Update";
 import Add from "@/views/admin/pages/role/Add";
-import { role, roleMenuList } from "@/apis/backend/index";
 export default {
   mounted() {
     this.$api.backend.role().then(response => {

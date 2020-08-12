@@ -16,7 +16,6 @@ class Storage {
         let options = {};
         //将obj和传进来的params合并
         Object.assign(options, obj, params);
-        console.log('setItem: ', options);
         if (options.expires) {
             //如果options.expires设置了的话
             //以options.name为key，options为值放进去

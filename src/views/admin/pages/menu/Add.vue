@@ -57,10 +57,9 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
-import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    menuList().then(res => {
+    this.$api.backend.menuList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -102,7 +101,7 @@ export default {
       let form = this.form;
       form.status = Number(form.status);
       form.parent_id = form.parent_id.pop();
-      menu(form, "POST").then(res => {
+      this.$api.backend.menu(form, "POST").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = false;

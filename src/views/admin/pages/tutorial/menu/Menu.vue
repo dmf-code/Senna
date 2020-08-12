@@ -28,7 +28,6 @@
 import Update from "@/views/admin/pages/tutorial/menu/Update";
 import Add from "@/views/admin/pages/tutorial/menu/Add";
 import treeTable from "@/components/Table/TreeTable";
-import { coverMenuList } from "@/apis/backend/index";
 
 export default {
   created: function() {

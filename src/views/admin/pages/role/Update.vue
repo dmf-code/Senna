@@ -24,11 +24,10 @@
 </template>
 
 <script>
-import { role, menuApiList } from "@/apis/backend/index";
 export default {
   created() {},
   mounted: function() {
-    menuApiList().then(res => {
+    this.$api.backend.menuApiList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -47,23 +46,25 @@ export default {
   },
   methods: {
     onSubmit() {
-      role(
-        {
-          id: this.form.id,
-          name: this.form.name,
-          memo: this.form.memo,
-          menus: this.form.menus.join(",")
-        },
-        "PUT"
-      ).then(res => {
-        if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
-          this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
-        } else {
-          this.$message.error("添加失败");
-        }
-      });
+      this.$api.backend
+        .role(
+          {
+            id: this.form.id,
+            name: this.form.name,
+            memo: this.form.memo,
+            menus: this.form.menus.join(",")
+          },
+          "PUT"
+        )
+        .then(res => {
+          if (res.data.status == true) {
+            this.$message({ message: "添加成功", type: "success" });
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
+          } else {
+            this.$message.error("添加失败");
+          }
+        });
     }
   }
 };

@@ -42,10 +42,9 @@
 <script>
 import Add from "@/views/admin/pages/tutorial/Add";
 import Update from "@/views/admin/pages/tutorial/Update";
-import { tutorial } from "@/apis/backend/index";
 export default {
   created: function() {
-    tutorial().then(res => {
+    this.$api.backend.tutorial().then(res => {
       if (res.data.status == true) {
         this.list = res.data.data;
       }
@@ -67,7 +66,7 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      tutorial({ id: row["id"] }, "DELETE").then(res => {
+      this.$api.backend.tutorial({ id: row["id"] }, "DELETE").then(res => {
         if (res.data.status == true) {
           this.$router.replace("/refresh");
         }

@@ -46,10 +46,9 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
-import { menu, menuList } from "@/apis/backend/index";
 export default {
   mounted() {
-    menuList().then(res => {
+    this.$api.backend.menuList().then(res => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -95,7 +94,7 @@ export default {
       form.status = Number(form.status);
       form.parent_id = 0;
       form.component = "";
-      menu(form, "POST").then(res => {
+      this.$api.backend.menu(form, "POST").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.$router.replace("/refresh");

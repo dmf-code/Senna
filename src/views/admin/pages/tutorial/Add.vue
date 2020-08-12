@@ -27,12 +27,11 @@
 </template>
 
 <script>
-import { tutorial } from "@/apis/backend/index";
 export default {
   mounted() {},
   methods: {
     onSubmit() {
-      tutorial(this.form, "POST").then(res => {
+      this.$api.backend.tutorial(this.form, "POST").then(res => {
         if (res.data.status == true) {
           this.dialogFormVisible = false;
           this.$message({ message: "添加成功", type: "success" });
@@ -64,7 +63,7 @@ export default {
       dialogFormVisible: false,
       img: "",
       header: {
-        token: JSON.parse(localStorage.getItem("user_info")).data.token
+        token: JSON.parse(localStorage.getItem("user_info")).token
       },
       form: {
         title: "",

@@ -10,6 +10,7 @@ import store from './store/store';
 import router from './router';
 import * as backend from '@/apis/backend/index'
 import * as frontend from '@/apis/frontend/index'
+import storage from '@/store/storage'
 
 Vue.use(ElementUI);
 Vue.use(mavonEditor);
@@ -22,6 +23,8 @@ Vue.prototype.$api = {
   backend,
   frontend
 }
+
+Vue.prototype.$storage = storage;
 
 // axios.defaults.baseURL = 'http://127.0.0.1:8081'
 

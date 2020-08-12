@@ -27,12 +27,11 @@
 </template>
 
 <script>
-import { tutorial } from "@/apis/backend/index";
 export default {
   mounted() {},
   methods: {
     onSubmit() {
-      tutorial(this.form, "PUT").then(res => {
+      this.$api.backend.tutorial(this.form, "PUT").then(res => {
         if (res.data.status == true) {
           this.dialogFormVisible = false;
           this.$message({ message: "添加成功", type: "success" });
