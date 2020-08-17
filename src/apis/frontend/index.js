@@ -39,6 +39,10 @@ export {
 
 // 教程接口
 
-const getTutorial = () => {
-    return http("/api/front/tutorial/{id}")
+const tutorial = (data = {}, method = "GET") => {
+    return http("/api/front/tutorial/{id}", data, method)
+}
+
+export {
+    tutorial
 }

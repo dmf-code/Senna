@@ -51,7 +51,11 @@ const tutorial = (data = {}, method = "GET") => {
 }
 
 const coverMenuList = (data = {}, method = "GET") => {
-    return http("/api/backend/coverMenuList")
+    return http("/api/backend/coverMenuList", data, method)
+}
+
+const tutorialList = (data = {}, method = "GET") => {
+    return http("/api/backend/tutorialList/{pid}", data, method)
 }
 
 export {
@@ -67,5 +71,6 @@ export {
     roleMenuList,
     menuApiList,
     tutorial,
-    coverMenuList
+    coverMenuList,
+    tutorialList
 }

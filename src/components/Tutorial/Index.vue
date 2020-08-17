@@ -1,6 +1,8 @@
 <template>
   <el-row>
-    <el-col></el-col>
+    <el-col>
+      <Menu></Menu>
+    </el-col>
     <el-col>
       <router-view></router-view>
     </el-col>
@@ -8,7 +10,12 @@
 </template>
 
 <script>
-export default {};
+import Menu from "./Menu/Menu";
+export default {
+  components: {
+    Menu
+  }
+};
 </script>
 
 <style>

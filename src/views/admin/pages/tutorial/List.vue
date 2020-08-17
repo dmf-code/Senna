@@ -6,6 +6,7 @@
     <el-row>
       <Add ref="add"></Add>
       <Update ref="update"></Update>
+      <TMenu ref="menu"></TMenu>
       <el-col :span="4" v-for="(item, index) in this.list" :key="index" style="padding: 1em;">
         <el-card :body-style="{ padding: '0px' }">
           <el-image
@@ -29,6 +30,8 @@
             </div>
           </div>
           <div style="float: right; margin-right: 10px;">
+            <el-button type="text" @click="handleMenu(index, item)">菜单</el-button>
+            <el-divider direction="vertical"></el-divider>
             <el-button type="text" @click="handleEdit(index, item)">更新</el-button>
             <el-divider direction="vertical"></el-divider>
             <el-button type="text" @click="handleDelete(index, item)">删除</el-button>
@@ -42,11 +45,13 @@
 <script>
 import Add from "@/views/admin/pages/tutorial/Add";
 import Update from "@/views/admin/pages/tutorial/Update";
+import TMenu from "@/views/admin/pages/tutorial/Menu";
 export default {
   created: function() {
     this.$api.backend.tutorial().then(res => {
       if (res.data.status == true) {
         this.list = res.data.data;
+        console.log(this.list);
       }
     });
   },
@@ -71,11 +76,16 @@ export default {
           this.$router.replace("/refresh");
         }
       });
+    },
+    handleMenu(index, row) {
+      this.$refs.menu.dialogFormVisible = true;
+      console.log(row);
     }
   },
   components: {
     Add,
-    Update
+    Update,
+    TMenu
   }
 };
 </script>
