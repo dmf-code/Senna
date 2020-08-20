@@ -6,7 +6,7 @@
     <el-row>
       <Add ref="add"></Add>
       <Update ref="update"></Update>
-      <TMenu ref="menu"></TMenu>
+      <TMenuList ref="menuList"></TMenuList>
       <el-col :span="4" v-for="(item, index) in this.list" :key="index" style="padding: 1em;">
         <el-card :body-style="{ padding: '0px' }">
           <el-image
@@ -45,7 +45,7 @@
 <script>
 import Add from "@/views/admin/pages/tutorial/Add";
 import Update from "@/views/admin/pages/tutorial/Update";
-import TMenu from "@/views/admin/pages/tutorial/Menu";
+import TMenuList from "@/views/admin/pages/tutorial/MenuList";
 export default {
   created: function() {
     this.$api.backend.tutorial().then(res => {
@@ -78,14 +78,15 @@ export default {
       });
     },
     handleMenu(index, row) {
-      this.$refs.menu.dialogFormVisible = true;
+      this.$refs.menuList.outerVisible = true;
+      this.$refs.menuList.init(row);
       console.log(row);
     }
   },
   components: {
     Add,
     Update,
-    TMenu
+    TMenuList
   }
 };
 </script>

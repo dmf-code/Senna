@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true" fullscreen="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="父级菜单">
         <el-cascader
@@ -15,7 +15,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
-        <el-input v-model="form.name"></el-input>
+        <el-input v-model="form.title"></el-input>
+      </el-form-item>
+      <el-form-item label="内容" v-if="form.type == 2">
+        <mavon-editor v-model="form.mdCode" :ishljs="true" @change="edit"></mavon-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -29,13 +32,7 @@
 <script>
 import iconSelect from "@/components/Icon/Index";
 export default {
-  mounted() {
-    this.$api.backend.menuList().then(res => {
-      if (res.data.status == true) {
-        this.menu = res.data.data;
-      }
-    });
-  },
+  mounted() {},
   data() {
     return {
       dialogFormVisible: false,
@@ -52,8 +49,10 @@ export default {
         { id: "del", name: "删除" }
       ],
       form: {
+        htmlCode: "",
+        mdCode: "",
         status: 1,
-        name: "",
+        title: "",
         url: "",
         memo: "",
         parent_id: 0,
@@ -72,7 +71,7 @@ export default {
       let form = this.form;
       form.status = Number(form.status);
       form.parent_id = form.parent_id.pop();
-      this.$api.backend.menu(form, "POST").then(res => {
+      this.$api.backend.tutorial(form, "POST").then(res => {
         if (res.data.status == true) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = false;
@@ -81,6 +80,18 @@ export default {
           this.$message.error("添加失败");
         }
       });
+    },
+    init(row) {
+      this.$api.backend.tutorialList({ pid: row["id"] }).then(res => {
+        console.log(res);
+        if (res.data.status == true) {
+          this.menu = res.data.data;
+        }
+      });
+    },
+    edit(value, render) {
+      this.form.mdCode = value;
+      this.form.htmlCode = render;
     }
   },
   components: {
