@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-dialog title="菜单列表" :visible.sync="outerVisible" fullscreen="true">
+    <el-dialog title="菜单列表" :visible.sync="outerVisible" :fullscreen="true">
       <el-dialog width="30%" title="内层 Dialog" :visible.sync="innerVisible" append-to-body>
         <TMenu ref="menu"></TMenu>
       </el-dialog>

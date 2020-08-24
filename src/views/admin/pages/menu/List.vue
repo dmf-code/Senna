@@ -4,7 +4,17 @@
     <Add ref="add"></Add>
     <Update ref="update"></Update>
     <el-divider></el-divider>
-    <treeTable :list="table" @handleEdit="handleEdit" @handleDelete="handleDelete"></treeTable>
+    <treeTable
+      :tableData="table"
+      @handleEdit="handleEdit"
+      @handleDelete="handleDelete"
+      @change="change"
+      :tableOption="tableOption"
+    >
+      <template slot="icon" slot-scope="scope">
+        <i :class="scope.row.icon"></i>
+      </template>
+    </treeTable>
   </div>
 </template>
 
@@ -22,7 +32,25 @@ export default {
   computed: {},
   data() {
     return {
-      tableData: null,
+      tableOption: [
+        {
+          label: "URL",
+          prop: "url"
+        },
+        {
+          label: "组件路径",
+          prop: "component"
+        },
+        {
+          label: "图标",
+          prop: "icon",
+          slot: true // 这里表示自定义列
+        },
+        {
+          label: "Action",
+          prop: "pid"
+        }
+      ],
       table: [],
       menu: []
     };
@@ -45,6 +73,9 @@ export default {
           this.$message.error("删除失败");
         }
       });
+    },
+    change(table) {
+      this.table = table;
     }
   },
   components: {

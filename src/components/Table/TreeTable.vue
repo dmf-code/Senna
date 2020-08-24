@@ -15,13 +15,7 @@
         size="small"
       >全部折叠</el-button>
     </div>
-    <el-table
-      :data="tableListData"
-      :row-class-name="toggleDisplayTr"
-      border
-      stripe
-      class="init_table"
-    >
+    <el-table :data="_tableData" :row-class-name="toggleDisplayTr" border stripe class="init_table">
       <el-table-column align="center" width="55" type="index" label="序号"></el-table-column>
       <el-table-column align="center" width="55" prop="id" label="ID"></el-table-column>
       <el-table-column label="权限名称" min-width="200" show-overflow-tooltip align="left">
@@ -38,17 +32,25 @@
       </el-table-column>
       <!-- <el-table-column align="center" width="90" prop="__level" label="层级"></el-table-column> -->
       <!-- <el-table-column align="left" prop="__identity" label="节点标识"></el-table-column> -->
-      <el-table-column align="center" width="90" prop="url" label="URL"></el-table-column>
-
-      <el-table-column align="center" width="90" prop="component" label="组件路径"></el-table-column>
-
-      <el-table-column align="center" width="80" label="图标">
-        <template slot-scope="scope">
-          <i :class="scope.row.icon"></i>
-        </template>
-      </el-table-column>
-      <el-table-column align="center" prop="pid" width="100" label="Action"></el-table-column>
-
+      <template v-for="(item, index) in tableOption">
+        <el-table-column
+          :key="index"
+          :prop="item.prop"
+          :label="item.label"
+          :align="item.align || 'center'"
+          :show-overflow-tooltip="item.overHidden || true"
+        >
+          <template slot-scope="scope">
+            <slot
+              v-if="item.slot"
+              :name="scope.column.property"
+              :row="scope.row"
+              :$index="scope.$index"
+            />
+            <span v-else>{{ scope.row[scope.column.property] }}</span>
+          </template>
+        </el-table-column>
+      </template>
       <el-table-column align="center" width="100" label="操作">
         <template slot-scope="scope">
           <el-button type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
@@ -62,14 +64,26 @@
 <script>
 import Vue from "vue";
 export default {
-  props: ["list"],
+  props: {
+    tableData: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    },
+    tableOption: {
+      type: Array,
+      default: function() {
+        return [];
+      }
+    }
+  },
   data: () => ({
-    tableListData: [], // tableListData 展示数据的data
     foldList: [] // 该数组中的值 都会在列表中进行隐藏  死亡名单
   }),
   computed: {
     foldAllList() {
-      return this.tableListData.map(x => x.__identity);
+      return this.tableData.map(x => x.__identity);
     }
   },
   methods: {
@@ -79,6 +93,7 @@ export default {
         : this.foldList.push(params.__identity);
     },
     toggleDisplayTr({ row, index }) {
+      console.log(row);
       for (let i = 0; i < this.foldList.length; i++) {
         let item = this.foldList[i];
         if (row.__family.includes(item) && row.__identity !== item) {
@@ -133,12 +148,17 @@ export default {
     },
     handleDelete(index, row) {
       this.$emit("handleDelete", index, row);
+    },
+    change() {
+      this.$emit("change", this.tableData);
     }
   },
-  created() {},
+  created() {
+    // this._tableData = this.formatConversion([], this.tableData);
+  },
   watch: {
-    list() {
-      this.tableListData = this.formatConversion([], this.list);
+    tableData() {
+      this._tableData = this.formatConversion([], this.tableData);
     }
   }
 };
