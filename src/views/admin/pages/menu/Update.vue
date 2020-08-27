@@ -124,6 +124,7 @@ export default {
         if (res.data.status == true) {
           this.$message({ message: "修改成功", type: "success" });
           this.dialogFormVisible = false;
+          this.$router.replace("/refresh");
         } else {
           this.$message.error("修改失败");
         }
