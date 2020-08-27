@@ -15,7 +15,7 @@
         size="small"
       >全部折叠</el-button>
     </div>
-    <el-table :data="_tableData" :row-class-name="toggleDisplayTr" border stripe class="init_table">
+    <el-table :data="cTableData" :row-class-name="toggleDisplayTr" border stripe class="init_table">
       <el-table-column align="center" width="55" type="index" label="序号"></el-table-column>
       <el-table-column align="center" width="55" prop="id" label="ID"></el-table-column>
       <el-table-column label="权限名称" min-width="200" show-overflow-tooltip align="left">
@@ -79,6 +79,7 @@ export default {
     }
   },
   data: () => ({
+    cTableData: [],
     foldList: [] // 该数组中的值 都会在列表中进行隐藏  死亡名单
   }),
   computed: {
@@ -93,7 +94,6 @@ export default {
         : this.foldList.push(params.__identity);
     },
     toggleDisplayTr({ row, index }) {
-      console.log(row);
       for (let i = 0; i < this.foldList.length; i++) {
         let item = this.foldList[i];
         if (row.__family.includes(item) && row.__identity !== item) {
@@ -153,12 +153,9 @@ export default {
       this.$emit("change", this.tableData);
     }
   },
-  created() {
-    // this._tableData = this.formatConversion([], this.tableData);
-  },
   watch: {
     tableData() {
-      this._tableData = this.formatConversion([], this.tableData);
+      this.cTableData = this.formatConversion([], this.tableData);
     }
   }
 };
