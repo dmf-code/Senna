@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true" fullscreen="true">
+  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="父级菜单">
         <el-cascader
@@ -15,7 +15,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
-        <el-input v-model="form.title"></el-input>
+        <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="内容" v-if="form.type == 2">
         <mavon-editor v-model="form.mdCode" :ishljs="true" @change="edit"></mavon-editor>

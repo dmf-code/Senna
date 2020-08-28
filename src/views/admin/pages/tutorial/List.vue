@@ -45,7 +45,7 @@
 <script>
 import Add from "@/views/admin/pages/tutorial/Add";
 import Update from "@/views/admin/pages/tutorial/Update";
-import TMenuList from "@/views/admin/pages/tutorial/MenuList";
+import TMenuList from "@/views/admin/pages/tutorial/Menu/List";
 export default {
   created: function() {
     this.$api.backend.tutorial().then(res => {
