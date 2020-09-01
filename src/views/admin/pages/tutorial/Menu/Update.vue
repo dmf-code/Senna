@@ -31,6 +31,8 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
+import { isArray } from "@/utils/common";
+
 export default {
   mounted() {},
   data() {
@@ -68,14 +70,18 @@ export default {
   },
   methods: {
     onSubmit() {
-      let form = this.form;
+      let form = Object.assign({}, this.form);
+      console.log(form);
       form.status = Number(form.status);
-      form.parent_id = form.parent_id.pop();
-      this.$api.backend.tutorial(form, "POST").then(res => {
+      if (isArray(form.parent_id)) {
+        form.parent_id = form.parent_id.pop();
+      }
+      // form.parent_id = form.parent_id.pop();
+      this.$api.backend.tutorial(form, "PUT").then(res => {
         if (res.data.status == true) {
-          this.$message({ message: "添加成功", type: "success" });
+          this.$message({ message: "更新成功", type: "success" });
           this.dialogFormVisible = false;
-          this.$router.replace("/refresh");
+          this.$emit("refresh");
         } else {
           this.$message.error("添加失败");
         }

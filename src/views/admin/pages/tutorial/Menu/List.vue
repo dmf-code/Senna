@@ -3,7 +3,7 @@
     <el-dialog title="菜单列表" :visible.sync="outerVisible" :fullscreen="true">
       <el-button @click="handleAdd">添加教程菜单</el-button>
       <Add ref="add" @refresh="refresh"></Add>
-      <Update ref="update"></Update>
+      <Update ref="update" @refresh="refresh"></Update>
       <TreeTable
         :tableData="table"
         @handleEdit="handleEdit"
