@@ -1,6 +1,12 @@
 <template>
   <el-row>
-    <el-col :span="4" v-for="(item, index) in this.list" :key="index" style="padding: 1em;">
+    <el-col
+      :span="4"
+      v-for="(item, index) in this.list"
+      :key="index"
+      style="padding: 1em;"
+      @click="jump(item['id'])"
+    >
       <el-card :body-style="{ padding: '0px' }">
         <el-image
           fit="fit"
@@ -42,12 +48,25 @@ export default {
       list: []
     };
   },
-  methods: {},
+  methods: {
+    jump($id) {
+      console.log("jump", $id);
+      this.$router.push({ path: "/tutorial/" + $id });
+    }
+  },
   components: {}
 };
 </script>
 
 <style>
+a {
+  text-decoration: none;
+}
+
+.router-link-active {
+  text-decoration: none;
+}
+
 .time {
   font-size: 13px;
   color: #999;

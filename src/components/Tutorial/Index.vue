@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col>
-      <Menu></Menu>
+      <dMenu :menus="menus"></dMenu>1111111111111111
     </el-col>
     <el-col>
       <router-view></router-view>
@@ -10,10 +10,20 @@
 </template>
 
 <script>
-import Menu from "./Menu/Menu";
+import dMenu from "./Menu/Menu";
 export default {
+  props: {
+    menus: {
+      type: Array
+    }
+  },
+  watch: {
+    menus: function() {
+      console.log("cpm: ", this.menus);
+    }
+  },
   components: {
-    Menu
+    dMenu
   }
 };
 </script>

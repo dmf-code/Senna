@@ -13,7 +13,9 @@ export default {
   },
   mounted() {},
   data() {
-    return {};
+    return {
+      menus
+    };
   },
   methods: {},
   components: {

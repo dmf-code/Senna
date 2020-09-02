@@ -26,6 +26,13 @@ const routes = [{
                     return import('@/views/front/pages/tutorial/List')
                 }
             },
+            {
+                path: '/tutorial/:pid',
+                name: 'tutorialShow',
+                component: function () {
+                    return import('@/views/front/pages/tutorial/Show')
+                }
+            },
         ]
     },
     {
