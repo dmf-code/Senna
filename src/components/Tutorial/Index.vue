@@ -1,26 +1,32 @@
 <template>
   <el-row>
-    <el-col>
-      <dMenu :menus="menus"></dMenu>1111111111111111
+    <el-col :span="4">
+      <dMenu :menus="menus"></dMenu>
     </el-col>
-    <el-col>
-      <router-view></router-view>
+    <el-col :span="20">
+      <el-row>
+        <!-- <h4 style="text-align: center;">{{ item.title }}</h4>
+        <mavon-editor ref="md" v-html="item.htmlCode" :ishljs="true" style="padding: 5px 10px;"></mavon-editor>-->
+      </el-row>
     </el-col>
   </el-row>
 </template>
 
 <script>
-import dMenu from "./Menu/Menu";
+import dMenu from "@/components/Tutorial/Menu/Menu";
+
 export default {
+  model: {
+    prop: "menus",
+    event: "change"
+  },
   props: {
     menus: {
-      type: Array
+      default: []
     }
   },
-  watch: {
-    menus: function() {
-      console.log("cpm: ", this.menus);
-    }
+  data: function() {
+    return {};
   },
   components: {
     dMenu

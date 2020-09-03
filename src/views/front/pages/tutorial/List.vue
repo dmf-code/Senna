@@ -5,7 +5,7 @@
       v-for="(item, index) in this.list"
       :key="index"
       style="padding: 1em;"
-      @click="jump(item['id'])"
+      @click.native="jump(item.id)"
     >
       <el-card :body-style="{ padding: '0px' }">
         <el-image
@@ -51,7 +51,7 @@ export default {
   methods: {
     jump($id) {
       console.log("jump", $id);
-      this.$router.push({ path: "/tutorial/" + $id });
+      this.$router.push({ path: "/tutorialShow/" + $id });
     }
   },
   components: {}

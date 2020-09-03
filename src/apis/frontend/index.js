@@ -44,7 +44,7 @@ const tutorial = (data = {}, method = "GET") => {
 }
 
 const tutorialList = (data = {}, method = "GET") => {
-    return http("/api/backend/tutorialList/{pid}", data, method)
+    return http("/api/front/tutorialList/{pid}", data, method)
 }
 
 export {

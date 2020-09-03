@@ -1,21 +1,32 @@
 <template>
-  <el-menu :default-active="$route.path" :default-openeds="menusVuex" router>
-    <SubMenu :menus="menus" parent="/admin"></SubMenu>
+  <el-menu :default-active="$route.path" :default-openeds="menusVuex">
+    <SubMenu :menus="menus" parent="/"></SubMenu>
   </el-menu>
 </template>
 
 <script>
-import SubMenu from "@/components/Menu/SubMenu.vue";
+import SubMenu from "@/components/Tutorial/Menu/SubMenu.vue";
 export default {
-  props: [menus],
+  model: {
+    prop: "menus",
+    event: "change"
+  },
+  props: {
+    menus: {
+      default: []
+    }
+  },
   computed: {
     menusVuex() {}
   },
   mounted() {},
   data() {
-    return {
-      menus
-    };
+    return {};
+  },
+  watch: {
+    menus: function() {
+      console.log(this.menus);
+    }
   },
   methods: {},
   components: {

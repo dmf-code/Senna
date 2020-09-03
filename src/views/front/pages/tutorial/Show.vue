@@ -5,22 +5,23 @@
 </template>
 
 <script>
-import Turorial from "@/components/Tutorial/Index";
+import Tutorial from "@/components/Tutorial/Index";
 export default {
   created() {
-    this.$apis.frontend.TurorialList().then(res => {
+    this.$api.frontend.tutorialList().then(res => {
       if (res.data.status == true) {
         this.menus = res.data.data;
+        console.log("Show", this.menus);
       }
     });
   },
   data() {
     return {
-      menus
+      menus: null
     };
   },
   components: {
-    Turorial
+    Tutorial
   }
 };
 </script>

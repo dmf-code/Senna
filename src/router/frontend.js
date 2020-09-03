@@ -27,12 +27,12 @@ const routes = [{
                 }
             },
             {
-                path: '/tutorial/:pid',
+                path: '/tutorialShow/:pid',
                 name: 'tutorialShow',
                 component: function () {
                     return import('@/views/front/pages/tutorial/Show')
                 }
-            },
+            }
         ]
     },
     {
