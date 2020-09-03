@@ -1,6 +1,6 @@
 <template>
   <el-menu :default-active="$route.path" :default-openeds="menusVuex">
-    <SubMenu :menus="menus" parent="/"></SubMenu>
+    <SubMenu :menus="menus" parent="/" v-bind="$attrs" v-on="$listeners"></SubMenu>
   </el-menu>
 </template>
 

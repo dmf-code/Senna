@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-for="menu in menus" :key="menu.id">
-      <el-menu-item index="/" v-if="!('children' in menu)">
+      <el-menu-item index="/" v-if="!('children' in menu)" @click="showInfo(menu)">
         <template slot="title">
           <i :class="menu.icon"></i>
           {{ menu.name }}
@@ -13,7 +13,7 @@
           <i :class="menu.icon"></i>
           {{menu.name}}
         </template>
-        <SubMenu :menus="menu.children"></SubMenu>
+        <SubMenu :menus="menu.children" v-bind="$attrs" v-on="$listeners"></SubMenu>
       </el-submenu>
     </div>
   </div>
@@ -26,6 +26,9 @@ export default {
   methods: {
     opends: function(index) {
       this.$store.commit("menu", index);
+    },
+    showInfo(menu) {
+      this.$emit("info", menu);
     }
   }
 };
