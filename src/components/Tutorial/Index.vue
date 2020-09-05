@@ -30,9 +30,17 @@ export default {
       item: {}
     };
   },
+  watch: {
+    menus: function() {
+      let items = this.menus;
+      while (items[0].type == 1) {
+        items = items[0].children;
+      }
+      this.item = items[0];
+    }
+  },
   methods: {
     changeInfo(menu) {
-      console.log(menu);
       this.item = menu;
     }
   },
