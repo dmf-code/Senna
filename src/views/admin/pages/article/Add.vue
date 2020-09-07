@@ -25,7 +25,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -69,6 +69,7 @@ export default {
         .then(res => {
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
+            this.$router.replace("/refresh");
           } else {
             this.$message.error("添加失败");
           }
