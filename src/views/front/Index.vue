@@ -10,9 +10,9 @@
 
 <script>
 // @ is an alias to /src
-import dHeader from "@/views/front/layouts/Header";
-import dMain from "@/views/front/layouts/Main";
-import dFooter from "@/views/front/layouts/Footer";
+import dHeader from "@/views/layouts/Header";
+import dMain from "@/views/layouts/Main";
+import dFooter from "@/views/layouts/Footer";
 
 export default {
   name: "front",

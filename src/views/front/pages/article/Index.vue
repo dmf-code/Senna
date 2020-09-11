@@ -2,7 +2,12 @@
   <el-row>
     <h4 style="text-align: center;">{{ item.title }}</h4>
 
-    <mavon-editor ref="md" v-html="item.htmlCode" :ishljs="true" style="padding: 5px 10em;"></mavon-editor>
+    <mavon-editor
+      ref="md"
+      v-html="item.htmlCode"
+      :ishljs="true"
+      style="padding: 5px 10em;background-color: rgba(0, 0, 0, 0);"
+    ></mavon-editor>
   </el-row>
 </template>
 

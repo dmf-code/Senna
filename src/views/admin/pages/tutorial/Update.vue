@@ -8,13 +8,17 @@
       <el-form-item label="标签">
         <el-upload
           class="avatar-uploader"
-          action="/api/backend/upload"
+          action="/api/common/upload/image"
           :headers="header"
           :show-file-list="false"
           :on-success="handleAvatarSuccess"
           :before-upload="beforeAvatarUpload"
         >
-          <img v-if="form.img" :src="`/api/front/static/img?url=${form.img}`" class="avatar" />
+          <img
+            v-if="form.img"
+            :src="`/api/common/download/image/origin/${form.img}`"
+            class="avatar"
+          />
           <i v-else class="el-icon-plus avatar-uploader-icon"></i>
         </el-upload>
       </el-form-item>
@@ -35,11 +39,14 @@ export default {
         if (res.data.status == true) {
           this.dialogFormVisible = false;
           this.$message({ message: "添加成功", type: "success" });
+        } else {
+          this.$message({ message: "更新失败", type: "error" });
         }
       });
     },
     handleAvatarSuccess(res, file) {
-      this.form.img = res.data.path;
+      this.form.img = res.filename;
+      console.log(file);
       this.img = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
@@ -64,7 +71,8 @@ export default {
       },
       form: {
         title: "",
-        img: ""
+        img: "",
+        type: 1
       }
     };
   }

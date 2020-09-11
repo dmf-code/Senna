@@ -11,7 +11,7 @@
         <el-card :body-style="{ padding: '0px' }">
           <el-image
             fit="fit"
-            :src="`/api/front/static/img?url=${item['img']}`"
+            :src="`/api/common/download/image/origin/${item['img']}`"
             style="height: 256px;"
           >
             <div slot="error" class="image-slot">

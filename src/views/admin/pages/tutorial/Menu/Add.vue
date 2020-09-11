@@ -18,7 +18,13 @@
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="内容" v-if="form.type == 2">
-        <mavon-editor v-model="form.mdCode" :ishljs="true" @change="edit"></mavon-editor>
+        <mavon-editor
+          ref="md"
+          v-model="form.mdCode"
+          :ishljs="true"
+          @change="edit"
+          @imgAdd="$imgAdd"
+        ></mavon-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -85,6 +91,22 @@ export default {
     edit(value, render) {
       this.form.mdCode = value;
       this.form.htmlCode = render;
+    },
+    $imgAdd(pos, $file) {
+      let formdata = new FormData();
+      console.log($file);
+      formdata.append("file", $file);
+      this.$api.backend
+        .upload(formdata, "POST", {
+          "Content-Type": "multipart/form-data"
+        })
+        .then(res => {
+          this.$refs.md.$img2Url(
+            pos,
+            "/api/common/download/image/origin/" + res.data.filename
+          );
+          this.$emit("refresh");
+        });
     }
   },
   components: {

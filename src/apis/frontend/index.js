@@ -39,12 +39,12 @@ export {
 
 // 教程接口
 
-const tutorial = (data = {}, method = "GET") => {
-    return http("/api/front/tutorial/{id}", data, method)
+const tutorial = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/front/tutorial/{id}", data, method, headers = {})
 }
 
-const tutorialList = (data = {}, method = "GET") => {
-    return http("/api/front/tutorialList/{pid}", data, method)
+const tutorialList = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/front/tutorialList/{pid}", data, method, headers = {})
 }
 
 export {

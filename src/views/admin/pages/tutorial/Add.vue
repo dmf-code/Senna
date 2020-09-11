@@ -8,7 +8,7 @@
       <el-form-item label="标签">
         <el-upload
           class="avatar-uploader"
-          action="/api/backend/upload"
+          action="/api/common/upload/image"
           :show-file-list="false"
           :headers="header"
           :on-success="handleAvatarSuccess"

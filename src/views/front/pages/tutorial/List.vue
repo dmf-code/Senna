@@ -10,7 +10,7 @@
       <el-card :body-style="{ padding: '0px' }">
         <el-image
           fit="fit"
-          :src="`/api/front/static/img?url=${item['img']}`"
+          :src="`/api/common/download/image/origin/${item['img']}`"
           style="height: 256px;"
         >
           <div slot="error" class="image-slot">
@@ -26,7 +26,6 @@
           <span>{{item['title']}}</span>
           <div class="bottom clearfix">
             <time class="time">{{ item['updatedAt'] }}</time>
-            <!-- <el-button type="text" @click="handleEdit(index, item)" class="button">更新</el-button> -->
           </div>
         </div>
       </el-card>

@@ -65,58 +65,61 @@ instance.interceptors.response.use(
 
 //封装get接口
 // params={} 是设置默认值
-export function get(url, params = {}) {
+export function get(url, params = {}, headers = {}) {
     params.t = new Date().getTime(); //get方法加一个时间参数,解决ie下可能缓存问题.
     return instance.request({
         url: url,
         method: 'get',
-        // headers: {},
+        headers: headers,
         params
     })
 }
 
 //封装post请求
-export function post(url, data = {}) {
+export function post(url, data = {}, headers = {
+    'Content-Type': 'application/json;charset=UTF-8'
+}) {
     //默认配置
     let sendObject = {
         url: url,
         method: "post",
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
+        headers: headers,
         data: data
     };
-    sendObject.data = JSON.stringify(data);
+    // JSON数据序列化
+    if (headers['Content-Type'] == "application/json;charset=UTF-8") {
+        sendObject.data = JSON.stringify(data);
+    }
     return instance.request(sendObject)
 }
 
 //封装put方法 (restfulAPI常用)
-function put(url, data = {}) {
+function put(url, data = {}, headers = {
+    'Content-Type': 'application/json;charset=UTF-8'
+}) {
     return instance.request({
         url: url,
         method: 'put',
-        headers: {
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
+        headers: headers,
         data: JSON.stringify(data)
     })
 }
 
 //删除方法(restfulAPI常用)
-function deletes(url) {
+function deletes(url, headers = {}) {
     return instance.request({
         url: url,
         method: 'delete',
-        headers: {}
+        headers: headers
     })
 }
 
 //patch方法(restfulAPI常用)
-function patch(url) {
+function patch(url, headers = {}) {
     return instance.request({
         url: url,
         method: 'patch',
-        headers: {}
+        headers: headers
     })
 }
 
@@ -152,19 +155,18 @@ function render(url, data) {
 const fetch = (options) => {
     //process.env.VUE_APP_PATH为环境变量在.env文件中配置
     // let url = process.env.VUE_APP_PATH + options.url;
-
     let url = render(options.url, options.data)
     switch (options.method.toUpperCase()) {
         case 'GET':
-            return get(url, options.data)
+            return get(url, options.data, options.headers)
         case 'POST':
-            return post(url, options.data)
+            return post(url, options.data, options.headers)
         case 'PUT':
-            return put(url, options.data)
+            return put(url, options.data, options.headers)
         case 'DELETE':
-            return deletes(url, options.data)
+            return deletes(url, options.data, options.headers)
         case 'PATCH':
-            return patch(url, options.data)
+            return patch(url, options.data, options.headers)
         default:
             return instance.request(options)
     }
@@ -176,11 +178,12 @@ const fetch = (options) => {
  * data 参数对象
  * method 请求方式
  *  */
-export function http(url = '', data = {}, method = "GET") {
+export function http(url = '', data = {}, method = "GET", headers = {}) {
     const options = {
         url: url,
         data: data,
-        method: method
+        method: method,
+        headers: headers
     }
     return fetch(options)
         .catch(error => {

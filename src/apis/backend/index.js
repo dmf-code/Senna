@@ -3,59 +3,63 @@ import {
 } from "@/requests/request"
 
 
-const admin = (data = {}, method = "GET") => {
-    return http("/api/backend/admin/{id}", data, method)
+const admin = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/admin/{id}", data, method, headers = {})
 }
 
 const role = () => {
     return http("/api/backend/role")
 }
 
-const adminRole = (data = {}, method = "GET") => {
-    return http("/api/backend/adminRole/{admin_id}", data, method)
+const adminRole = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/adminRole/{admin_id}", data, method, headers = {})
 }
 
-const menu = (data = {}, method = "GET") => {
-    return http("/api/backend/menu/{id}", data, method)
+const menu = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/menu/{id}", data, method, headers = {})
 }
 
 const menuList = () => {
     return http("/api/backend/menuList")
 }
 
-const article = (data = {}, method = "GET") => {
-    return http("/api/backend/article/{id}", data, method)
+const article = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/article/{id}", data, method, headers = {})
 }
 
-const category = (data = {}, method = "GET") => {
-    return http("/api/backend/category/{id}", data, method)
+const category = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/category/{id}", data, method, headers = {})
 }
 
-const tag = (data = {}, method = "GET") => {
-    return http("/api/backend/tag/{id}", data, method)
+const tag = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/tag/{id}", data, method, headers = {})
 }
 
-const roleMenu = (data = {}, method = "GET") => {
-    return http("/api/backend/roleMenu/{id}", data, method)
+const roleMenu = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/roleMenu/{id}", data, method, headers = {})
 }
 
-const roleMenuList = (url, data, method) => {
-    return http(url, data, method)
+const roleMenuList = (url, data = {}, method = {}, headers = {}) => {
+    return http(url, data, method, headers = {})
 }
-const menuApiList = (data, method = "GET") => {
-    return http("/api/backend/menuApiList/{id}", data, method)
-}
-
-const tutorial = (data = {}, method = "GET") => {
-    return http("/api/backend/tutorial/{id}", data, method)
+const menuApiList = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/menuApiList/{id}", data, method, headers = {})
 }
 
-const coverMenuList = (data = {}, method = "GET") => {
-    return http("/api/backend/coverMenuList", data, method)
+const tutorial = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/tutorial/{id}", data, method, headers = {})
 }
 
-const tutorialList = (data = {}, method = "GET") => {
-    return http("/api/backend/tutorialList/{pid}", data, method)
+const coverMenuList = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/coverMenuList", data, method, headers = {})
+}
+
+const tutorialList = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/tutorialList/{pid}", data, method, headers = {})
+}
+
+const upload = (data = {}, method = "POST", headers = {}) => {
+    return http("/api/common/upload/image", data, method, headers = {})
 }
 
 export {
@@ -72,5 +76,6 @@ export {
     menuApiList,
     tutorial,
     coverMenuList,
-    tutorialList
+    tutorialList,
+    upload
 }

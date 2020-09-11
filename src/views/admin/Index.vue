@@ -17,8 +17,8 @@
 
 <script>
 // @ is an alias to /src
-import dHeader from "@/views/admin/layouts/Header";
-import dFooter from "@/views/admin/layouts/Footer";
+import dHeader from "@/views/layouts/Header";
+import dFooter from "@/views/layouts/Footer";
 import dMenu from "@/components/Menu/Menu.vue";
 
 export default {
