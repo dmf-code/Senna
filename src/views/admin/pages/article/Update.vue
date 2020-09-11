@@ -22,7 +22,13 @@
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="内容">
-        <mavon-editor v-model="form.mdCode" :ishljs="true" @change="edit"></mavon-editor>
+        <mavon-editor
+          ref="md"
+          v-model="form.mdCode"
+          :ishljs="true"
+          @change="edit"
+          @imgAdd="$imgAdd"
+        ></mavon-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -35,22 +41,7 @@
 <script>
 export default {
   created() {},
-  mounted() {
-    this.$api.backend.category().then(res => {
-      if (res.data.status == true) {
-        this.categorys = res.data.data;
-      } else {
-        this.categorys = [];
-      }
-    });
-    this.$api.backend.tag().then(res => {
-      if (res.data.status == true) {
-        this.tags = res.data.data;
-      } else {
-        this.tags = [];
-      }
-    });
-  },
+  mounted() {},
   data() {
     return {
       dialogFormVisible: false,
@@ -86,10 +77,26 @@ export default {
         .then(res => {
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
-            this.dialogFormVisible = true;
+            this.dialogFormVisible = false;
+            this.$router.replace("/refresh");
           } else {
             this.$message.error("添加失败");
           }
+        });
+    },
+    $imgAdd(pos, $file) {
+      let formdata = new FormData();
+      console.log($file);
+      formdata.append("file", $file);
+      this.$api.backend
+        .upload(formdata, "POST", {
+          "Content-Type": "multipart/form-data"
+        })
+        .then(res => {
+          this.$refs.md.$img2Url(
+            pos,
+            "/api/common/download/image/origin/" + res.data.filename
+          );
         });
     }
   }

@@ -51,21 +51,43 @@ export default {
         this.tableData = response.data.data;
       }
     });
+
+    this.$api.backend.category().then(res => {
+      if (res.data.status == true) {
+        this.categorys = res.data.data;
+      } else {
+        this.categorys = [];
+      }
+    });
+    this.$api.backend.tag().then(res => {
+      if (res.data.status == true) {
+        this.tags = res.data.data;
+      } else {
+        this.tags = [];
+      }
+    });
   },
   computed: {},
   data() {
     return {
-      tableData: null
+      tableData: null,
+      categorys: [],
+      tags: []
     };
   },
   methods: {
     handleAdd() {
       this.$refs.add.dialogFormVisible = true;
+      this.$refs.add.form.categorys = this.categorys;
+      this.$refs.add.form.tags = this.tags;
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
-      row.checkedCategorys = row.categoryIds;
+      row.checkedCategorys = Number(row.categoryIds);
+      console.log("category", row.checkedCategorys);
       row.checkedTags = row.tagIds.split(",");
+      this.$refs.update.categorys = this.categorys;
+      this.$refs.update.tags = this.tags;
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {

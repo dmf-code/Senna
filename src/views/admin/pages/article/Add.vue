@@ -33,22 +33,7 @@
 
 <script>
 export default {
-  mounted() {
-    this.$api.backend.category().then(res => {
-      if (res.data.status == true) {
-        this.form.categorys = res.data.data;
-      } else {
-        this.form.categorys = [];
-      }
-    });
-    this.$api.backend.tag().then(res => {
-      if (res.data.status == true) {
-        this.form.tags = res.data.data;
-      } else {
-        this.form.tags = [];
-      }
-    });
-  },
+  mounted() {},
   methods: {
     edit(value, render) {
       this.form.mdCode = value;

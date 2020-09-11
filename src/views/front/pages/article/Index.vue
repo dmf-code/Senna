@@ -4,7 +4,12 @@
 
     <mavon-editor
       ref="md"
-      v-html="item.htmlCode"
+      v-model="item.mdCode"
+      :subfield="false"
+      :defaultOpen="'preview'"
+      :toolbarsFlag="false"
+      :editable="false"
+      :scrollStyle="true"
       :ishljs="true"
       style="padding: 5px 10em;background-color: rgba(0, 0, 0, 0);"
     ></mavon-editor>
