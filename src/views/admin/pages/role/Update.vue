@@ -26,8 +26,8 @@
 <script>
 export default {
   created() {},
-  mounted: function() {
-    this.$api.backend.menuApiList().then(res => {
+  mounted: function () {
+    this.$api.backend.menuApiList().then((res) => {
       if (res.data.status == true) {
         this.menu = res.data.data;
       }
@@ -40,8 +40,8 @@ export default {
       form: {
         name: "",
         memo: "",
-        menus: []
-      }
+        menus: [],
+      },
     };
   },
   methods: {
@@ -52,11 +52,12 @@ export default {
             id: this.form.id,
             name: this.form.name,
             memo: this.form.memo,
-            menus: this.form.menus.join(",")
+            menus: this.form.menus.join(","),
           },
           "PUT"
         )
-        .then(res => {
+        .then((res) => {
+          console.log("put: ", res);
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
@@ -65,7 +66,7 @@ export default {
             this.$message.error("添加失败");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

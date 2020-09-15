@@ -33,7 +33,7 @@
 <script>
 export default {
   created: function() {
-    this.$api.backend.category().then(res => {
+    this.$api.frontend.category().then(res => {
       console.log(res);
       res.data.data.forEach(element => {
         this.category[element["id"]] = element["name"];

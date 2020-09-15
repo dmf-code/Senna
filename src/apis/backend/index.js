@@ -7,8 +7,8 @@ const admin = (data = {}, method = "GET", headers = {}) => {
     return http("/api/backend/admin/{id}", data, method, headers = {})
 }
 
-const role = () => {
-    return http("/api/backend/role")
+const role = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/role/{id}", data, method, headers)
 }
 
 const adminRole = (data = {}, method = "GET", headers = {}) => {

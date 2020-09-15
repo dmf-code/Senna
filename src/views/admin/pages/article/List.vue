@@ -84,7 +84,6 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       row.checkedCategorys = Number(row.categoryIds);
-      console.log("category", row.checkedCategorys);
       row.checkedTags = row.tagIds.split(",");
       this.$refs.update.categorys = this.categorys;
       this.$refs.update.tags = this.tags;

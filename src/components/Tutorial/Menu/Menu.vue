@@ -1,5 +1,5 @@
 <template>
-  <el-menu :default-active="$route.path" :default-openeds="menusVuex" @open="open" @close="close">
+  <el-menu :default-active="$route.path" :default-openeds="openMenus" @open="open" @close="close">
     <SubMenu :menus="menus" parent="/" v-bind="$attrs" v-on="$listeners"></SubMenu>
   </el-menu>
 </template>
@@ -9,57 +9,62 @@ import SubMenu from "@/components/Tutorial/Menu/SubMenu.vue";
 export default {
   model: {
     prop: "menus",
-    event: "change"
+    event: "change",
   },
   props: {
     menus: {
-      default: []
-    }
-  },
-  computed: {
-    menusVuex() {}
+      default: [],
+    },
   },
   mounted() {},
+  created: function () {
+    let newQuery = JSON.parse(JSON.stringify(this.$route.query));
+    console.log(newQuery);
+    console.log("tutorialIndex" in newQuery);
+    if ("tutorialIndex" in newQuery) {
+      this.openMenus = newQuery.tutorialIndex.split(",");
+      console.log(this.openMenus);
+    }
+    console.log("meeeee", this.openMenus);
+  },
   data() {
-    return {};
+    return {
+      openMenus: [],
+    };
   },
   watch: {
-    menus: function() {
+    menus: function () {
       console.log(this.menus);
-    }
+    },
   },
   methods: {
     open(index) {
       let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-      console.log(newQuery);
-      let _index = [];
-      if ("tutirialIndex" in newQuery) {
-        _index = newQuery.tutorialIndex.split(",");
+      if ("tutorialIndex" in newQuery) {
+        this.openMenus = newQuery.tutorialIndex.split(",");
       }
-      _index.push(index);
-      newQuery.tutorialIndex = _index.join(",");
+      this.openMenus.push(index);
+      newQuery.tutorialIndex = this.openMenus.join(",");
       this.$router.replace({ query: newQuery });
     },
     close(index) {
       let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-      console.log(newQuery);
-      let _index = [];
-      if ("tutirialIndex" in newQuery) {
-        _index = newQuery.tutorialIndex.split(",");
+      if ("tutorialIndex" in newQuery) {
+        this.openMenus = newQuery.tutorialIndex.split(",");
       }
-      let idx = _index.indexOf(index);
+      let idx = this.openMenus.indexOf(index);
       if (idx > -1) {
-        _index.splice(idx, 1);
+        this.openMenus.splice(idx, 1);
       }
-      newQuery.tutorialIndex = _index.join(",");
+      newQuery.tutorialIndex = this.openMenus.join(",");
       if (newQuery.tutorialIndex == "") {
         delete newQuery.tutorialIndex;
       }
       this.$router.replace({ query: newQuery });
-    }
+    },
   },
   components: {
-    SubMenu
-  }
+    SubMenu,
+  },
 };
 </script>

@@ -105,7 +105,6 @@ export default {
             pos,
             "/api/common/download/image/origin/" + res.data.filename
           );
-          this.$emit("refresh");
         });
     }
   },

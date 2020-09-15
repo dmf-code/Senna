@@ -66,7 +66,9 @@ instance.interceptors.response.use(
 //封装get接口
 // params={} 是设置默认值
 export function get(url, params = {}, headers = {}) {
-    params.t = new Date().getTime(); //get方法加一个时间参数,解决ie下可能缓存问题.
+    if ('t' in params) {
+        params.t = new Date().getTime(); //get方法加一个时间参数,解决ie下可能缓存问题.
+    }
     return instance.request({
         url: url,
         method: 'get',

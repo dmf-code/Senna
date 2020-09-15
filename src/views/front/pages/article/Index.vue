@@ -1,7 +1,6 @@
 <template>
   <el-row>
-    <h4 style="text-align: center;">{{ item.title }}</h4>
-
+    <div class="title">{{ item.title }}</div>
     <mavon-editor
       ref="md"
       v-model="item.mdCode"
@@ -11,7 +10,7 @@
       :editable="false"
       :scrollStyle="true"
       :ishljs="true"
-      style="padding: 5px 10em;background-color: rgba(0, 0, 0, 0);"
+      style="padding: 5px 10em;"
     ></mavon-editor>
   </el-row>
 </template>
@@ -32,3 +31,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.title {
+  text-align: center;
+  background-color: white;
+  padding: 2em 0;
+  font-size: 1.5em;
+}
+</style>
