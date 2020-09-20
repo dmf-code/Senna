@@ -1,4 +1,6 @@
 module.exports = {
+  assetsDir: 'static',
+  parallel: false,
   publicPath: '/', //publicPath取代了baseUrl
   outputDir: 'dist',
   lintOnSave: true,

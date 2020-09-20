@@ -32,7 +32,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>
@@ -52,8 +52,8 @@ export default {
         checkedCategorys: [],
         checkedTags: [],
         mdCode: "",
-        htmlCode: ""
-      }
+        htmlCode: "",
+      },
     };
   },
   methods: {
@@ -70,11 +70,11 @@ export default {
             categoryIds: this.form.checkedCategorys.toString(),
             tagIds: this.form.checkedTags.toString(),
             mdCode: this.form.mdCode,
-            htmlCode: this.form.htmlCode
+            htmlCode: this.form.htmlCode,
           },
           "PUT"
         )
-        .then(res => {
+        .then((res) => {
           if (res.data.status == true) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
@@ -90,15 +90,15 @@ export default {
       formdata.append("file", $file);
       this.$api.backend
         .upload(formdata, "POST", {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
         })
-        .then(res => {
+        .then((res) => {
           this.$refs.md.$img2Url(
             pos,
             "/api/common/download/image/origin/" + res.data.filename
           );
         });
-    }
-  }
+    },
+  },
 };
 </script>
