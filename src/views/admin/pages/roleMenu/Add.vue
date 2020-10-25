@@ -49,7 +49,7 @@ export default {
       }
     });
     this.$api.backend.roleMenu().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.form.menus = response.data.args[0] ? response.data.args[0] : [];
       }
     });

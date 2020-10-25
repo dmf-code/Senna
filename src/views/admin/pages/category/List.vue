@@ -39,7 +39,7 @@ import Add from "@/views/admin/pages/category/Add";
 export default {
   mounted() {
     this.$api.backend.category().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });

@@ -52,7 +52,7 @@ import Add from "@/views/admin/pages/roleMenu/Add";
 export default {
   created() {
     this.$api.backend.roleMenu().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });

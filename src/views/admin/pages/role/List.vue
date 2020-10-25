@@ -52,7 +52,7 @@ import Add from "@/views/admin/pages/role/Add";
 export default {
   mounted() {
     this.$api.backend.role().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });

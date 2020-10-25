@@ -50,7 +50,7 @@ import Add from "@/views/admin/pages/url/Add";
 export default {
   mounted() {
     this.$api.backend.menuApiList().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });

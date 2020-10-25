@@ -49,7 +49,7 @@ import ResetPassword from "@/views/admin/pages/user/ResetPassword";
 export default {
   mounted() {
     this.$api.backend.admin().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });

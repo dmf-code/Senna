@@ -47,7 +47,7 @@ import Add from "@/views/admin/pages/article/Add";
 export default {
   mounted() {
     this.$api.backend.article().then((response) => {
-      if (response.data.status == true) {
+      if (res.data.code == 0) {
         this.tableData = response.data.data;
       }
     });
