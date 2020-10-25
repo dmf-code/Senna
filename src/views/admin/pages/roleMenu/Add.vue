@@ -48,9 +48,9 @@ export default {
         });
       }
     });
-    this.$api.backend.roleMenu().then((response) => {
+    this.$api.backend.roleMenu().then((res) => {
       if (res.data.code == 0) {
-        this.form.menus = response.data.args[0] ? response.data.args[0] : [];
+        this.form.menus = res.data.args[0] ? res.data.args[0] : [];
       }
     });
   },

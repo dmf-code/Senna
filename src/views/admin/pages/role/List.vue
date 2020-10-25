@@ -51,9 +51,9 @@ import Update from "@/views/admin/pages/role/Update";
 import Add from "@/views/admin/pages/role/Add";
 export default {
   mounted() {
-    this.$api.backend.role().then((response) => {
+    this.$api.backend.role().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = response.data.data;
+        this.tableData = res.data.data;
       }
     });
   },

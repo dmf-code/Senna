@@ -51,9 +51,9 @@ import Update from "@/views/admin/pages/roleMenu/Update";
 import Add from "@/views/admin/pages/roleMenu/Add";
 export default {
   created() {
-    this.$api.backend.roleMenu().then((response) => {
+    this.$api.backend.roleMenu().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = response.data.data;
+        this.tableData = res.data.data;
       }
     });
   },

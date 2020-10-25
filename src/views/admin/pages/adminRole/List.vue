@@ -51,9 +51,9 @@ import Update from "@/views/admin/pages/adminRole/Update";
 import Add from "@/views/admin/pages/adminRole/Add";
 export default {
   created() {
-    this.$api.backend.adminRole().then((response) => {
+    this.$api.backend.adminRole().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = response.data.data;
+        this.tableData = res.data.data;
       }
     });
   },

@@ -38,9 +38,9 @@ import Add from "@/views/admin/pages/category/Add";
 
 export default {
   mounted() {
-    this.$api.backend.category().then((response) => {
+    this.$api.backend.category().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = response.data.data;
+        this.tableData = res.data.data;
       }
     });
   },

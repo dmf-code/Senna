@@ -48,9 +48,9 @@ import Add from "@/views/admin/pages/user/Add";
 import ResetPassword from "@/views/admin/pages/user/ResetPassword";
 export default {
   mounted() {
-    this.$api.backend.admin().then((response) => {
+    this.$api.backend.admin().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = response.data.data;
+        this.tableData = res.data.data;
       }
     });
     this.$api.backend.role().then((res) => {
