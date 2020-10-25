@@ -31,8 +31,8 @@ export default {
   mounted() {},
   methods: {
     onSubmit() {
-      this.$api.backend.tutorial(this.form, "POST").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.tutorial(this.form, "POST").then((res) => {
+        if (res.data.code == 0) {
           this.dialogFormVisible = false;
           this.$message({ message: "添加成功", type: "success" });
           this.$router.replace("/refresh");
@@ -40,37 +40,40 @@ export default {
       });
     },
     handleAvatarSuccess(res, file) {
-      if (res.status == true) {
-        this.form.img = res.data.path;
-        this.img = URL.createObjectURL(file.raw);
-      }
+      this.form.img = res.filename;
+      this.img = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === "image/jpeg";
+      const isPNG = file.type === "image/png";
       const isLt2M = file.size / 1024 / 1024 < 2;
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+      if (!isJPG && !isPNG) {
+        this.$message.error("上传头像图片只能是 JPG,PNG 格式!");
       }
       if (!isLt2M) {
         this.$message.error("上传头像图片大小不能超过 2MB!");
       }
-      return isJPG && isLt2M;
-    }
+
+      return (isJPG || isPNG) && isLt2M;
+    },
   },
-  data: function() {
+  data: function () {
     return {
       dialogFormVisible: false,
       img: "",
       header: {
-        token: this.$storage.getItem("user_info").token
+        token: this.$storage.getItem("user_info").token,
       },
       form: {
         title: "",
-        img: ""
-      }
+        img: "",
+        type: 1,
+        icon: "",
+        parent_id: 0,
+      },
     };
-  }
+  },
 };
 </script>
 

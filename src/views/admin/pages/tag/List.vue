@@ -37,7 +37,7 @@ import Update from "@/views/admin/pages/tag/Update";
 import Add from "@/views/admin/pages/tag/Add";
 export default {
   mounted() {
-    this.$api.backend.tag().then(response => {
+    this.$api.backend.tag().then((response) => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -46,7 +46,7 @@ export default {
   computed: {},
   data() {
     return {
-      tableData: null
+      tableData: null,
     };
   },
   methods: {
@@ -58,19 +58,19 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.$api.backend.tag({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.tag({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }
       });
-    }
+    },
   },
   components: {
     Update,
-    Add
-  }
+    Add,
+  },
 };
 </script>

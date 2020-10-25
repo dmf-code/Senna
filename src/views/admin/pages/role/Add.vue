@@ -25,9 +25,9 @@
 
 <script>
 export default {
-  mounted: function() {
-    this.$api.backend.menuList().then(res => {
-      if (res.data.status == true) {
+  mounted: function () {
+    this.$api.backend.menuList().then((res) => {
+      if (res.data.code == 0) {
         this.menu = res.data.data;
       }
     });
@@ -39,12 +39,12 @@ export default {
           {
             name: this.form.name,
             memo: this.form.memo,
-            menus: this.form.menus.join(",")
+            menus: this.form.menus.join(","),
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -52,19 +52,19 @@ export default {
             this.$message.error("添加失败");
           }
         });
-    }
+    },
   },
-  data: function() {
+  data: function () {
     return {
       dialogFormVisible: false,
       menu: [],
       form: {
         name: "",
         memo: "",
-        menus: []
-      }
+        menus: [],
+      },
     };
-  }
+  },
 };
 </script>
 

@@ -62,8 +62,13 @@ const upload = (data = {}, method = "POST", headers = {}) => {
     return http("/api/common/upload/image", data, method, headers = {})
 }
 
+const resetPassword = (data = {}, method = "PUT", headers = {}) => {
+    return http("/api/backend/resetPassword/{id}", data, method, headers)
+}
+
 export {
     admin,
+    resetPassword,
     role,
     adminRole,
     menu,

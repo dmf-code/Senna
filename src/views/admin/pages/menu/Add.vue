@@ -59,8 +59,8 @@
 import iconSelect from "@/components/Icon/Index";
 export default {
   mounted() {
-    this.$api.backend.menuList().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.menuList().then((res) => {
+      if (res.data.code == 0) {
         this.menu = res.data.data;
       }
     });
@@ -71,14 +71,14 @@ export default {
       menu: [],
       type: [
         { id: 1, name: "目录" },
-        { id: 2, name: "菜单" }
+        { id: 2, name: "菜单" },
       ],
       operateType: [
         { id: "none", name: "无" },
         { id: "add", name: "添加" },
         { id: "update", name: "更新" },
         { id: "view", name: "查看" },
-        { id: "del", name: "删除" }
+        { id: "del", name: "删除" },
       ],
       form: {
         status: 1,
@@ -92,8 +92,8 @@ export default {
         type: "",
         component: "",
         icon: "",
-        operate_type: ""
-      }
+        operate_type: "",
+      },
     };
   },
   methods: {
@@ -101,8 +101,8 @@ export default {
       let form = this.form;
       form.status = Number(form.status);
       form.parent_id = form.parent_id.pop();
-      this.$api.backend.menu(form, "POST").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.menu(form, "POST").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = false;
           this.$router.replace("/refresh");
@@ -110,10 +110,10 @@ export default {
           this.$message.error("添加失败");
         }
       });
-    }
+    },
   },
   components: {
-    iconSelect
-  }
+    iconSelect,
+  },
 };
 </script>

@@ -3,6 +3,7 @@
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
     <Update ref="update"></Update>
+    <ResetPassword ref="resetPassword"></ResetPassword>
     <el-divider></el-divider>
     <el-table :data="this.tableData" style="width: 100%">
       <el-table-column label="ID" width="180">
@@ -33,6 +34,7 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button size="mini" type="danger" @click="handlePassword(scope.$index, scope.row)">重置密码</el-button>
           <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -43,22 +45,23 @@
 <script>
 import Update from "@/views/admin/pages/user/Update";
 import Add from "@/views/admin/pages/user/Add";
+import ResetPassword from "@/views/admin/pages/user/ResetPassword";
 export default {
   mounted() {
-    this.$api.backend.admin().then(response => {
+    this.$api.backend.admin().then((response) => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
     });
-    this.$api.backend.role().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.role().then((res) => {
+      if (res.data.code == 0) {
       }
     });
   },
   computed: {},
   data() {
     return {
-      tableData: null
+      tableData: null,
     };
   },
   methods: {
@@ -70,20 +73,25 @@ export default {
       row.role_ids = row.role_ids.split(",");
       this.$refs.update.form = row;
     },
+    handlePassword(index, row) {
+      this.$refs.resetPassword.dialogFormVisible = true;
+      this.$refs.resetPassword.row = row;
+    },
     handleDelete(index, row) {
-      this.$api.backend.admin({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.admin({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }
       });
-    }
+    },
   },
   components: {
     Update,
-    Add
-  }
+    Add,
+    ResetPassword,
+  },
 };
 </script>

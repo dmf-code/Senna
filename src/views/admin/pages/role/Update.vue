@@ -28,7 +28,7 @@ export default {
   created() {},
   mounted: function () {
     this.$api.backend.menuApiList().then((res) => {
-      if (res.data.status == true) {
+      if (res.data.code == 0) {
         this.menu = res.data.data;
       }
     });
@@ -58,7 +58,7 @@ export default {
         )
         .then((res) => {
           console.log("put: ", res);
-          if (res.data.status == true) {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");

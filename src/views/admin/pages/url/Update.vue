@@ -29,8 +29,8 @@ export default {
       index: null,
       form: {
         id: null,
-        name: null
-      }
+        name: null,
+      },
     };
   },
   methods: {
@@ -38,14 +38,14 @@ export default {
       this.dialogFormVisible = false;
       this.$api.backend
         .menu({ id: this.form.id, name: this.form.name }, "PUT")
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "修改成功", type: "success" });
           } else {
             this.$message.error("修改失败");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

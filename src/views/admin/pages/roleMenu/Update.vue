@@ -30,20 +30,20 @@
 <script>
 export default {
   mounted() {
-    this.$api.backend.role().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.role().then((res) => {
+      if (res.data.code == 0) {
         this.roles = res.data.data;
       } else {
         console.log("失败");
       }
     });
-    this.$api.backend.menu().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.menu().then((res) => {
+      if (res.data.code == 0) {
         let menus = res.data.data;
-        menus.forEach(element => {
+        menus.forEach((element) => {
           this.menus.push({
             key: element.id,
-            label: element.name + "-" + element.url
+            label: element.name + "-" + element.url,
           });
         });
       }
@@ -56,12 +56,12 @@ export default {
         .roleMenu(
           {
             role_id: this.form.role_id,
-            menu_id: this.form.menus.join(",")
+            menu_id: this.form.menus.join(","),
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -72,9 +72,9 @@ export default {
     },
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;
-    }
+    },
   },
-  data: function() {
+  data: function () {
     return {
       dialogFormVisible: false,
       roles: [],
@@ -83,10 +83,10 @@ export default {
       rightChecked: [],
       form: {
         role_id: 1,
-        menus: []
-      }
+        menus: [],
+      },
     };
-  }
+  },
 };
 </script>
 

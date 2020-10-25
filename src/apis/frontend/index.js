@@ -51,3 +51,11 @@ export {
     tutorial,
     tutorialList
 }
+
+const category = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/category/{id}", data, method, headers = {})
+}
+
+export {
+    category
+}

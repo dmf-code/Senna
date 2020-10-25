@@ -46,21 +46,21 @@ import Add from "@/views/admin/pages/article/Add";
 
 export default {
   mounted() {
-    this.$api.backend.article().then(response => {
+    this.$api.backend.article().then((response) => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
     });
 
-    this.$api.backend.category().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.category().then((res) => {
+      if (res.data.code == 0) {
         this.categorys = res.data.data;
       } else {
         this.categorys = [];
       }
     });
-    this.$api.backend.tag().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.tag().then((res) => {
+      if (res.data.code == 0) {
         this.tags = res.data.data;
       } else {
         this.tags = [];
@@ -72,7 +72,7 @@ export default {
     return {
       tableData: null,
       categorys: [],
-      tags: []
+      tags: [],
     };
   },
   methods: {
@@ -90,19 +90,19 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.$api.backend.article({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.article({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }
       });
-    }
+    },
   },
   components: {
     Update,
-    Add
-  }
+    Add,
+  },
 };
 </script>

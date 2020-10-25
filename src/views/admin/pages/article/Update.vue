@@ -75,7 +75,7 @@ export default {
           "PUT"
         )
         .then((res) => {
-          if (res.data.status == true) {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");

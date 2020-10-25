@@ -35,35 +35,35 @@ export default {
       logining: false,
       ruleForm: {
         username: "",
-        password: ""
+        password: "",
       },
       rules: {
         username: [
           {
             required: true,
             message: "please enter your account",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         password: [
-          { required: true, message: "enter your password", trigger: "blur" }
-        ]
+          { required: true, message: "enter your password", trigger: "blur" },
+        ],
       },
-      checked: false
+      checked: false,
     };
   },
   methods: {
     handleSubmit(event) {
-      this.$refs.ruleForm.validate(valid => {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid) {
           this.logining = true;
           this.$api.frontend
             .login({
               username: this.ruleForm.username,
-              password: this.ruleForm.password
+              password: this.ruleForm.password,
             })
-            .then(res => {
-              if (res.data.status == true) {
+            .then((res) => {
+              if (res.data.code == 0) {
                 this.$store.commit("login", res.data.data);
                 dynamicRouter();
                 this.$message({ message: "登录成功", type: "success" });
@@ -78,8 +78,8 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 

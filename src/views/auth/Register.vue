@@ -45,14 +45,7 @@
 <script>
 export default {
   created() {
-    this.$api.frontend
-      .getCaptcha({
-        CaptchaType: "string"
-      })
-      .then(res => {
-        this.verify_code = res.data.data;
-        this.captcha_id = res.data.captchaId;
-      });
+    this.getVerifyCode();
   },
   data() {
     return {
@@ -63,29 +56,29 @@ export default {
       ruleForm: {
         username: "",
         password: "",
-        password2: ""
+        password2: "",
       },
       rules: {
         username: [
           {
             required: true,
             message: "please enter your account",
-            trigger: "blur"
-          }
+            trigger: "blur",
+          },
         ],
         password: [
-          { required: true, message: "enter your password", trigger: "blur" }
+          { required: true, message: "enter your password", trigger: "blur" },
         ],
         password2: [
-          { required: true, message: "enter your password", trigger: "blur" }
-        ]
+          { required: true, message: "enter your password", trigger: "blur" },
+        ],
       },
-      checked: false
+      checked: false,
     };
   },
   methods: {
     handleSubmit(event) {
-      this.$refs.ruleForm.validate(valid => {
+      this.$refs.ruleForm.validate((valid) => {
         if (valid && this.ruleForm.password == this.ruleForm.password2) {
           this.logining = true;
           this.$api.frontend
@@ -93,10 +86,10 @@ export default {
               username: this.ruleForm.username,
               password: this.ruleForm.password,
               Id: this.captcha_id,
-              VerifyValue: this.verify_value
+              VerifyValue: this.verify_value,
             })
-            .then(res => {
-              if (res.data.status == true) {
+            .then((res) => {
+              if (res.data.code == 0) {
                 this.$message({ message: "注册成功", type: "success" });
                 this.$router.push({ path: "/", name: "home" });
               } else {
@@ -107,8 +100,18 @@ export default {
         } else {
         }
       });
-    }
-  }
+    },
+    getVerifyCode() {
+      this.$api.frontend
+        .getCaptcha({
+          CaptchaType: "string",
+        })
+        .then((res) => {
+          this.verify_code = res.data.data;
+          this.captcha_id = res.data.captchaId;
+        });
+    },
+  },
 };
 </script>
 

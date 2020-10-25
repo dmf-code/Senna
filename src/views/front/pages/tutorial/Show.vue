@@ -8,8 +8,8 @@
 import Tutorial from "@/components/Tutorial/Index";
 export default {
   created() {
-    this.$api.frontend.tutorialList().then(res => {
-      if (res.data.status == true) {
+    this.$api.frontend.tutorialList().then((res) => {
+      if (res.data.code == 0) {
         this.menus = res.data.data;
         console.log("Show", this.menus);
       }
@@ -17,12 +17,12 @@ export default {
   },
   data() {
     return {
-      menus: null
+      menus: null,
     };
   },
   components: {
-    Tutorial
-  }
+    Tutorial,
+  },
 };
 </script>
 

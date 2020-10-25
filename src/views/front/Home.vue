@@ -9,22 +9,22 @@
 <script>
 import articleList from "@/views/front/pages/article/List";
 export default {
-  created: function() {
-    this.$api.frontend.getArticleList().then(res => {
-      if (res.data.status == true) {
+  created: function () {
+    this.$api.frontend.getArticleList().then((res) => {
+      if (res.data.code == 0) {
         this.items = res.data.data;
       }
     });
   },
-  data: function() {
+  data: function () {
     return {
-      items: ""
+      items: "",
     };
   },
   methods: {},
   components: {
-    articleList
-  }
+    articleList,
+  },
 };
 </script>
 

@@ -34,22 +34,22 @@ export default {
       tableOption: [
         {
           label: "标题",
-          prop: "name"
+          prop: "name",
         },
         {
           label: "pid",
-          prop: "pid"
-        }
+          prop: "pid",
+        },
       ],
       outerVisible: false,
-      addVisible: false
+      addVisible: false,
     };
   },
   methods: {
     init(row) {
       this.initRow = row;
-      this.$api.backend.tutorialList({ pid: row.id }).then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.tutorialList({ pid: row.id }).then((res) => {
+        if (res.data.code == 0) {
           this.table = res.data.data;
           console.log("menuList", res);
           console.log("row", row);
@@ -71,8 +71,8 @@ export default {
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
     },
     handleDelete(index, row) {
-      this.$api.backend.tutorial({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.tutorial({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.refresh();
           this.$message({ message: "删除成功", type: "success" });
         } else {
@@ -85,13 +85,13 @@ export default {
     },
     refresh() {
       this.init(this.initRow);
-    }
+    },
   },
   components: {
     TreeTable,
     Add,
-    Update
-  }
+    Update,
+  },
 };
 </script>
 

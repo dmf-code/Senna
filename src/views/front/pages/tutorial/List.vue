@@ -35,25 +35,25 @@
 
 <script>
 export default {
-  created: function() {
-    this.$api.frontend.tutorial().then(res => {
-      if (res.data.status == true) {
+  created: function () {
+    this.$api.frontend.tutorial().then((res) => {
+      if (res.data.code == 0) {
         this.list = res.data.data;
       }
     });
   },
   data() {
     return {
-      list: []
+      list: [],
     };
   },
   methods: {
     jump($id) {
       console.log("jump", $id);
       this.$router.push({ path: "/tutorialShow/" + $id });
-    }
+    },
   },
-  components: {}
+  components: {},
 };
 </script>
 

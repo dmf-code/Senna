@@ -21,8 +21,8 @@ export default {
       index: null,
       form: {
         id: null,
-        name: null
-      }
+        name: null,
+      },
     };
   },
   methods: {
@@ -31,12 +31,12 @@ export default {
         .tag(
           {
             id: this.form.id,
-            name: this.form.name
+            name: this.form.name,
           },
           "PUT"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "修改成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -44,7 +44,7 @@ export default {
             this.$message.error("修改失败");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

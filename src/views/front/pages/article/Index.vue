@@ -17,18 +17,19 @@
 
 <script>
 export default {
-  created: function() {
-    this.$api.frontend.getArticle().then(res => {
-      if (res.data.status == true) {
+  created: function () {
+    this.$api.frontend.getArticle().then((res) => {
+      console.log(res);
+      if (res.data.code == 0) {
         this.item = res.data.data;
       }
     });
   },
-  data: function() {
+  data: function () {
     return {
-      item: {}
+      item: {},
     };
-  }
+  },
 };
 </script>
 

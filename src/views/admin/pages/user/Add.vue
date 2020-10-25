@@ -23,10 +23,10 @@
 
 <script>
 export default {
-  mounted: function() {
-    this.$api.backend.role().then(res => {
-      if (res.data.status == true) {
-        res.data.data.forEach(element => {
+  mounted: function () {
+    this.$api.backend.role().then((res) => {
+      if (res.data.code == 0) {
+        res.data.data.forEach((element) => {
           this.roles.push({ value: element.id, label: element.name });
         });
       }
@@ -43,12 +43,12 @@ export default {
           {
             username: this.form.username,
             password: this.form.password,
-            rolesId: this.form.roles_id.join(",")
+            rolesId: this.form.roles_id.join(","),
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -56,20 +56,20 @@ export default {
             this.$message.error("添加失败");
           }
         });
-    }
+    },
   },
-  data: function() {
+  data: function () {
     return {
       props: { multiple: true },
       dialogFormVisible: false,
       form: {
         name: "",
         memo: "",
-        roles_id: ""
+        roles_id: "",
       },
-      roles: []
+      roles: [],
     };
-  }
+  },
 };
 </script>
 

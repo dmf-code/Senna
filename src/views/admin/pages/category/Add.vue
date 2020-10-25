@@ -19,8 +19,8 @@ export default {
     return {
       dialogFormVisible: false,
       form: {
-        name: ""
-      }
+        name: "",
+      },
     };
   },
   methods: {
@@ -28,12 +28,12 @@ export default {
       this.$api.backend
         .category(
           {
-            name: this.form.name
+            name: this.form.name,
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -41,7 +41,7 @@ export default {
             this.$message.error("添加失败");
           }
         });
-    }
-  }
+    },
+  },
 };
 </script>

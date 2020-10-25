@@ -51,7 +51,7 @@ import Update from "@/views/admin/pages/role/Update";
 import Add from "@/views/admin/pages/role/Add";
 export default {
   mounted() {
-    this.$api.backend.role().then(response => {
+    this.$api.backend.role().then((response) => {
       if (response.data.status == true) {
         this.tableData = response.data.data;
       }
@@ -60,7 +60,7 @@ export default {
   computed: {},
   data() {
     return {
-      tableData: null
+      tableData: null,
     };
   },
   methods: {
@@ -70,29 +70,29 @@ export default {
     handleEdit(index, row) {
       this.$api.backend
         .roleMenuList("/api/backend/roleMenuList?roleId=" + row.id, {}, "GET")
-        .then(res => {
+        .then((res) => {
           this.$refs.update.form = row;
           this.$refs.update.form.menus = [];
           this.$refs.update.dialogFormVisible = true;
-          res.data.data.forEach(element => {
+          res.data.data.forEach((element) => {
             this.$refs.update.form.menus.push(element.MenuId);
           });
         });
     },
     handleDelete(index, row) {
-      this.$api.backend.role({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.role({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "删除成功", type: "success" });
           this.$router.replace("/refresh");
         } else {
           this.$message.error("删除失败");
         }
       });
-    }
+    },
   },
   components: {
     Update,
-    Add
-  }
+    Add,
+  },
 };
 </script>

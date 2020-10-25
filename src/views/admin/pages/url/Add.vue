@@ -48,8 +48,8 @@
 import iconSelect from "@/components/Icon/Index";
 export default {
   mounted() {
-    this.$api.backend.menuList().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.menuList().then((res) => {
+      if (res.data.code == 0) {
         this.menu = res.data.data;
       }
     });
@@ -62,14 +62,14 @@ export default {
       inactive_value: 2,
       type: [
         { id: 3, name: "按钮" },
-        { id: 4, name: "接口" }
+        { id: 4, name: "接口" },
       ],
       operateType: [
         { id: "none", name: "无" },
         { id: "add", name: "添加" },
         { id: "update", name: "更新" },
         { id: "view", name: "查看" },
-        { id: "del", name: "删除" }
+        { id: "del", name: "删除" },
       ],
       form: {
         status: 1,
@@ -83,8 +83,8 @@ export default {
         type: "",
         component: "",
         icon: "",
-        operate_type: ""
-      }
+        operate_type: "",
+      },
     };
   },
   methods: {
@@ -94,18 +94,18 @@ export default {
       form.status = Number(form.status);
       form.parent_id = 0;
       form.component = "";
-      this.$api.backend.menu(form, "POST").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.menu(form, "POST").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
           this.$router.replace("/refresh");
         } else {
           this.$message.error("添加失败");
         }
       });
-    }
+    },
   },
   components: {
-    iconSelect
-  }
+    iconSelect,
+  },
 };
 </script>

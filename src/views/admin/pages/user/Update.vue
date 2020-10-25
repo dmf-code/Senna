@@ -18,9 +18,9 @@
 <script>
 export default {
   mounted() {
-    this.$api.backend.role().then(res => {
-      if (res.data.status == true) {
-        res.data.data.forEach(element => {
+    this.$api.backend.role().then((res) => {
+      if (res.data.code == 0) {
+        res.data.data.forEach((element) => {
           this.roles.push({ value: element.id, label: element.name });
         });
       }
@@ -34,16 +34,16 @@ export default {
       roles: [],
       form: {
         username: null,
-        role_ids: null
-      }
+        role_ids: null,
+      },
     };
   },
   methods: {
     onSubmit() {
       let newForm = this.form;
       newForm.role_ids = newForm.role_ids.join(",");
-      this.$api.backend.admin(newForm, "PUT").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.admin(newForm, "PUT").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = true;
           this.$router.replace("/refresh");
@@ -51,7 +51,7 @@ export default {
           this.$message.error("添加失败");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

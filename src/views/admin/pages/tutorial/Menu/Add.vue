@@ -37,6 +37,7 @@
 
 <script>
 import iconSelect from "@/components/Icon/Index";
+import { isArray } from "@/utils/common";
 export default {
   mounted() {},
   data() {
@@ -45,14 +46,14 @@ export default {
       menu: [],
       type: [
         { id: 1, name: "目录" },
-        { id: 2, name: "菜单" }
+        { id: 2, name: "菜单" },
       ],
       operateType: [
         { id: "none", name: "无" },
         { id: "add", name: "添加" },
         { id: "update", name: "更新" },
         { id: "view", name: "查看" },
-        { id: "del", name: "删除" }
+        { id: "del", name: "删除" },
       ],
       form: {
         htmlCode: "",
@@ -68,17 +69,20 @@ export default {
         type: "",
         component: "",
         icon: "",
-        operate_type: ""
-      }
+        operate_type: "",
+      },
     };
   },
   methods: {
     onSubmit() {
       let form = Object.assign({}, this.form);
       form.status = Number(form.status);
-      form.parent_id = form.parent_id.pop();
-      this.$api.backend.tutorial(form, "POST").then(res => {
-        if (res.data.status == true) {
+      console.log("form", form);
+      if (isArray(form.parent_id)) {
+        form.parent_id = form.parent_id.pop();
+      }
+      this.$api.backend.tutorial(form, "POST").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = false;
           this.$emit("refresh");
@@ -98,18 +102,18 @@ export default {
       formdata.append("file", $file);
       this.$api.backend
         .upload(formdata, "POST", {
-          "Content-Type": "multipart/form-data"
+          "Content-Type": "multipart/form-data",
         })
-        .then(res => {
+        .then((res) => {
           this.$refs.md.$img2Url(
             pos,
             "/api/common/download/image/origin/" + res.data.filename
           );
         });
-    }
+    },
   },
   components: {
-    iconSelect
-  }
+    iconSelect,
+  },
 };
 </script>

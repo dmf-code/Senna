@@ -47,9 +47,9 @@ import Add from "@/views/admin/pages/tutorial/Add";
 import Update from "@/views/admin/pages/tutorial/Update";
 import TMenuList from "@/views/admin/pages/tutorial/Menu/List";
 export default {
-  created: function() {
-    this.$api.backend.tutorial().then(res => {
-      if (res.data.status == true) {
+  created: function () {
+    this.$api.backend.tutorial().then((res) => {
+      if (res.data.code == 0) {
         this.list = res.data.data;
         console.log(this.list);
       }
@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       list: [],
-      currentDate: new Date()
+      currentDate: new Date(),
     };
   },
   methods: {
@@ -71,8 +71,8 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.$api.backend.tutorial({ id: row["id"] }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.tutorial({ id: row["id"] }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$router.replace("/refresh");
         }
       });
@@ -81,13 +81,13 @@ export default {
       this.$refs.menuList.outerVisible = true;
       this.$refs.menuList.init(row);
       console.log(row);
-    }
+    },
   },
   components: {
     Add,
     Update,
-    TMenuList
-  }
+    TMenuList,
+  },
 };
 </script>
 

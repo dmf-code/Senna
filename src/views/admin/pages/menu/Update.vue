@@ -67,7 +67,7 @@ import iconSelect from "@/components/Icon/Index";
 export default {
   mounted() {},
   watch: {
-    form: function() {}
+    form: function () {},
   },
   data() {
     return {
@@ -79,14 +79,14 @@ export default {
       menu: [],
       type: [
         { id: 1, name: "目录" },
-        { id: 2, name: "菜单" }
+        { id: 2, name: "菜单" },
       ],
       operateType: [
         { id: "none", name: "无" },
         { id: "add", name: "添加" },
         { id: "update", name: "更新" },
         { id: "view", name: "查看" },
-        { id: "del", name: "删除" }
+        { id: "del", name: "删除" },
       ],
       form: {
         id: null,
@@ -101,8 +101,8 @@ export default {
         type: "",
         component: "",
         icon: "",
-        operate_type: ""
-      }
+        operate_type: "",
+      },
     };
   },
   methods: {
@@ -118,10 +118,10 @@ export default {
         type: this.form.type,
         component: this.form.component,
         icon: this.form.icon,
-        operate_type: this.form.operate_type
+        operate_type: this.form.operate_type,
       };
-      this.$api.backend.menu(newForm, "PUT").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.menu(newForm, "PUT").then((res) => {
+        if (res.data.code == 0) {
           this.$message({ message: "修改成功", type: "success" });
           this.dialogFormVisible = false;
           this.$router.replace("/refresh");
@@ -129,10 +129,10 @@ export default {
           this.$message.error("修改失败");
         }
       });
-    }
+    },
   },
   components: {
-    iconSelect
-  }
+    iconSelect,
+  },
 };
 </script>

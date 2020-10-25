@@ -30,21 +30,21 @@
 <script>
 export default {
   mounted() {
-    this.$api.backend.admin().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.admin().then((res) => {
+      if (res.data.code == 0) {
         this.admins = res.data.data;
       } else {
         console.log("失败");
       }
     });
 
-    this.$api.backend.role().then(res => {
-      if (res.data.status == true) {
+    this.$api.backend.role().then((res) => {
+      if (res.data.code == 0) {
         let roles = res.data.data;
-        roles.forEach(element => {
+        roles.forEach((element) => {
           this.roles.push({
             key: element.id,
-            label: element.name
+            label: element.name,
           });
         });
       }
@@ -53,15 +53,15 @@ export default {
   watch: {
     "form.admin_id": {
       handler(admin_id, oldval) {
-        this.$api.backend.adminRole({ admin_id: admin_id }).then(res => {
-          if (res.data.status == true) {
+        this.$api.backend.adminRole({ admin_id: admin_id }).then((res) => {
+          if (res.data.code == 0) {
             this.form.roles = res.data.data ? res.data.data : [];
             console.log("this.form.roles", this.form.roles);
           }
         });
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     handleChange(value, direction, movedKeys) {},
@@ -78,12 +78,12 @@ export default {
         .adminRole(
           {
             admin_id: this.form.admin_id,
-            role_id: this.form.roles.join(",")
+            role_id: this.form.roles.join(","),
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;
             this.$router.replace("/refresh");
@@ -94,9 +94,9 @@ export default {
     },
     filterMethod(query, item) {
       return item.label.indexOf(query) > -1;
-    }
+    },
   },
-  data: function() {
+  data: function () {
     return {
       dialogFormVisible: false,
       admins: [],
@@ -105,10 +105,10 @@ export default {
       rightChecked: [],
       form: {
         admin_id: null,
-        roles: []
-      }
+        roles: [],
+      },
     };
-  }
+  },
 };
 </script>
 

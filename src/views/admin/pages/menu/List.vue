@@ -24,7 +24,7 @@ import Add from "@/views/admin/pages/menu/Add";
 import treeTable from "@/components/Table/TreeTable";
 export default {
   mounted() {
-    this.$api.backend.menuList().then(res => {
+    this.$api.backend.menuList().then((res) => {
       this.menu = res.data.data;
       this.table = res.data.data[0].children;
     });
@@ -35,24 +35,24 @@ export default {
       tableOption: [
         {
           label: "URL",
-          prop: "url"
+          prop: "url",
         },
         {
           label: "组件路径",
-          prop: "component"
+          prop: "component",
         },
         {
           label: "图标",
           prop: "icon",
-          slot: true // 这里表示自定义列
+          slot: true, // 这里表示自定义列
         },
         {
           label: "Action",
-          prop: "pid"
-        }
+          prop: "pid",
+        },
       ],
       table: [],
-      menu: []
+      menu: [],
     };
   },
   methods: {
@@ -65,8 +65,8 @@ export default {
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
     },
     handleDelete(index, row) {
-      this.$api.backend.menu({ id: row.id }, "DELETE").then(res => {
-        if (res.data.status == true) {
+      this.$api.backend.menu({ id: row.id }, "DELETE").then((res) => {
+        if (res.data.code == 0) {
           this.$router.replace("/refresh");
           this.$message({ message: "删除成功", type: "success" });
         } else {
@@ -76,12 +76,12 @@ export default {
     },
     change(table) {
       this.table = table;
-    }
+    },
   },
   components: {
     Update,
     Add,
-    treeTable
-  }
+    treeTable,
+  },
 };
 </script>

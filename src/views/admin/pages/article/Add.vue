@@ -47,21 +47,21 @@ export default {
             categoryIds: this.form.checkedCategorys.toString(),
             tagIds: this.form.checkedTags.toString(),
             mdCode: this.form.mdCode,
-            htmlCode: this.form.htmlCode
+            htmlCode: this.form.htmlCode,
           },
           "POST"
         )
-        .then(res => {
-          if (res.data.status == true) {
+        .then((res) => {
+          if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.$router.replace("/refresh");
           } else {
             this.$message.error("添加失败");
           }
         });
-    }
+    },
   },
-  data: function() {
+  data: function () {
     return {
       dialogFormVisible: false,
       form: {
@@ -71,10 +71,10 @@ export default {
         checkedTags: [],
         tags: "",
         mdCode: "",
-        htmlCode: ""
-      }
+        htmlCode: "",
+      },
     };
-  }
+  },
 };
 </script>
 
