@@ -12,12 +12,7 @@
       </el-form-item>
 
       <el-form-item label="父级菜单" :label-width="formLabelWidth">
-        <el-cascader
-          :options="menu"
-          v-model="form.parent_id"
-          :props="{ checkStrictly: true }"
-          clearable
-        ></el-cascader>
+        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
       </el-form-item>
 
       <el-form-item label="类型" :label-width="formLabelWidth">
@@ -88,6 +83,7 @@ export default {
         { id: "view", name: "查看" },
         { id: "del", name: "删除" },
       ],
+      parent_id: [],
       form: {
         id: null,
         status: 1,
@@ -113,7 +109,7 @@ export default {
         name: this.form.name,
         url: this.form.url,
         memo: this.form.memo,
-        parent_id: this.form.parent_id,
+        parent_id: parent_id[parent_id.length - 1],
         sequence: this.form.sequence,
         type: this.form.type,
         component: this.form.component,

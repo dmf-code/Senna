@@ -69,6 +69,7 @@ export default {
     },
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
+      this.$refs.update.parent_id = row.pid;
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {

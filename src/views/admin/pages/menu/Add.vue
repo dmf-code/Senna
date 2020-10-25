@@ -11,12 +11,7 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="父级菜单">
-        <el-cascader
-          :options="menu"
-          v-model="form.parent_id"
-          :props="{ checkStrictly: true }"
-          clearable
-        ></el-cascader>
+        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
@@ -80,6 +75,7 @@ export default {
         { id: "view", name: "查看" },
         { id: "del", name: "删除" },
       ],
+      parent_id: [],
       form: {
         status: 1,
         name: "",
@@ -100,7 +96,7 @@ export default {
     onSubmit() {
       let form = this.form;
       form.status = Number(form.status);
-      form.parent_id = form.parent_id.pop();
+      form.parent_id = parent_id[parent_id.length - 1];
       this.$api.backend.menu(form, "POST").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });

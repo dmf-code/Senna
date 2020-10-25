@@ -2,12 +2,7 @@
   <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="父级菜单">
-        <el-cascader
-          :options="menu"
-          v-model="form.parent_id"
-          :props="{ checkStrictly: true }"
-          clearable
-        ></el-cascader>
+        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
@@ -56,6 +51,7 @@ export default {
         { id: "view", name: "查看" },
         { id: "del", name: "删除" },
       ],
+      parent_id: [],
       form: {
         htmlCode: "",
         mdCode: "",
@@ -77,13 +73,11 @@ export default {
   methods: {
     onSubmit() {
       let form = Object.assign({}, this.form);
-      console.log(form);
       form.status = Number(form.status);
       form.title = form.name;
-      if (isArray(form.parent_id)) {
-        form.parent_id = form.parent_id.pop();
-      }
-      // form.parent_id = form.parent_id.pop();
+
+      form.parent_id = this.parent_id[this.parent_id.length - 1];
+
       this.$api.backend.tutorial(form, "PUT").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "更新成功", type: "success" });

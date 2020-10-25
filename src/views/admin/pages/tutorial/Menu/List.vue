@@ -50,10 +50,7 @@ export default {
       this.initRow = row;
       this.$api.backend.tutorialList({ pid: row.id }).then((res) => {
         if (res.data.code == 0) {
-          console.log("res", res);
           this.table = res.data.data ? res.data.data : [];
-          console.log("menuList", res);
-          console.log("row", row);
           this.menu.label = row.title;
           this.menu.value = row.id;
           this.menu.children = this.table;
@@ -68,6 +65,7 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.menu = [this.menu];
+      this.$refs.update.parent_id = row.pid;
       this.$refs.update.form = Object.assign({}, row, { parent_id: row.pid });
     },
     handleDelete(index, row) {
