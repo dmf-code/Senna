@@ -50,7 +50,8 @@ export default {
       this.initRow = row;
       this.$api.backend.tutorialList({ pid: row.id }).then((res) => {
         if (res.data.code == 0) {
-          this.table = res.data.data;
+          console.log("res", res);
+          this.table = res.data.data ? res.data.data : [];
           console.log("menuList", res);
           console.log("row", row);
           this.menu.label = row.title;
@@ -62,7 +63,6 @@ export default {
     handleAdd() {
       this.addVisible = true;
       this.$refs.add.dialogFormVisible = true;
-      this.$refs.add.init(this.initRow);
       this.$refs.add.menu = [this.menu];
     },
     handleEdit(index, row) {
@@ -84,6 +84,7 @@ export default {
       this.table = table;
     },
     refresh() {
+      console.log(this.initRow);
       this.init(this.initRow);
     },
   },

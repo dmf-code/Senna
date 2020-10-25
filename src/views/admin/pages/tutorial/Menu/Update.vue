@@ -79,7 +79,7 @@ export default {
       let form = Object.assign({}, this.form);
       console.log(form);
       form.status = Number(form.status);
-      form.title = form.label;
+      form.title = form.name;
       if (isArray(form.parent_id)) {
         form.parent_id = form.parent_id.pop();
       }

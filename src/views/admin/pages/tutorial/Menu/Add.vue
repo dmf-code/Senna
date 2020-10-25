@@ -77,7 +77,6 @@ export default {
     onSubmit() {
       let form = Object.assign({}, this.form);
       form.status = Number(form.status);
-      console.log("form", form);
       if (isArray(form.parent_id)) {
         form.parent_id = form.parent_id.pop();
       }
@@ -91,7 +90,6 @@ export default {
         }
       });
     },
-    init(row) {},
     edit(value, render) {
       this.form.mdCode = value;
       this.form.htmlCode = render;
