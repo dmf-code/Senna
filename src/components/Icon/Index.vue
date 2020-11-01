@@ -4,7 +4,7 @@
       <i :class="value"></i>
     </template>
     <el-popover placement="right" width="400" trigger="manual" slot="append" v-model="visible">
-      <el-row style="height: 250px; overflow: auto;">
+      <el-row style="height: 250px;">
         <el-col v-for="(item,index) in options" :key="index" :span="6">
           <el-button :icon="item" @click="onClickSelected(item)"></el-button>
         </el-col>
@@ -19,18 +19,18 @@ export default {
   name: "SelectIcon",
   model: {
     prop: "value",
-    event: "change"
+    event: "change",
   },
   props: {
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     // 接收绑定参数 - 图标类名
     value: {
       type: String,
       required: true,
-      default: ""
+      default: "",
     },
     // 选项数据，图标类名数组
     options: {
@@ -315,14 +315,14 @@ export default {
         "el-icon-potato-strips",
         "el-icon-lollipop",
         "el-icon-ice-cream-square",
-        "el-icon-ice-cream-round"
-      ]
-    }
+        "el-icon-ice-cream-round",
+      ],
+    },
   },
   computed: {},
   data() {
     return {
-      visible: false
+      visible: false,
       // icon: this.value
     };
   },
@@ -331,8 +331,8 @@ export default {
     onClickSelected(item) {
       this.$emit("change", item);
       this.visible = !this.visible;
-    }
-  }
+    },
+  },
 };
 </script>
 

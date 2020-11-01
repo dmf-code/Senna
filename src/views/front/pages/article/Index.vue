@@ -19,7 +19,6 @@
 export default {
   created: function () {
     this.$api.frontend.getArticle().then((res) => {
-      console.log(res);
       if (res.data.code == 0) {
         this.item = res.data.data;
       }
