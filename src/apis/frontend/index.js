@@ -43,13 +43,18 @@ const tutorial = (data = {}, method = "GET", headers = {}) => {
     return http("/api/front/tutorial/{id}", data, method, headers = {})
 }
 
+const tutorialContent = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/front/tutorialContent/{id}", data, method, headers = {})
+}
+
 const tutorialList = (data = {}, method = "GET", headers = {}) => {
     return http("/api/front/tutorialList/{pid}", data, method, headers = {})
 }
 
 export {
     tutorial,
-    tutorialList
+    tutorialList,
+    tutorialContent
 }
 
 const category = (data = {}, method = "GET", headers = {}) => {

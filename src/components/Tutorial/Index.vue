@@ -28,35 +28,42 @@ import dMenu from "@/components/Tutorial/Menu/Menu";
 export default {
   model: {
     prop: "menus",
-    event: "change"
+    event: "change",
   },
   props: {
     menus: {
-      default: []
-    }
+      default: [],
+    },
   },
-  data: function() {
+  data: function () {
     return {
-      item: {}
+      item: {},
     };
   },
   watch: {
-    menus: function() {
+    menus: function () {
       let items = this.menus;
-      while (items[0].type == 1) {
-        items = items[0].children;
+      while (items.type == 1) {
+        items = items.children;
       }
-      this.item = items[0];
-    }
+      this.item = items;
+    },
   },
   methods: {
     changeInfo(menu) {
-      this.item = menu;
-    }
+      if (menu.type == 2) {
+        this.$api.frontend.tutorialContent({ id: menu.id }).then((res) => {
+          console.log("content", res);
+          if (res.data.code == 0) {
+            this.item = res.data.data;
+          }
+        });
+      }
+    },
   },
   components: {
-    dMenu
-  }
+    dMenu,
+  },
 };
 </script>
 

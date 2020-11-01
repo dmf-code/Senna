@@ -71,11 +71,13 @@ export default {
       this.$refs.update.form = row;
     },
     handleDelete(index, row) {
-      this.$api.backend.tutorial({ id: row["id"] }, "DELETE").then((res) => {
-        if (res.data.code == 0) {
-          this.$router.replace("/refresh");
-        }
-      });
+      this.$api.backend
+        .tutorial({ id: row["id"], is_front: 2 }, "DELETE")
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.$router.replace("/refresh");
+          }
+        });
     },
     handleMenu(index, row) {
       this.$refs.menuList.outerVisible = true;
