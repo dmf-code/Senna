@@ -39,6 +39,16 @@ export default {
      * 最后导致加载页面直接无法滚动，解决方案直接将其置空
      * */
     document.body.style = "";
+    let newQuery = JSON.parse(JSON.stringify(this.$route.query));
+    if (newQuery.menu_id != null && newQuery.menu_id != undefined) {
+      this.$api.frontend
+        .tutorialContent({ id: newQuery.menu_id })
+        .then((res) => {
+          if (res.data.code == 0) {
+            this.item = res.data.data;
+          }
+        });
+    }
   },
   data: function () {
     return {
@@ -57,6 +67,10 @@ export default {
   methods: {
     changeInfo(menu) {
       if (menu.type == 2) {
+        let newQuery = JSON.parse(JSON.stringify(this.$route.query));
+        newQuery.menu_id = menu.id;
+        this.$router.replace({ query: newQuery });
+
         this.$api.frontend.tutorialContent({ id: menu.id }).then((res) => {
           if (res.data.code == 0) {
             this.item = res.data.data;

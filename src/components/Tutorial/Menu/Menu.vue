@@ -19,8 +19,8 @@ export default {
   mounted() {},
   created: function () {
     let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-    if ("tutorialIndex" in newQuery) {
-      this.openMenus = newQuery.tutorialIndex.split(",");
+    if ("idx" in newQuery) {
+      this.openMenus = newQuery.idx.split(",");
     }
   },
   data() {
@@ -36,25 +36,25 @@ export default {
   methods: {
     open(index) {
       let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-      if ("tutorialIndex" in newQuery) {
-        this.openMenus = newQuery.tutorialIndex.split(",");
+      if ("idx" in newQuery) {
+        this.openMenus = newQuery.idx.split(",");
       }
       this.openMenus.push(index);
-      newQuery.tutorialIndex = this.openMenus.join(",");
+      newQuery.idx = this.openMenus.join(",");
       this.$router.replace({ query: newQuery });
     },
     close(index) {
       let newQuery = JSON.parse(JSON.stringify(this.$route.query));
-      if ("tutorialIndex" in newQuery) {
-        this.openMenus = newQuery.tutorialIndex.split(",");
+      if ("idx" in newQuery) {
+        this.openMenus = newQuery.idx.split(",");
       }
       let idx = this.openMenus.indexOf(index);
       if (idx > -1) {
         this.openMenus.splice(idx, 1);
       }
-      newQuery.tutorialIndex = this.openMenus.join(",");
-      if (newQuery.tutorialIndex == "") {
-        delete newQuery.tutorialIndex;
+      newQuery.idx = this.openMenus.join(",");
+      if (newQuery.idx == "") {
+        delete newQuery.idx;
       }
       this.$router.replace({ query: newQuery });
     },
