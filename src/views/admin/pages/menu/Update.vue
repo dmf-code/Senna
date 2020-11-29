@@ -1,5 +1,9 @@
 <template>
-  <el-dialog title="分类" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog
+    title="分类"
+    :visible.sync="dialogFormVisible"
+    :append-to-body="true"
+  >
     <el-form :model="form">
       <el-form-item label="状态" :label-width="formLabelWidth">
         <el-switch
@@ -12,17 +16,32 @@
       </el-form-item>
 
       <el-form-item label="父级菜单" :label-width="formLabelWidth">
-        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
+        <el-cascader
+          :options="menu"
+          v-model="parent_id"
+          :props="{ checkStrictly: true }"
+          clearable
+        ></el-cascader>
       </el-form-item>
 
       <el-form-item label="类型" :label-width="formLabelWidth">
         <el-select v-model="form.type" placeholder="请选择">
-          <el-option v-for="item in type" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in type"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="操作类型" :label-width="formLabelWidth">
         <el-select v-model="form.operate_type" placeholder="请选择">
-          <el-option v-for="item in operateType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in operateType"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
 
@@ -109,7 +128,7 @@ export default {
         name: this.form.name,
         url: this.form.url,
         memo: this.form.memo,
-        parent_id: parent_id[parent_id.length - 1],
+        parent_id: this.parent_id[this.parent_id.length - 1],
         sequence: this.form.sequence,
         type: this.form.type,
         component: this.form.component,

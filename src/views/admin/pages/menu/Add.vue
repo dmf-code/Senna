@@ -1,5 +1,9 @@
 <template>
-  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog
+    title="菜单"
+    :visible.sync="dialogFormVisible"
+    :append-to-body="true"
+  >
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="状态">
         <el-switch
@@ -11,23 +15,38 @@
         ></el-switch>
       </el-form-item>
       <el-form-item label="父级菜单">
-        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
+        <el-cascader
+          :options="menu"
+          v-model="parent_id"
+          :props="{ checkStrictly: true }"
+          clearable
+        ></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
-          <el-option v-for="item in type" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in type"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="操作类型">
         <el-select v-model="form.operate_type" placeholder="请选择">
-          <el-option v-for="item in operateType" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in operateType"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="图标">
-        <iconSelect :value="form.icon"></iconSelect>
+        <iconSelect :value="form.icon" @change="iconChange"></iconSelect>
       </el-form-item>
       <el-form-item label="URL">
         <el-input v-model="form.url"></el-input>
@@ -96,7 +115,8 @@ export default {
     onSubmit() {
       let form = this.form;
       form.status = Number(form.status);
-      form.parent_id = parent_id[parent_id.length - 1];
+      console.log(this.parent_id);
+      form.parent_id = this.parent_id[this.parent_id.length - 1];
       this.$api.backend.menu(form, "POST").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
@@ -106,6 +126,9 @@ export default {
           this.$message.error("添加失败");
         }
       });
+    },
+    iconChange(item) {
+      this.form.icon = item;
     },
   },
   components: {

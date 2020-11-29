@@ -66,6 +66,10 @@ const resetPassword = (data = {}, method = "PUT", headers = {}) => {
     return http("/api/backend/resetPassword/{id}", data, method, headers)
 }
 
+const nav = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/nav/{id}", data, method, headers)
+}
+
 export {
     admin,
     resetPassword,
@@ -82,5 +86,6 @@ export {
     tutorial,
     coverMenuList,
     tutorialList,
-    upload
+    upload,
+    nav
 }

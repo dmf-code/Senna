@@ -3,9 +3,15 @@
     <template slot="prepend">
       <i :class="value"></i>
     </template>
-    <el-popover placement="right" width="400" trigger="manual" slot="append" v-model="visible">
-      <el-row style="height: 250px;">
-        <el-col v-for="(item,index) in options" :key="index" :span="6">
+    <el-popover
+      placement="right"
+      width="400"
+      trigger="manual"
+      slot="append"
+      v-model="visible"
+    >
+      <el-row style="height: 250px; overflow: auto">
+        <el-col v-for="(item, index) in options" :key="index" :span="6">
           <el-button :icon="item" @click="onClickSelected(item)"></el-button>
         </el-col>
       </el-row>
