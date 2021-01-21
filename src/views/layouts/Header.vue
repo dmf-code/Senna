@@ -3,10 +3,10 @@
     <el-menu router :default-active="$route.path" class="el-menu-demo" mode="horizontal">
       <el-menu-item index="/">梧桐树下</el-menu-item>
       <el-menu-item index="/tutorial">文档中心</el-menu-item>
-      <el-menu-item index="/login" style="float: right;" v-if="user_info.user == null">
+      <el-menu-item index="/login" style="float: right;" v-if="user_info == null || user_info.user == null">
         <span>登录/注册</span>
       </el-menu-item>
-      <el-submenu index style="float:right;" v-else-if="user_info.user != null">
+      <el-submenu index style="float:right;" v-else-if="user_info != null && user_info.user != null">
         <template slot="title">{{ user_info.user.username }}</template>
         <el-menu-item index="/front/user/center">用户中心</el-menu-item>
         <el-menu-item index="/admin/dashboard">后台首页</el-menu-item>
