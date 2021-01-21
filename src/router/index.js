@@ -11,6 +11,14 @@ import {
 
 Vue.use(VueRouter)
 
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push (location) {
+
+return originalPush.call(this, location).catch(err => err)
+
+}
+
 const routes = [{
     path: "/refresh",
     name: "refresh",
@@ -54,6 +62,7 @@ router.beforeEach((to, from, next) => {
           ...to,
           replace: true
         });
+        // return
       }
     } else {
       router.app.$options.store.dispatch("logout");
