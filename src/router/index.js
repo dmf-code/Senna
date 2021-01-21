@@ -62,7 +62,7 @@ router.beforeEach((to, from, next) => {
           ...to,
           replace: true
         });
-        return
+        // return
       }
     } else {
       router.app.$options.store.dispatch("logout");
