@@ -1,4 +1,5 @@
 <template>
+<div>
   <el-row>
     <el-col class="list-col" :key="item.id" v-for="item in this.items">
       <el-row type="flex">
@@ -28,22 +29,38 @@
       </el-row>
     </el-col>
   </el-row>
+  <el-row style="text-align: center;">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          layout="total, prev, pager, next"
+          :total="total">
+        </el-pagination>
+  </el-row>
+  </div>
 </template>
 
 <script>
 export default {
   created: function() {
+
+    this.page();
+
     this.$api.frontend.category().then(res => {
-      console.log(res);
       res.data.data.forEach(element => {
         this.category[element["id"]] = element["name"];
       });
     });
   },
-  props: ["items"],
   data: function() {
     return {
-      category: []
+      items: [],
+      category: [],
+      currentPage: 1,
+      pageSize: 4,
+      total: 0
     };
   },
   methods: {
@@ -51,7 +68,24 @@ export default {
       this.$router.push({
         path: "/article/" + $item.id
       });
-    }
+    },
+    page(page=1, pageSize=4) {
+      this.$api.frontend.getArticleList({page: page, page_size: pageSize}).then((res) => {
+        if (res.data.code == 0) {
+            this.items = res.data.data.items;
+            this.currentPage = res.data.data.page;
+            this.pageSize = res.data.data.page_size;
+            this.total = res.data.data.total;
+          }
+        });
+    },
+    handleSizeChange(val) {
+        this.pageSize = val;
+    },
+    handleCurrentChange(val) {
+        this.currentPage = val;
+        this.page(this.currentPage, this.pageSize);
+    },
   }
 };
 </script>

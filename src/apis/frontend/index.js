@@ -24,8 +24,8 @@ export {
 
 // 文章接口
 
-const getArticleList = () => {
-    return http("/api/front/article", {}, "GET")
+const getArticleList = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/front/article", data, method)
 }
 
 const getArticle = () => {

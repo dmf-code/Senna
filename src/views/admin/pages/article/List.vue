@@ -37,6 +37,17 @@
       </el-table-column>
       <Update ref="update"></Update>
     </el-table>
+
+      <div class="block" style="margin-top: 1em;width: 100%; text-align: center;">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          :current-page.sync="currentPage"
+          :page-size="pageSize"
+          layout="total, prev, pager, next"
+          :total="total">
+        </el-pagination>
+      </div>
   </div>
 </template>
 
@@ -46,11 +57,8 @@ import Add from "@/views/admin/pages/article/Add";
 
 export default {
   mounted() {
-    this.$api.backend.article().then((res) => {
-      if (res.data.code == 0) {
-        this.tableData = res.data.data;
-      }
-    });
+    
+    this.page();
 
     this.$api.backend.category().then((res) => {
       if (res.data.code == 0) {
@@ -73,6 +81,9 @@ export default {
       tableData: null,
       categorys: [],
       tags: [],
+      currentPage: 1,
+      pageSize: 10,
+      total: 0
     };
   },
   methods: {
@@ -98,6 +109,23 @@ export default {
           this.$message.error("删除失败");
         }
       });
+    },
+    page(page=1, pageSize=10) {
+          this.$api.backend.article({page: page, page_size: pageSize}).then((res) => {
+      if (res.data.code == 0) {
+        this.tableData = res.data.data.items;
+        this.currentPage = res.data.data.page;
+        this.pageSize = res.data.data.page_size;
+        this.total = res.data.data.total;
+      }
+    });
+    },
+    handleSizeChange(val) {
+        this.pageSize = val;
+    },
+    handleCurrentChange(val) {
+        this.currentPage = val;
+        this.page(this.currentPage, this.pageSize);
     },
   },
   components: {

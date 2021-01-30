@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <div style="padding: 0 20%;">
-      <articleList :items="this.items"></articleList>
+      <articleList></articleList>
     </div>
   </el-container>
 </template>
@@ -10,11 +10,7 @@
 import articleList from "@/views/front/pages/article/List";
 export default {
   created: function () {
-    this.$api.frontend.getArticleList().then((res) => {
-      if (res.data.code == 0) {
-        this.items = res.data.data;
-      }
-    });
+
   },
   data: function () {
     return {
