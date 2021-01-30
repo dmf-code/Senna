@@ -31,7 +31,7 @@ import { mapState, mapMutations, mapAction } from "vuex";
 
 export default {
   mounted() {
-    this.$api.frontend.nav({ is_hide: 2 }).then((res) => {
+    this.$api.frontend.nav({ is_hide: 1 }).then((res) => {
       this.nav = res.data.data;
     });
   },
