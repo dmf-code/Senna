@@ -62,11 +62,16 @@ const category = (data = {}, method = "GET", headers = {}) => {
 }
 
 const nav = (data = {}, method = "GET", headers = {}) => {
-    return http("/api/backend/nav/{id}", data, method, headers)
+    return http("/api/front/nav/{id}", data, method, headers)
+}
+
+const bookmark = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/front/bookmark/{id}", data, method, headers)
 }
 
 
 export {
     category,
-    nav
+    nav,
+    bookmark
 }

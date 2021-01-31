@@ -70,6 +70,10 @@ const nav = (data = {}, method = "GET", headers = {}) => {
     return http("/api/backend/nav/{id}", data, method, headers)
 }
 
+const bookmark = (data = {}, method = "GET", headers = {}) => {
+    return http("/api/backend/bookmark/{id}", data, method, headers)
+}
+
 export {
     admin,
     resetPassword,
@@ -87,5 +91,6 @@ export {
     coverMenuList,
     tutorialList,
     upload,
-    nav
+    nav,
+    bookmark
 }
