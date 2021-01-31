@@ -19,8 +19,8 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
 
-      <el-form-item label="Path">
-        <el-input v-model="form.path"></el-input>
+      <el-form-item label="Url">
+        <el-input v-model="form.url"></el-input>
       </el-form-item>
 
       <el-form-item>
@@ -39,10 +39,10 @@ export default {
     return {
       dialogFormVisible: false,
       nav: [],
-      hide: 1,
-      notHide: 2,
+      hide: 2,
+      notHide: 1,
       form: {
-        is_hide: 2,
+        is_hide: 1,
         path: "",
         name: "",
       },
@@ -52,7 +52,7 @@ export default {
     onSubmit() {
       let form = this.form;
 
-      this.$api.backend.nav(form, "POST").then((res) => {
+      this.$api.backend.bookmark(form, "POST").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
           this.dialogFormVisible = false;

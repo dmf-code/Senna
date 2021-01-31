@@ -19,8 +19,8 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
 
-      <el-form-item label="Path">
-        <el-input v-model="form.path"></el-input>
+      <el-form-item label="Url">
+        <el-input v-model="form.url"></el-input>
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -41,8 +41,8 @@ export default {
       dialogFormVisible: false,
       index: null,
       nav: [],
-      hide: 1,
-      notHide: 2,
+      hide: 2,
+      notHide: 1,
       form: {
         is_hide: 2,
         path: "",
@@ -59,7 +59,7 @@ export default {
         path: this.form.path,
       };
 
-      this.$api.backend.nav(newForm, "PUT").then((res) => {
+      this.$api.backend.bookmark(newForm, "PUT").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "修改成功", type: "success" });
           this.dialogFormVisible = false;

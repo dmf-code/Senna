@@ -1,32 +1,59 @@
 <template>
   <div>
-    <div style="text-align: center;margin-bottom: 30px">
+    <div style="text-align: center; margin-bottom: 30px">
       <el-button
         type="primary"
         @click="foldList = []"
         :disabled="foldList.length === 0"
         size="small"
         style="margin-right: 30px"
-      >全部展开</el-button>
+        >全部展开</el-button
+      >
       <el-button
         type="primary"
         @click="foldList = foldAllList"
         :disabled="foldList === foldAllList"
         size="small"
-      >全部折叠</el-button>
+        >全部折叠</el-button
+      >
     </div>
-    <el-table :data="cTableData" :row-class-name="toggleDisplayTr" border stripe class="init_table">
-      <el-table-column align="center" width="55" type="index" label="序号"></el-table-column>
-      <el-table-column align="center" width="55" prop="id" label="ID"></el-table-column>
-      <el-table-column label="权限名称" min-width="200" show-overflow-tooltip align="left">
+    <el-table
+      :data="cTableData"
+      :row-class-name="toggleDisplayTr"
+      border
+      stripe
+      class="init_table"
+    >
+      <el-table-column
+        align="center"
+        width="55"
+        type="index"
+        label="序号"
+      ></el-table-column>
+      <el-table-column
+        align="center"
+        width="55"
+        prop="id"
+        label="ID"
+      ></el-table-column>
+      <el-table-column
+        label="名称"
+        min-width="200"
+        show-overflow-tooltip
+        align="left"
+      >
         <template slot-scope="scope">
-          <p :style="`margin-left: ${scope.row.__level * 20}px;margin-top:0;margin-bottom:0`">
+          <p
+            :style="`margin-left: ${
+              scope.row.__level * 20
+            }px;margin-top:0;margin-bottom:0`"
+          >
             <i
               @click="toggleFoldingStatus(scope.row)"
               class="permission_toggleFold"
               :class="toggleFoldingClass(scope.row)"
             ></i>
-            {{scope.row.name}}
+            {{ scope.row.name }}
           </p>
         </template>
       </el-table-column>
@@ -53,8 +80,12 @@
       </template>
       <el-table-column align="center" width="100" label="操作">
         <template slot-scope="scope">
-          <el-button type="text" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+          <el-button type="text" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
+          <el-button type="text" @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -67,25 +98,25 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      }
+      },
     },
     tableOption: {
       type: Array,
-      default: function() {
+      default: function () {
         return [];
-      }
-    }
+      },
+    },
   },
   data: () => ({
     cTableData: [],
-    foldList: [] // 该数组中的值 都会在列表中进行隐藏  死亡名单
+    foldList: [], // 该数组中的值 都会在列表中进行隐藏  死亡名单
   }),
   computed: {
     foldAllList() {
-      return this.tableData.map(x => x.__identity);
-    }
+      return this.tableData.map((x) => x.__identity);
+    },
   },
   methods: {
     toggleFoldingStatus(params) {
@@ -151,13 +182,13 @@ export default {
     },
     change() {
       this.$emit("change", this.tableData);
-    }
+    },
   },
   watch: {
     tableData() {
       this.cTableData = this.formatConversion([], this.tableData);
-    }
-  }
+    },
+  },
 };
 </script>
 
