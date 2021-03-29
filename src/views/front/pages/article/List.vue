@@ -38,34 +38,35 @@
 
 <script>
 export default {
-  created: function() {
-
+  created: function () {
     this.page();
 
-    this.$api.frontend.category().then(res => {
-      res.data.data.forEach(element => {
+    this.$api.frontend.category().then((res) => {
+      res.data.data.forEach((element) => {
         this.category[element["id"]] = element["name"];
       });
     });
   },
-  data: function() {
+  data: function () {
     return {
       items: [],
       category: [],
       currentPage: 1,
       pageSize: 4,
-      total: 0
+      total: 0,
     };
   },
   methods: {
     jump($item) {
       this.$router.push({
-        path: "/article/" + $item.id
+        path: "/article/" + $item.id,
       });
     },
-    page(page=1, pageSize=4) {
-      this.$api.frontend.getArticleList({page: page, page_size: pageSize}).then((res) => {
-        if (res.data.code == 0) {
+    page(page = 1, pageSize = 4) {
+      this.$api.frontend
+        .getArticleList({ page: page, page_size: pageSize })
+        .then((res) => {
+          if (res.data.code == 0) {
             this.items = res.data.data.items;
             this.currentPage = res.data.data.page;
             this.pageSize = res.data.data.page_size;
@@ -74,13 +75,13 @@ export default {
         });
     },
     handleSizeChange(val) {
-        this.pageSize = val;
+      this.pageSize = val;
     },
     handleCurrentChange(val) {
-        this.currentPage = val;
-        this.page(this.currentPage, this.pageSize);
+      this.currentPage = val;
+      this.page(this.currentPage, this.pageSize);
     },
-  }
+  },
 };
 </script>
 

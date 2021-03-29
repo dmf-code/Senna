@@ -32,6 +32,13 @@ const routes = [{
                 component: function () {
                     return import('@/views/front/pages/tutorial/Show')
                 }
+            },
+            {
+                path: '/bookmark',
+                name: 'bookmark',
+                component: function () {
+                    return import('@/views/front/pages/bookmark/Index')
+                }
             }
         ]
     },
