@@ -3,13 +3,7 @@
   <el-row>
     <el-col class="list-col" :key="item.id" v-for="item in this.items">
       <el-row type="flex">
-        <el-col :span="4">
-          <el-image
-            src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg"
-            fit="fill"
-          ></el-image>
-        </el-col>
-        <el-col :span="20">
+        <el-col :span="24">
           <h3 style="margin-top: 0.25em;margin-bottom: 0.25em; text-align: center;">{{ item.title }}</h3>
           <div style="text-align: left;margin: 0.25em 1em;">
             <b>
