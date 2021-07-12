@@ -45,7 +45,7 @@ export default {
   methods: {
     handleLogout() {
       this.$store.commit("logout");
-      this.$router.push({ name: "login", path: "/login" });
+      this.$router.push({ path: "/login" });
     },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);

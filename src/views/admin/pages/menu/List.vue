@@ -12,7 +12,7 @@
       @change="change"
       :tableOption="tableOption"
     >
-      <template slot="icon" slot-scope="scope">
+      <template #default="scope">
         <i :class="scope.row.icon"></i>
       </template>
     </treeTable>
@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import Update from "@/views/admin/pages/menu/Update";
-import Add from "@/views/admin/pages/menu/Add";
-import treeTable from "@/components/Table/TreeTable";
-import dynamicRouter from "@/router/backend";
+import Update from "./Update.vue";
+import Add from "./Add.vue";
+import treeTable from "@/components/Table/TreeTable.vue";
+import dynamicRouter from "@/router/backend.js";
 export default {
   mounted() {
     this.$api.backend.menuList().then((res) => {

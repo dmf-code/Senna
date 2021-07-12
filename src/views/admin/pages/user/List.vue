@@ -65,6 +65,7 @@ export default {
     this.$api.backend.admin().then((res) => {
       if (res.data.code == 0) {
         this.tableData = res.data.data;
+        console.log(this.tableData);
       }
     });
   },
@@ -80,6 +81,7 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       // row.role_ids = row.role_ids.split(",");
+      console.log(row);
       this.$refs.update.form = row;
     },
     handlePassword(index, row) {

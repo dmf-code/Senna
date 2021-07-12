@@ -16,7 +16,6 @@ import SubMenu from "@/components/Menu/SubMenu.vue";
 export default {
   created: function () {
     this.openMenus = this.$store.state.openMenus;
-    console.log(this.openMenus);
   },
   mounted() {
     this.$api.backend.menuList().then((res) => {
@@ -34,11 +33,9 @@ export default {
       return this.$store.state.menus;
     },
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
       this.$store.commit("menu", key);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
       this.$store.commit("menu", key);
     },
   },

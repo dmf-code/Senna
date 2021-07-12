@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="编辑" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="编辑" v-model="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="名称">
         <el-input v-model="form.name"></el-input>
@@ -17,7 +17,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">更新</el-button>
-        <el-button>取消</el-button>
+        <el-button @click="dialogFormVisible = false">取消</el-button>
       </el-form-item>
     </el-form>
   </el-dialog>

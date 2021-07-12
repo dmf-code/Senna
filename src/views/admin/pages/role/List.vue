@@ -6,40 +6,49 @@
     <el-divider></el-divider>
     <el-table :data="this.tableData" style="width: 100%">
       <el-table-column label="ID" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span style="margin-left: 10px">{{ scope.row.id }}</span>
         </template>
       </el-table-column>
       <el-table-column label="名称" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span style="margin-left: 10px">{{ scope.row.name }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="备注" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span style="margin-left: 10px">{{ scope.row.memo }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="创建时间" width="180">
-        <template slot-scope="scope">
+        <template #default="scope">
           <span style="margin-left: 10px">{{ scope.row.createdAt }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="更新时间" width="180">
-        <template slot-scope="scope">
-          <span
-            style="margin-left: 10px"
-          >{{ scope.row.updatedAt != "0001-01-01 00:00:00" ? scope.row.updatedAt : "未更新" }}</span>
+        <template #default="scope">
+          <span style="margin-left: 10px">{{
+            scope.row.updatedAt != "0001-01-01 00:00:00"
+              ? scope.row.updatedAt
+              : "未更新"
+          }}</span>
         </template>
       </el-table-column>
 
       <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-          <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+        <template #default="scope">
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -47,8 +56,8 @@
 </template>
 
 <script>
-import Update from "@/views/admin/pages/role/Update";
-import Add from "@/views/admin/pages/role/Add";
+import Update from "./Update.vue";
+import Add from "./Add.vue";
 export default {
   mounted() {
     this.$api.backend.role().then((res) => {

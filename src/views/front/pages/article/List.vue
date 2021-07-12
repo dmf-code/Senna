@@ -41,15 +41,17 @@
       </el-col>
     </el-row>
     <el-row style="text-align: center" v-if="this.items.length > 0">
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        v-model:current-page="currentPage"
-        :page-size="pageSize"
-        layout="total, prev, pager, next"
-        :total="total"
-      >
-      </el-pagination>
+      <el-col :span="12" :offset="6">
+        <el-pagination
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+          v-model:current-page="currentPage"
+          :page-size="pageSize"
+          layout="total, prev, pager, next"
+          :total="total"
+        >
+        </el-pagination>
+      </el-col>
     </el-row>
   </div>
 </template>
