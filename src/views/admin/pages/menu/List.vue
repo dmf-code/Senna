@@ -5,24 +5,31 @@
     <Add ref="add"></Add>
     <Update ref="update"></Update>
     <el-divider></el-divider>
-    <treeTable
-      :tableData="table"
-      @handleEdit="handleEdit"
-      @handleDelete="handleDelete"
-      @change="change"
-      :tableOption="tableOption"
+    <el-table
+      :data="table"
+      style="width: 100%; margin-bottom: 20px"
+      row-key="id"
+      border
+      default-expand-all
+      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <template #default="scope">
-        <i :class="scope.row.icon"></i>
-      </template>
-    </treeTable>
+      <el-table-column prop="url" label="URL" sortable width="180">
+      </el-table-column>
+      <el-table-column prop="component" label="组件路径" sortable width="180">
+      </el-table-column>
+      <el-table-column prop="icon" label="图标">
+        <template v-slot:default="scope">
+          <i :class="scope.row.icon"></i>
+        </template>
+      </el-table-column>
+      <el-table-column prop="pid" label="Action"> </el-table-column>
+    </el-table>
   </div>
 </template>
 
 <script>
 import Update from "./Update.vue";
 import Add from "./Add.vue";
-import treeTable from "@/components/Table/TreeTable.vue";
 import dynamicRouter from "@/router/backend.js";
 export default {
   mounted() {
@@ -34,7 +41,7 @@ export default {
   computed: {},
   data() {
     return {
-      tableOption: [
+      tableColumn: [
         {
           label: "URL",
           prop: "url",
@@ -91,7 +98,6 @@ export default {
   components: {
     Update,
     Add,
-    treeTable,
   },
 };
 </script>

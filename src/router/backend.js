@@ -38,4 +38,4 @@ function dynamicBuild(source) {
 }
 
 
-export default dynamicRouter
+export default dynamicRouter;

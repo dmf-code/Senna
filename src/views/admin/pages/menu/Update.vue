@@ -1,9 +1,5 @@
 <template>
-  <el-dialog
-    title="分类"
-    :visible.sync="dialogFormVisible"
-    :append-to-body="true"
-  >
+  <el-dialog title="分类" v-visible="dialogFormVisible" :append-to-body="true">
     <el-form :model="form">
       <el-form-item label="状态" :label-width="formLabelWidth">
         <el-switch
@@ -69,7 +65,7 @@
         <el-input type="textarea" v-model="form.memo"></el-input>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <div class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
       <el-button type="primary" @click="summit()">确 定</el-button>
     </div>
@@ -77,7 +73,7 @@
 </template>
 
 <script>
-import iconSelect from "@/components/Icon/Index";
+import iconSelect from "@/components/Icon/Index.vue";
 export default {
   mounted() {},
   watch: {
