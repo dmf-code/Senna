@@ -4,72 +4,73 @@
     <Add ref="add"></Add>
     <Update ref="update"></Update>
     <el-divider></el-divider>
-    <el-table :data="this.tableData" style="width: 100%">
-      <el-table-column label="ID" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="名称" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="备注" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.memo }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="创建时间" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.createdAt }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="更新时间" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{
-            scope.row.updatedAt != "0001-01-01 00:00:00"
-              ? scope.row.updatedAt
-              : "未更新"
-          }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+    <treeTable :list="list" :columns="columns">
+      <template #updated_at="scope">
+        <span style="margin-left: 10px">{{
+          scope.row.updated_at != "0001-01-01 00:00:00"
+            ? scope.row.updated_at
+            : "未更新"
+        }}</span>
+      </template>
+      <template #operator="scope">
+        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
+      </template>
+    </treeTable>
   </div>
 </template>
 
 <script>
 import Update from "./Update.vue";
 import Add from "./Add.vue";
+import treeTable from "@/components/Table/TreeTable.vue";
 export default {
   mounted() {
     this.$api.backend.role().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = res.data.data;
+        this.list = res.data.data;
       }
     });
   },
   computed: {},
   data() {
     return {
-      tableData: null,
+      list: [],
+      columns: [
+        {
+          label: "ID",
+          prop: "id",
+        },
+        {
+          label: "名称",
+          prop: "name",
+        },
+        {
+          label: "备注",
+          prop: "memo",
+        },
+        {
+          label: "创建时间",
+          prop: "created_at",
+        },
+        {
+          label: "更新时间",
+          prop: "updated_at",
+          slot: true,
+        },
+        {
+          label: "操作",
+          prop: "operator",
+          slot: true,
+        },
+      ],
     };
   },
   methods: {
@@ -102,6 +103,7 @@ export default {
   components: {
     Update,
     Add,
+    treeTable,
   },
 };
 </script>

@@ -21,10 +21,9 @@
 
       <el-form-item label="标签">
         <el-checkbox-group v-model="form.checkedTags">
-          {{ tags }}
-          <el-checkbox v-for="tag in tags" :label="tag.id" :key="tag.id">{{
-            tag.name
-          }}</el-checkbox>
+          <el-checkbox v-for="tag in tags" :label="tag.id" :key="tag.id">
+            {{ tag.name }}
+          </el-checkbox>
         </el-checkbox-group>
       </el-form-item>
       <el-form-item label="内容">
@@ -46,8 +45,6 @@
 
 <script>
 export default {
-  created() {},
-  mounted() {},
   data() {
     return {
       dialogFormVisible: false,
@@ -82,9 +79,9 @@ export default {
         )
         .then((res) => {
           if (res.data.code == 0) {
-            this.$message({ message: "添加成功", type: "success" });
+            this.$message({ message: "更新成功", type: "success" });
             this.dialogFormVisible = false;
-            this.$router.replace("/refresh");
+            this.$router.replace({ path: "/refresh" });
           } else {
             this.$message.error("添加失败");
           }

@@ -1,12 +1,22 @@
 <template>
-  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="菜单" v-model="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="父级菜单">
-        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
+        <el-cascader
+          :options="menu"
+          v-model="parent_id"
+          :props="{ checkStrictly: true }"
+          clearable
+        ></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
-          <el-option v-for="item in type" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in type"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
@@ -31,8 +41,7 @@
 
 
 <script>
-import iconSelect from "@/components/Icon/Index";
-import { isArray } from "@/utils/common";
+import iconSelect from "@/components/Icon/Index.vue";
 
 export default {
   mounted() {},

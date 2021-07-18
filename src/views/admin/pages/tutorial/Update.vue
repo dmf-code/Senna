@@ -1,5 +1,9 @@
 <template>
-  <el-dialog title="更新教程" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog
+    title="更新教程"
+    v-model="dialogFormVisible"
+    :append-to-body="true"
+  >
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="标题">
         <el-input v-model="form.title"></el-input>

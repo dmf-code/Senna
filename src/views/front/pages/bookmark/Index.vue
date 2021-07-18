@@ -10,10 +10,10 @@
         <a :href="item['url']" target="_blank">
           <el-image
             fit="fit"
-            :src="`/api/common/download/image/origin/${item['img']}`"
+            :src="`/api/common/download/image/origin/${item['image']}`"
             style="height: 256px"
           >
-            <div slot="error" class="image-slot">
+            <div class="image-slot">
               <el-image
                 :lazy="true"
                 fit="fit"

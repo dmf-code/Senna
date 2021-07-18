@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="tag创建" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="tag创建" v-model="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="名称">
         <el-input v-model="form.name"></el-input>

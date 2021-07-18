@@ -1,29 +1,16 @@
 <template>
   <div>
-    <el-dialog title="菜单列表" :visible.sync="outerVisible" :fullscreen="true">
+    <el-dialog title="菜单列表" v-model="outerVisible" :fullscreen="true">
       <el-button @click="handleAdd">添加教程菜单</el-button>
       <Add ref="add" @refresh="refresh"></Add>
       <Update ref="update" @refresh="refresh"></Update>
-      <TreeTable
-        :tableData="table"
-        @handleEdit="handleEdit"
-        @handleDelete="handleDelete"
-        @change="change"
-        :tableOption="tableOption"
-      ></TreeTable>
-
-      <div slot="footer" class="dialog-footer">
-        <!-- <el-button @click="outerVisible = false">返回</el-button> -->
-        <!-- <el-button type="primary" @click="innerVisible = true">打开内层 Dialog</el-button> -->
-      </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import Add from "@/views/admin/pages/tutorial/Menu/Add";
-import Update from "@/views/admin/pages/tutorial/Menu/Update";
-import TreeTable from "@/components/Table/TreeTable";
+import Add from "./Add.vue";
+import Update from "./Update.vue";
 export default {
   created() {},
   data() {
@@ -87,7 +74,6 @@ export default {
     },
   },
   components: {
-    TreeTable,
     Add,
     Update,
   },

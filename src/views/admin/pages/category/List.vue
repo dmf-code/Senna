@@ -2,59 +2,59 @@
   <div>
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
+    <Update ref="update"></Update>
     <el-divider></el-divider>
-    <el-table :data="this.tableData" style="width: 100%">
-      <el-table-column label="ID" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="名称" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.name }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="引用次数" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.num }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
-      <Update ref="update"></Update>
-    </el-table>
+    <treeTable :list="list" :columns="columns">
+      <template #operator="scope">
+        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
+      </template>
+    </treeTable>
   </div>
 </template>
 
 <script>
 import Update from "./Update.vue";
 import Add from "./Add.vue";
-
+import treeTable from "@/components/Table/TreeTable.vue";
 export default {
-  mounted() {
+  created() {
     this.$api.backend.category().then((res) => {
       if (res.data.code == 0) {
-        this.tableData = res.data.data;
+        this.list = res.data.data;
       }
     });
   },
   computed: {},
   data() {
     return {
-      tableData: null,
+      list: [],
+      columns: [
+        {
+          label: "ID",
+          prop: "id",
+        },
+        {
+          label: "名称",
+          prop: "name",
+        },
+        {
+          label: "引用次数",
+          prop: "num",
+        },
+        {
+          label: "操作",
+          prop: "operator",
+          slot: true,
+        },
+      ],
     };
   },
   methods: {
@@ -79,6 +79,7 @@ export default {
   components: {
     Update,
     Add,
+    treeTable,
   },
 };
 </script>

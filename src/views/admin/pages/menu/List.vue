@@ -5,37 +5,23 @@
     <Add ref="add"></Add>
     <Update ref="update"></Update>
     <el-divider></el-divider>
-    <el-table
-      :data="table"
-      style="width: 100%; margin-bottom: 20px"
-      row-key="id"
-      border
-      default-expand-all
-      :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
-    >
-      <el-table-column prop="url" label="URL" width="180"> </el-table-column>
-      <el-table-column prop="component" label="组件路径" width="280">
-      </el-table-column>
-      <el-table-column prop="icon" label="图标">
-        <template v-slot:default="scope">
-          <i :class="scope.row.icon"></i>
-        </template>
-      </el-table-column>
-      <el-table-column prop="pid" label="Action"> </el-table-column>
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
-    </el-table>
+
+    <treeTable :list="list" :columns="columns">
+      <template #icon="scope">
+        <i :class="scope.row.icon"></i>
+      </template>
+      <template #operator="scope">
+        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
+      </template>
+    </treeTable>
   </div>
 </template>
 
@@ -43,17 +29,19 @@
 import Update from "./Update.vue";
 import Add from "./Add.vue";
 import dynamicRouter from "@/router/backend.js";
+import treeTable from "@/components/Table/TreeTable.vue";
+
 export default {
   mounted() {
     this.$api.backend.menuList().then((res) => {
       this.menu = res.data.data;
-      this.table = res.data.data[0].children;
+      this.list = res.data.data[0].children;
     });
   },
   computed: {},
   data() {
     return {
-      tableColumn: [
+      columns: [
         {
           label: "URL",
           prop: "url",
@@ -72,7 +60,7 @@ export default {
           prop: "pid",
         },
       ],
-      table: [],
+      list: [],
       menu: [],
     };
   },
@@ -100,7 +88,7 @@ export default {
       });
     },
     change(table) {
-      this.table = table;
+      this.list = table;
     },
     resetRoute() {
       dynamicRouter();
@@ -109,6 +97,7 @@ export default {
   components: {
     Update,
     Add,
+    treeTable,
   },
 };
 </script>

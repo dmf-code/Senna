@@ -1,11 +1,11 @@
 <template>
-  <el-dialog title="分类" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="分类" v-model="dialogFormVisible" :append-to-body="true">
     <el-form :model="form">
       <el-form-item label="名称" :label-width="formLabelWidth">
         <el-input v-model="form.name" autocomplete="off"></el-input>
       </el-form-item>
     </el-form>
-    <div slot="footer" class="dialog-footer">
+    <div class="dialog-footer">
       <el-button @click="dialogFormVisible = false">取 消</el-button>
       <el-button type="primary" @click="summit()">确 定</el-button>
     </div>

@@ -5,13 +5,13 @@
     <Update ref="update"></Update>
     <el-divider></el-divider>
     <treeTable
-      :tableData="table"
+      :list="table"
       @handleEdit="handleEdit"
       @handleDelete="handleDelete"
       @change="change"
-      :tableOption="tableOption"
+      :columns="tableOption"
     >
-      <template slot="is_hide" slot-scope="scope">
+      <template #is_hide="scope">
         <span v-if="scope.row.is_hide == 1">显示</span>
         <span v-else>隐藏</span>
       </template>
@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import Update from "@/views/admin/pages/nav/Update";
-import Add from "@/views/admin/pages/nav/Add";
-import treeTable from "@/components/Table/TreeTable";
+import Update from "./Update.vue";
+import Add from "./Add.vue";
+import treeTable from "@/components/Table/TreeTable.vue";
 export default {
   mounted() {
     this.$api.backend.nav().then((res) => {

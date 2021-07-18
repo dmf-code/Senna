@@ -19,7 +19,7 @@
             :src="`/api/common/download/image/origin/${item['img']}`"
             style="height: 256px"
           >
-            <div slot="error" class="image-slot">
+            <div class="image-slot">
               <el-image
                 :lazy="true"
                 fit="fit"
@@ -54,9 +54,9 @@
 </template>
 
 <script>
-import Add from "@/views/admin/pages/tutorial/Add";
-import Update from "@/views/admin/pages/tutorial/Update";
-import TMenuList from "@/views/admin/pages/tutorial/Menu/List";
+import Add from "./Add.vue";
+import Update from "./Update.vue";
+import TMenuList from "./Menu/List.vue";
 export default {
   created: function () {
     this.$api.backend.tutorial().then((res) => {

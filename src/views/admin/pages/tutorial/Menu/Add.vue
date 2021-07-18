@@ -1,25 +1,35 @@
 <template>
-  <el-dialog title="菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="菜单" v-model="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="父级菜单">
-        <el-cascader :options="menu" v-model="parent_id" :props="{ checkStrictly: true }" clearable></el-cascader>
+        <el-cascader
+          :options="menu"
+          v-model="parent_id"
+          :props="{ checkStrictly: true }"
+          clearable
+        ></el-cascader>
       </el-form-item>
       <el-form-item label="类型">
         <el-select v-model="form.type" placeholder="请选择">
-          <el-option v-for="item in type" :key="item.id" :label="item.name" :value="item.id"></el-option>
+          <el-option
+            v-for="item in type"
+            :key="item.id"
+            :label="item.name"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="名称">
         <el-input v-model="form.title"></el-input>
       </el-form-item>
       <el-form-item label="内容" v-if="form.type == 2">
-        <mavon-editor
-          ref="md"
+        <v-md-editor
           v-model="form.mdCode"
-          :ishljs="true"
+          :disabled-menus="[]"
           @change="edit"
-          @imgAdd="$imgAdd"
-        ></mavon-editor>
+          height="400px"
+          @upload-image="handleUploadImage"
+        ></v-md-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">立即创建</el-button>
@@ -31,8 +41,7 @@
 
 
 <script>
-import iconSelect from "@/components/Icon/Index";
-import { isArray } from "@/utils/common";
+import iconSelect from "@/components/Icon/Index.vue";
 export default {
   mounted() {},
   data() {
@@ -89,19 +98,18 @@ export default {
       this.form.mdCode = value;
       this.form.htmlCode = render;
     },
-    $imgAdd(pos, $file) {
+    handleUploadImage(event, insertImage, files) {
       let formdata = new FormData();
-      console.log($file);
-      formdata.append("file", $file);
+      console.log(files);
+      formdata.append("file", files[0]);
       this.$api.backend
         .upload(formdata, "POST", {
           "Content-Type": "multipart/form-data",
         })
         .then((res) => {
-          this.$refs.md.$img2Url(
-            pos,
-            "/api/common/download/image/origin/" + res.data.filename
-          );
+          insertImage({
+            url: "/api/common/download/image/origin/" + res.data.filename,
+          });
         });
     },
   },

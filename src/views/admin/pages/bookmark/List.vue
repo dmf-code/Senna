@@ -5,35 +5,50 @@
     <Update ref="update"></Update>
     <el-divider></el-divider>
     <treeTable
-      :tableData="table"
+      :list="bookmark"
       @handleEdit="handleEdit"
       @handleDelete="handleDelete"
       @change="change"
-      :tableOption="tableOption"
+      :columns="columns"
     >
-      <template slot="is_hide" slot-scope="scope">
+      <template #is_hide="scope">
         <span v-if="scope.row.is_hide == 1">显示</span>
         <span v-else>隐藏</span>
+      </template>
+
+      <template #operator="scope">
+        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
       </template>
     </treeTable>
   </div>
 </template>
 
 <script>
-import Update from "@/views/admin/pages/bookmark/Update";
-import Add from "@/views/admin/pages/bookmark/Add";
-import treeTable from "@/components/Table/TreeTable";
+import Update from "./Update.vue";
+import Add from "./Add.vue";
+import treeTable from "@/components/Table/TreeTable.vue";
 export default {
   mounted() {
     this.$api.backend.bookmark().then((res) => {
       this.bookmark = res.data.data;
-      this.table = res.data.data;
     });
   },
   computed: {},
   data() {
     return {
-      tableOption: [
+      columns: [
+        {
+          label: "名称",
+          prop: "name",
+        },
         {
           label: "路由",
           prop: "url",
@@ -43,8 +58,12 @@ export default {
           prop: "is_hide",
           slot: true, // 这里表示自定义列
         },
+        {
+          label: "操作",
+          prop: "operator",
+          slot: true, // 这里表示自定义列
+        },
       ],
-      table: [],
       bookmark: [],
     };
   },
@@ -68,7 +87,7 @@ export default {
       });
     },
     change(table) {
-      this.table = table;
+      this.bookmark = table;
     },
   },
   components: {

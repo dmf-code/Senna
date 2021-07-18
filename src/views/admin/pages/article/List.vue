@@ -2,50 +2,28 @@
   <div>
     <el-button @click="handleAdd()">添加</el-button>
     <Add ref="add"></Add>
+    <Update ref="update"></Update>
     <el-divider></el-divider>
-    <el-table :data="this.tableData" style="width: 100%">
-      <el-table-column label="ID" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.id }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="名称" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.title }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="创建时间" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{ scope.row.createdAt }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="更新时间" width="180">
-        <template #default="scope">
-          <span style="margin-left: 10px">{{
-            scope.row.updatedAt != "0001-01-01 00:00:00"
-              ? scope.row.updatedAt
-              : "未更新"
-          }}</span>
-        </template>
-      </el-table-column>
-
-      <el-table-column label="操作">
-        <template #default="scope">
-          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-            >编辑</el-button
-          >
-          <el-button
-            size="mini"
-            type="danger"
-            @click="handleDelete(scope.$index, scope.row)"
-            >删除</el-button
-          >
-        </template>
-      </el-table-column>
-      <Update ref="update"></Update>
-    </el-table>
+    <treeTable :list="list" :columns="columns">
+      <template #updated_at="scope">
+        <span style="margin-left: 10px">{{
+          scope.row.updated_at != "0001-01-01 00:00:00"
+            ? scope.row.updated_at
+            : "未更新"
+        }}</span>
+      </template>
+      <template #operator="scope">
+        <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+          >编辑</el-button
+        >
+        <el-button
+          size="mini"
+          type="danger"
+          @click="handleDelete(scope.$index, scope.row)"
+          >删除</el-button
+        >
+      </template>
+    </treeTable>
 
     <div class="block" style="margin-top: 1em; width: 100%; text-align: center">
       <el-pagination
@@ -64,9 +42,9 @@
 <script>
 import Update from "./Update.vue";
 import Add from "./Add.vue";
-
+import treeTable from "@/components/Table/TreeTable.vue";
 export default {
-  mounted() {
+  created() {
     this.page();
 
     this.$api.backend.category().then((res) => {
@@ -87,7 +65,31 @@ export default {
   computed: {},
   data() {
     return {
-      tableData: null,
+      list: [],
+      columns: [
+        {
+          label: "ID",
+          prop: "id",
+        },
+        {
+          label: "名称",
+          prop: "title",
+        },
+        {
+          label: "创建时间",
+          prop: "created_at",
+        },
+        {
+          label: "更新时间",
+          prop: "updated_at",
+          slot: true,
+        },
+        {
+          label: "操作",
+          prop: "operator",
+          slot: true,
+        },
+      ],
       categorys: [],
       tags: [],
       currentPage: 1,
@@ -102,9 +104,12 @@ export default {
       this.$refs.add.form.tags = this.tags;
     },
     handleEdit(index, row) {
+      console.log(row);
       this.$refs.update.dialogFormVisible = true;
       row.checkedCategorys = Number(row.categoryIds);
+
       row.checkedTags = row.tagIds.split(",");
+      console.log(row);
       this.$refs.update.categorys = this.categorys;
       this.$refs.update.tags = this.tags;
       this.$refs.update.form = row;
@@ -124,7 +129,7 @@ export default {
         .article({ page: page, page_size: pageSize })
         .then((res) => {
           if (res.data.code == 0) {
-            this.tableData = res.data.data.items;
+            this.list = res.data.data.items;
             this.currentPage = res.data.data.page;
             this.pageSize = res.data.data.page_size;
             this.total = res.data.data.total;
@@ -142,6 +147,7 @@ export default {
   components: {
     Update,
     Add,
+    treeTable,
   },
 };
 </script>
