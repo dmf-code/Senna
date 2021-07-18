@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="分类" v-visible="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="分类" v-model="dialogFormVisible" :append-to-body="true">
     <el-form :model="form">
       <el-form-item label="状态" :label-width="formLabelWidth">
         <el-switch
@@ -46,7 +46,7 @@
       </el-form-item>
 
       <el-form-item label="图标" :label-width="formLabelWidth">
-        <iconSelect v-model="form.icon" disabled="true"></iconSelect>
+        <iconSelect v-model:value="form.icon"></iconSelect>
       </el-form-item>
 
       <el-form-item label="URL" :label-width="formLabelWidth">

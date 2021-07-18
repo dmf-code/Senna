@@ -1,32 +1,27 @@
 <template>
-  <el-input placeholder="选择图标" v-model="value" :disabled="disabled">
-    <template slot="prepend">
-      <i :class="value"></i>
+  <el-popover
+    placement="right"
+    :width="400"
+    trigger="click"
+    v-model:visible="visible"
+  >
+    <template #reference>
+      <div>
+        <el-input placeholder="请输入内容" v-model="value" @input="emitValue">
+          <template #prepend> <i :class="value"></i> </template>
+        </el-input>
+      </div>
     </template>
-    <el-popover
-      placement="right"
-      width="400"
-      trigger="manual"
-      slot="append"
-      v-model="visible"
-    >
-      <el-row style="height: 250px; overflow: auto">
-        <el-col v-for="(item, index) in options" :key="index" :span="6">
-          <el-button :icon="item" @click="onClickSelected(item)"></el-button>
-        </el-col>
-      </el-row>
-      <el-button slot="reference" @click="visible = !visible">选择</el-button>
-    </el-popover>
-  </el-input>
+    <el-row style="height: 250px; overflow: auto">
+      <el-col v-for="(item, index) in options" :key="index" :span="6">
+        <el-button :icon="item" @click="onClickSelected(item)"></el-button>
+      </el-col>
+    </el-row>
+  </el-popover>
 </template>
-
 <script>
 export default {
   name: "SelectIcon",
-  model: {
-    prop: "value",
-    event: "change",
-  },
   props: {
     disabled: {
       type: Boolean,
@@ -325,7 +320,7 @@ export default {
       ],
     },
   },
-  computed: {},
+  emits: ["update:value"],
   data() {
     return {
       visible: false,
@@ -335,8 +330,16 @@ export default {
   methods: {
     // 选中图标
     onClickSelected(item) {
-      this.$emit("change", item);
+      this.$emit("update:value", item);
       this.visible = !this.visible;
+    },
+    emitValue(e) {
+      let value = e.target.value;
+      if (this.modelModifiers.capitalize) {
+        value = value.charAt(0).toUpperCase() + value.slice(1);
+      }
+      this.value = value;
+      this.$emit("update:value", value);
     },
   },
 };

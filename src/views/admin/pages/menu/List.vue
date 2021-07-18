@@ -13,9 +13,8 @@
       default-expand-all
       :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
     >
-      <el-table-column prop="url" label="URL" sortable width="180">
-      </el-table-column>
-      <el-table-column prop="component" label="组件路径" sortable width="180">
+      <el-table-column prop="url" label="URL" width="180"> </el-table-column>
+      <el-table-column prop="component" label="组件路径" width="280">
       </el-table-column>
       <el-table-column prop="icon" label="图标">
         <template v-slot:default="scope">
@@ -23,6 +22,19 @@
         </template>
       </el-table-column>
       <el-table-column prop="pid" label="Action"> </el-table-column>
+      <el-table-column label="操作">
+        <template #default="scope">
+          <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
+            >编辑</el-button
+          >
+          <el-button
+            size="mini"
+            type="danger"
+            @click="handleDelete(scope.$index, scope.row)"
+            >删除</el-button
+          >
+        </template>
+      </el-table-column>
     </el-table>
   </div>
 </template>
@@ -71,12 +83,11 @@ export default {
     handleEdit(index, row) {
       this.$refs.update.dialogFormVisible = true;
       this.$refs.update.menu = this.menu;
-
       this.$refs.update.form = Object.assign({}, row, {
         parent_id: row.pid,
         operate_type: row.operate_type,
       });
-      this.$refs.update.parent_id = [row.pid];
+      this.$refs.update.parent_id = row.pid;
     },
     handleDelete(index, row) {
       this.$api.backend.menu({ id: row.id }, "DELETE").then((res) => {

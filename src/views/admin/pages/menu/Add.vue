@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="菜单" v-visible="dialogFormVisible" :append-to-body="true">
+  <el-dialog title="菜单" v-model="dialogFormVisible" :append-to-body="true">
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="状态">
         <el-switch
