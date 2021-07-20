@@ -21,7 +21,11 @@
 
       <el-form-item label="标签">
         <el-checkbox-group v-model="form.checkedTags">
-          <el-checkbox v-for="tag in tags" :label="tag.id" :key="tag.id">
+          <el-checkbox
+            v-for="tag in tags"
+            :label="String(tag.id)"
+            :key="tag.id"
+          >
             {{ tag.name }}
           </el-checkbox>
         </el-checkbox-group>
