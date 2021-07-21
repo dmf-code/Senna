@@ -57,7 +57,6 @@ export default {
           "PUT"
         )
         .then((res) => {
-          console.log("put: ", res);
           if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" });
             this.dialogFormVisible = false;

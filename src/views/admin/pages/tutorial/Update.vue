@@ -50,7 +50,6 @@ export default {
     },
     handleAvatarSuccess(res, file) {
       this.form.img = res.filename;
-      console.log(file);
       this.img = URL.createObjectURL(file.raw);
     },
     beforeAvatarUpload(file) {

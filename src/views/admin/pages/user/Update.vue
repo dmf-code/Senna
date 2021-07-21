@@ -46,7 +46,6 @@ export default {
   methods: {
     onSubmit() {
       let newForm = this.form;
-      console.log(newForm);
       newForm.roleIds = newForm.roleIds.join(",");
 
       this.$api.backend.admin(newForm, "PUT").then((res) => {

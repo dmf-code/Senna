@@ -1,9 +1,18 @@
 <template>
-  <el-dialog title="添加角色-菜单" :visible.sync="dialogFormVisible" :append-to-body="true">
+  <el-dialog
+    title="添加角色-菜单"
+    :visible.sync="dialogFormVisible"
+    :append-to-body="true"
+  >
     <el-form ref="form" :model="form" label-width="80px">
       <el-form-item label="用户">
         <el-select v-model="form.admin_id" placeholder="请选择">
-          <el-option v-for="item in admins" :key="item.id" :label="item.username" :value="item.id"></el-option>
+          <el-option
+            v-for="item in admins"
+            :key="item.id"
+            :label="item.username"
+            :value="item.id"
+          ></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="角色">
@@ -56,7 +65,7 @@ export default {
         this.$api.backend.adminRole({ admin_id: admin_id }).then((res) => {
           if (res.data.code == 0) {
             this.form.roles = res.data.data ? res.data.data : [];
-            console.log("this.form.roles", this.form.roles);
+            // console.log("this.form.roles", this.form.roles);
           }
         });
       },

@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import dynamicRouter from "@/router/backend";
+import dynamicRouter from "@/router/backend.js";
 export default {
   data() {
     return {
@@ -85,7 +85,6 @@ export default {
                 this.$store.commit("login", res.data.data);
                 dynamicRouter();
                 this.$message({ message: "登录成功", type: "success" });
-                console.log(this.$router);
                 this.$router.push({ path: "/admin/dashboard" });
               } else {
                 this.$message.error("登录失败");

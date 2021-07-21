@@ -40,7 +40,7 @@ export default {
   },
   watch: {
     menus: function () {
-      console.log(this.menus);
+      // console.log(this.menus);
     },
   },
   methods: {

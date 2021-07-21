@@ -29,4 +29,4 @@ app.config.globalProperties.$api = {
 
 app.config.globalProperties.$storage = storage;
 
-app.mount('#app')
+app.mount('#app');

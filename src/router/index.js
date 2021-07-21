@@ -45,7 +45,7 @@ router.beforeEach((to, from, next) => {
       if (Store.getters.routes == null || Store.getters.routes.length === 0) {
 
         let backendRouter = storage.getItem('backend_router');
-        console.log(backendRouter);
+        // console.log(backendRouter);
         Store.dispatch('GenerateRoutes', backendRouter);
 
 
@@ -75,8 +75,8 @@ export function BuildRoutes(routes) {
     component: () => import(`../views/${routes.component}.vue`)
   };
 
-  console.log(element);
-  console.log(routes);
+  // console.log(element);
+  // console.log(routes);
   if (routes.component == "") {
     delete element.component;
   }

@@ -1,5 +1,7 @@
 import axios from 'axios';
-import Message from "@/utils/message";
+import {
+    ElMessage
+} from 'element-plus'
 import router from "../router";
 import storage from "../store/storage"
 import {
@@ -27,7 +29,7 @@ instance.interceptors.request.use(config => {
     }
     return config;
 }, error => {
-    Message({
+    ElMessage({
         showClose: true,
         message: error,
         type: "error"
@@ -44,7 +46,7 @@ instance.interceptors.response.use(
         if (error.response) {
             switch (error.response.status) {
                 case 401:
-                    Message({
+                    ElMessage({
                         showClose: true,
                         message: "权限不足",
                         type: "error"

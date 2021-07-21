@@ -93,7 +93,6 @@ export default {
     },
     $imgAdd(pos, $file) {
       let formdata = new FormData();
-      console.log($file);
       formdata.append("file", $file);
       this.$api.backend
         .upload(formdata, "POST", {

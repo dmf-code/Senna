@@ -78,11 +78,9 @@ export default {
   },
   methods: {
     jump($item) {
-      console.log(
-        this.$router.push({
-          path: "/article/" + $item.id,
-        })
-      );
+      this.$router.push({
+        path: "/article/" + $item.id,
+      });
     },
     page(page = 1, pageSize = 4) {
       this.$api.frontend

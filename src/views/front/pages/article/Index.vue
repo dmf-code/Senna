@@ -17,7 +17,6 @@ export default {
     this.$api.frontend.getArticle().then((res) => {
       if (res.data.code == 0) {
         this.item = res.data.data;
-        console.log(this.item);
       }
     });
   },

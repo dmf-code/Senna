@@ -48,7 +48,7 @@ export default {
       this.$router.push({ path: "/login" });
     },
     handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
   },
   computed: {

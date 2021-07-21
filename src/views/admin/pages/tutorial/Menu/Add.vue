@@ -43,7 +43,7 @@
 <script>
 import iconSelect from "@/components/Icon/Index.vue";
 export default {
-  mounted() {},
+  emits: ["refresh"],
   data() {
     return {
       dialogFormVisible: false,
@@ -82,8 +82,8 @@ export default {
     onSubmit() {
       let form = Object.assign({}, this.form);
       form.status = Number(form.status);
-      console.log();
       form.parent_id = this.parent_id[this.parent_id.length - 1];
+
       this.$api.backend.tutorial(form, "POST").then((res) => {
         if (res.data.code == 0) {
           this.$message({ message: "添加成功", type: "success" });
@@ -100,7 +100,6 @@ export default {
     },
     handleUploadImage(event, insertImage, files) {
       let formdata = new FormData();
-      console.log(files);
       formdata.append("file", files[0]);
       this.$api.backend
         .upload(formdata, "POST", {

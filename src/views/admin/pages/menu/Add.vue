@@ -111,7 +111,6 @@ export default {
     onSubmit() {
       let form = this.form;
       form.status = Number(form.status);
-      console.log(this.parent_id);
       form.parent_id = this.parent_id[this.parent_id.length - 1];
       this.$api.backend.menu(form, "POST").then((res) => {
         if (res.data.code == 0) {

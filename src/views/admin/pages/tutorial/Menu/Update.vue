@@ -23,13 +23,13 @@
         <el-input v-model="form.name"></el-input>
       </el-form-item>
       <el-form-item label="内容" v-if="form.type == 2">
-        <mavon-editor
-          ref="md"
+        <v-md-editor
           v-model="form.mdCode"
-          :ishljs="true"
+          :disabled-menus="[]"
           @change="edit"
-          @imgAdd="$imgAdd"
-        ></mavon-editor>
+          height="400px"
+          @upload-image="handleUploadImage"
+        ></v-md-editor>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onSubmit">更新</el-button>
@@ -44,7 +44,7 @@
 import iconSelect from "@/components/Icon/Index.vue";
 
 export default {
-  mounted() {},
+  emits: ["refresh"],
   data() {
     return {
       dialogFormVisible: false,
@@ -60,7 +60,7 @@ export default {
         { id: "view", name: "查看" },
         { id: "del", name: "删除" },
       ],
-      parent_id: [],
+      parent_id: 0,
       form: {
         htmlCode: "",
         mdCode: "",
@@ -85,7 +85,7 @@ export default {
       form.status = Number(form.status);
       form.title = form.name;
 
-      form.parent_id = this.parent_id[this.parent_id.length - 1];
+      form.parent_id = this.parent_id;
 
       this.$api.backend.tutorial(form, "PUT").then((res) => {
         if (res.data.code == 0) {
@@ -99,7 +99,6 @@ export default {
     },
     init(row) {
       this.$api.backend.tutorialList({ pid: row["id"] }).then((res) => {
-        console.log(res);
         if (res.data.code == 0) {
           this.menu = res.data.data;
         }
@@ -109,19 +108,17 @@ export default {
       this.form.mdCode = value;
       this.form.htmlCode = render;
     },
-    $imgAdd(pos, $file) {
+    handleUploadImage(event, insertImage, files) {
       let formdata = new FormData();
-      console.log($file);
-      formdata.append("file", $file);
+      formdata.append("file", files[0]);
       this.$api.backend
         .upload(formdata, "POST", {
           "Content-Type": "multipart/form-data",
         })
         .then((res) => {
-          this.$refs.md.$img2Url(
-            pos,
-            "/api/common/download/image/origin/" + res.data.filename
-          );
+          insertImage({
+            url: "/api/common/download/image/origin/" + res.data.filename,
+          });
         });
     },
   },

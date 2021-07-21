@@ -35,7 +35,6 @@ const store = new createStore({
             storage.removeItem("open_menu");
         },
         menu: (state, key) => {
-            console.log('index', key);
             let idx;
             if ((idx = state.openMenus.indexOf(key)) == -1) {
                 state.openMenus.push(key);
@@ -51,7 +50,6 @@ const store = new createStore({
         generateRoutes: (state, routes) => {
             state.addRouters = routes;
             let routers = BuildRoutes(routes);
-            console.log(routers);
             router.addRoute(routers);
         }
     },

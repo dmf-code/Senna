@@ -104,12 +104,10 @@ export default {
       this.$refs.add.form.tags = this.tags;
     },
     handleEdit(index, row) {
-      console.log(row);
       this.$refs.update.dialogFormVisible = true;
       row.checkedCategorys = Number(row.categoryIds);
 
       row.checkedTags = row.tagIds.split(",");
-      console.log(row);
       this.$refs.update.categorys = this.categorys;
       this.$refs.update.tags = this.tags;
       this.$refs.update.form = row;

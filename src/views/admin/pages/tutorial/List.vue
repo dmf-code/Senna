@@ -6,7 +6,9 @@
     <el-row>
       <Add ref="add"></Add>
       <Update ref="update"></Update>
+
       <TMenuList ref="menuList"></TMenuList>
+
       <el-col
         :span="4"
         v-for="(item, index) in this.list"
@@ -62,7 +64,6 @@ export default {
     this.$api.backend.tutorial().then((res) => {
       if (res.data.code == 0) {
         this.list = res.data.data;
-        console.log(this.list);
       }
     });
   },
@@ -92,7 +93,6 @@ export default {
     handleMenu(index, row) {
       this.$refs.menuList.outerVisible = true;
       this.$refs.menuList.init(row);
-      console.log(row);
     },
   },
   components: {
